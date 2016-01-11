@@ -45,8 +45,11 @@ public class RobotMap {
     //TODO: Put Actual Values
     GYRO = 17,
     
-    CHASSIS_LEFT_ENCODER = 3,
-    CHASSIS_RIGHT_ENCODER = 8;
+    CHASSIS_LEFT_ENCODER_FWD = 1,
+    CHASSIS_LEFT_ENCODER_BCK = 7,
+
+    CHASSIS_RIGHT_ENCODER_FWD = 3,
+    CHASSIS_RIGHT_ENCODER_BCK = 8;
 
 	public static Joystick driveCont;
 	
