@@ -33,6 +33,10 @@ public class Robot extends IterativeRobot {
 		RobotMap.init();
     	oi = new OI();
     	chassis = new Chassis();
+    	
+    	// Shows that the subsystems are working
+        SmartDashboard.putData(chassis);
+    	
         chooser = new SendableChooser();
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
