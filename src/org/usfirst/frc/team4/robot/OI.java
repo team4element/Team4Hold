@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4.robot;
 
-import edu.wpi.first.wpilibj.buttons.Button;
+import org.usfirst.frc.team4.robot.commands.DriveToggle;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.buttons.Button;
  */
 public class OI {
     
-	
+	public OI(){
+		RobotMap.driveL3.whenPressed(new DriveToggle());
+	}
 	
 }
 

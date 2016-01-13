@@ -37,13 +37,13 @@ public class RobotMap {
     CONT_RY           = 5,
     CONT_RX           = 4,
 
-    CHASSIS_MOTOR_LEFTFRONT   = 1,
-    CHASSIS_MOTOR_LEFTREAR    = 2,
-    CHASSIS_MOTOR_RIGHTFRONT  = 3,
-    CHASSIS_MOTOR_RIGHTREAR   = 4,
+    CHASSIS_MOTOR_LEFTFRONT   = 2,
+    CHASSIS_MOTOR_LEFTREAR    = 3,
+    CHASSIS_MOTOR_RIGHTFRONT  = 4,
+    CHASSIS_MOTOR_RIGHTREAR   = 5,
     
     //TODO: Put Actual Values
-    GYRO = 17,
+    GYRO = 1,
     
     CHASSIS_LEFT_ENCODER_FWD = 1,
     CHASSIS_LEFT_ENCODER_BCK = 7,

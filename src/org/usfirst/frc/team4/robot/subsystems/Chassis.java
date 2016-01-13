@@ -1,18 +1,15 @@
 package org.usfirst.frc.team4.robot.subsystems;
 
 import org.usfirst.frc.team4.robot.RobotMap;
-import org.usfirst.frc.team4.robot.commands.TankDrive;
+import org.usfirst.frc.team4.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -20,6 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Chassis extends Subsystem {
 
+	public boolean isTank = true;
+	
 	// TODO: Change to actual speed controller
 	private VictorSP leftFwd, leftBwd, rightFwd, rightBwd;
 
@@ -35,9 +34,9 @@ public class Chassis extends Subsystem {
 
 		leftFwd = new VictorSP(RobotMap.CHASSIS_MOTOR_LEFTFRONT);
 		leftBwd = new VictorSP(RobotMap.CHASSIS_MOTOR_LEFTREAR);
-		rightFwd = new VictorSP(RobotMap.CHASSIS_MOTOR_LEFTFRONT);
-		rightBwd = new VictorSP(RobotMap.CHASSIS_MOTOR_LEFTREAR);
-
+		rightFwd = new VictorSP(RobotMap.CHASSIS_MOTOR_RIGHTFRONT);
+		rightBwd = new VictorSP(RobotMap.CHASSIS_MOTOR_RIGHTREAR);
+		
 		drive = new RobotDrive(leftFwd, leftBwd, rightFwd, rightBwd);
 
 		leftEncoder = new Encoder(RobotMap.CHASSIS_LEFT_ENCODER_FWD, RobotMap.CHASSIS_LEFT_ENCODER_BCK);
@@ -60,11 +59,11 @@ public class Chassis extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new TankDrive());
+		setDefaultCommand(new Drive());
 	}
 
 	public void tankDrive(GenericHID l, GenericHID r) {
-		// Squared to make slower speeds easier
+		// Squared to make slower easier
 		drive.tankDrive(l, r, true);
 	}
 
