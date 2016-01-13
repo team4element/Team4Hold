@@ -4,6 +4,7 @@ import org.usfirst.frc.team4.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -44,6 +45,20 @@ public class Chassis extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public void tankDrive(GenericHID l, GenericHID r){
+    	//Squared to make slower speeds easier
+    	drive.tankDrive(l, r, true);
+    }
+    
+    public void arcadeDrive(GenericHID stick){
+    	//Squared to make slower speeds easier
+    	drive.arcadeDrive(stick, true);
+    }
+    
+    public void stop(){
+    	drive.stopMotor();
     }
 }
 
