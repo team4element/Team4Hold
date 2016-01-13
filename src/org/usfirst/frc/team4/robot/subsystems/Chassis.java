@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4.robot.subsystems;
 
 import org.usfirst.frc.team4.robot.RobotMap;
+import org.usfirst.frc.team4.robot.commands.TankDrive;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
@@ -43,8 +44,7 @@ public class Chassis extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new TankDrive());
     }
     
     public void tankDrive(GenericHID l, GenericHID r){
