@@ -85,4 +85,14 @@ public class Chassis extends Subsystem {
 		SmartDashboard.putNumber("Gyro", gyro.getAngle());
 	}
 
+	public void reset() {
+		gyro.reset();
+		leftEncoder.reset();
+		rightEncoder.reset();
+	}
+
+	public double getDistance() {
+		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
+	}
+
 }
