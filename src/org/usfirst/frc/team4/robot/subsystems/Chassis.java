@@ -64,7 +64,7 @@ public class Chassis extends Subsystem {
 
 	public void tankDrive(GenericHID l, GenericHID r) {
 		// Squared to make slower easier
-		drive.tankDrive(l, r, true);
+		drive.tankDrive(l.getRawAxis(RobotMap.CONT_LY), r.getRawAxis(RobotMap.CONT_RY), true);
 	}
 
 	public void arcadeDrive(GenericHID stick) {
