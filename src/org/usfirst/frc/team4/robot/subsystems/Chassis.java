@@ -34,7 +34,7 @@ public class Chassis extends Subsystem {
 	private AnalogGyro gyro;
 
 	public Chassis() {
-		// Registers Subsytem
+		// Registers Subsystem 
 		super();
 
 		leftFwd = new VictorSP(RobotMap.CHASSIS_MOTOR_LEFTFRONT);
