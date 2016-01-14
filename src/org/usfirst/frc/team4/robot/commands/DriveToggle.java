@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4.robot.commands;
 
 import org.usfirst.frc.team4.robot.Robot;
+import org.usfirst.frc.team4.robot.subsystems.Chassis.DriveState;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -14,7 +15,11 @@ public class DriveToggle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.chassis.isTank = !Robot.chassis.isTank;
+    	if (Robot.chassis.driveState == DriveState.TANK){
+    		Robot.chassis.driveState = DriveState.ARCADE;
+    	} else {
+    		Robot.chassis.driveState = DriveState.TANK;
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run

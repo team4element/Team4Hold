@@ -2,6 +2,7 @@ package org.usfirst.frc.team4.robot.commands;
 
 import org.usfirst.frc.team4.robot.Robot;
 import org.usfirst.frc.team4.robot.RobotMap;
+import org.usfirst.frc.team4.robot.subsystems.Chassis.DriveState;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -20,7 +21,7 @@ public class Drive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Robot.chassis.isTank){
+    	if(Robot.chassis.driveState == DriveState.TANK){
     		// Tank Drive
         	Robot.chassis.tankDrive(RobotMap.driveCont, RobotMap.driveCont);
     	} else {

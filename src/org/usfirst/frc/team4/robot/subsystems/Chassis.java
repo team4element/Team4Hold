@@ -17,7 +17,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Chassis extends Subsystem {
 
-	public boolean isTank = true;
+	public enum DriveState{
+		ARCADE,
+		TANK;
+	}
+	
+	public DriveState driveState = DriveState.TANK;
 	
 	// TODO: Change to actual speed controller
 	private VictorSP leftFwd, leftBwd, rightFwd, rightBwd;
