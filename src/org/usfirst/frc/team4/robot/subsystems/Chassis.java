@@ -69,11 +69,6 @@ public class Chassis extends Subsystem {
 
 		gyro = new AnalogGyro(RobotMap.GYRO);
 
-		liveWindow();
-
-	}
-
-	private void liveWindow() {
 		LiveWindow.addActuator("Chassis", "Front_Left Motor", leftFwd);
 		LiveWindow.addActuator("Chassis", "Back Left Motor", leftBwd);
 		LiveWindow.addActuator("Chassis", "Front Right Motor", rightFwd);
@@ -81,6 +76,7 @@ public class Chassis extends Subsystem {
 		LiveWindow.addSensor("Chassis", "Left Encoder", leftEncoder);
 		LiveWindow.addSensor("Chassis", "Right Encoder", rightEncoder);
 		LiveWindow.addSensor("Chassis", "Gyro", gyro);
+
 	}
 
 	public void initDefaultCommand() {
