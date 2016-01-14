@@ -36,7 +36,12 @@ public class Chassis extends Subsystem {
 		leftBwd = new VictorSP(RobotMap.CHASSIS_MOTOR_LEFTREAR);
 		rightFwd = new VictorSP(RobotMap.CHASSIS_MOTOR_RIGHTFRONT);
 		rightBwd = new VictorSP(RobotMap.CHASSIS_MOTOR_RIGHTREAR);
-		
+	
+		leftFwd.setInverted(true);
+		leftBwd.setInverted(true);
+		rightFwd.setInverted(true);
+		rightBwd.setInverted(true);
+				
 		drive = new RobotDrive(leftFwd, leftBwd, rightFwd, rightBwd);
 
 		leftEncoder = new Encoder(RobotMap.CHASSIS_LEFT_ENCODER_FWD, RobotMap.CHASSIS_LEFT_ENCODER_BCK);
