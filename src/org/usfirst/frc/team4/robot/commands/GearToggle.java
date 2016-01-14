@@ -2,47 +2,44 @@ package org.usfirst.frc.team4.robot.commands;
 
 import org.usfirst.frc.team4.robot.Robot;
 import org.usfirst.frc.team4.robot.RobotMap;
-import org.usfirst.frc.team4.robot.subsystems.Chassis.DriveState;
+import org.usfirst.frc.team4.robot.subsystems.Chassis.DriveSpeed;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class Drive extends Command {
+public class GearToggle extends Command {
 	
-    public Drive() {
-    	requires(Robot.chassis);
+    public GearToggle() {
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if (RobotMap.driveCont.getType() == RobotMap.CONT_L1) {
+    		Robot.chassis.currentGear = DriveSpeed.HIGH;
+    	} else if (RobotMap.driveCont.getType() == RobotMap.CONT_R1){
+    		Robot.chassis.currentGear = DriveSpeed.LOW;
+    	} else {
+    		System.out.println("No Button Mapped");
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Robot.chassis.driveState == DriveState.TANK){
-    		// Tank Drive
-        	Robot.chassis.tankDrive(RobotMap.driveCont, RobotMap.driveCont);
-    	} else {
-    		// Arcade Drive
-    		Robot.chassis.arcadeDrive(RobotMap.driveCont);
-    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.chassis.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

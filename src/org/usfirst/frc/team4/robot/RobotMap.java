@@ -36,11 +36,11 @@ public class RobotMap {
 
     CONT_RY           = 5,
     CONT_RX           = 4,
-
-    CHASSIS_MOTOR_LEFTFRONT   = 2,
-    CHASSIS_MOTOR_LEFTREAR    = 3,
-    CHASSIS_MOTOR_RIGHTFRONT  = 4,
-    CHASSIS_MOTOR_RIGHTREAR   = 5,
+    	    //Chassis
+    CHASSIS_MOTOR_LEFTFRONT   = 3,
+    CHASSIS_MOTOR_LEFTREAR    = 2,
+    CHASSIS_MOTOR_RIGHTFRONT  = 6,
+    CHASSIS_MOTOR_RIGHTREAR   = 7,
     
     //TODO: Put Actual Values
     GYRO = 1,
@@ -61,6 +61,9 @@ public class RobotMap {
 	
 	    driveL1,
 	    driveR1,
+	    
+	    driveL2,
+	    driveR2,
 	
 	    driveSelect,
 	    driveStart,
@@ -78,7 +81,10 @@ public class RobotMap {
 	
 	    driveL1         = new JoystickButton(driveCont, CONT_L1);
 	    driveR1         = new JoystickButton(driveCont, CONT_R1);
-	
+	    
+	    driveL2         = new JoystickButton(driveCont, CONT_L2);
+	    driveR2         = new JoystickButton(driveCont, CONT_R2);
+	    
 	    driveSelect     = new JoystickButton(driveCont, CONT_SELECT);
 	    driveStart      = new JoystickButton(driveCont, CONT_START);
 	

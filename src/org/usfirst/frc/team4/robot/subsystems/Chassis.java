@@ -17,13 +17,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Chassis extends Subsystem {
 
-	public enum DriveState{
-		ARCADE,
-		TANK;
+	// Drive Speeds
+	public enum DriveSpeed {
+		HIGH, LOW;
 	}
-	
+
+	public DriveSpeed currentGear = DriveSpeed.LOW;
+
+	public double gearSetter(DriveSpeed s) {
+		if (s == DriveSpeed.HIGH) {
+			return 1.0;
+		}else {
+			return .75;
+		}
+	}
+
+	// Toggle Drive
+	public enum DriveState {
+		ARCADE, TANK;
+	}
+
 	public DriveState driveState = DriveState.TANK;
-	
+
 	// TODO: Change to actual speed controller
 	private VictorSP leftFwd, leftBwd, rightFwd, rightBwd;
 
@@ -34,19 +49,19 @@ public class Chassis extends Subsystem {
 	private AnalogGyro gyro;
 
 	public Chassis() {
-		// Registers Subsystem 
+		// Registers Subsystem
 		super();
 
 		leftFwd = new VictorSP(RobotMap.CHASSIS_MOTOR_LEFTFRONT);
 		leftBwd = new VictorSP(RobotMap.CHASSIS_MOTOR_LEFTREAR);
 		rightFwd = new VictorSP(RobotMap.CHASSIS_MOTOR_RIGHTFRONT);
 		rightBwd = new VictorSP(RobotMap.CHASSIS_MOTOR_RIGHTREAR);
-	
+
 		leftFwd.setInverted(true);
 		leftBwd.setInverted(true);
 		rightFwd.setInverted(true);
 		rightBwd.setInverted(true);
-				
+
 		drive = new RobotDrive(leftFwd, leftBwd, rightFwd, rightBwd);
 
 		leftEncoder = new Encoder(RobotMap.CHASSIS_LEFT_ENCODER_FWD, RobotMap.CHASSIS_LEFT_ENCODER_BCK);
@@ -74,12 +89,14 @@ public class Chassis extends Subsystem {
 
 	public void tankDrive(GenericHID l, GenericHID r) {
 		// Squared to make slower easier
-		drive.tankDrive(l.getRawAxis(RobotMap.CONT_LY), r.getRawAxis(RobotMap.CONT_RY), true);
+		drive.tankDrive(l.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear),
+				r.getRawAxis(RobotMap.CONT_RY) * gearSetter(currentGear), true);
 	}
 
 	public void arcadeDrive(GenericHID stick) {
 		// Squared to make slower speeds easier
-		drive.arcadeDrive(stick, true);
+		drive.arcadeDrive(stick.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear),
+				stick.getRawAxis(RobotMap.CONT_LX) * gearSetter(currentGear), true);
 	}
 
 	public void stop() {
