@@ -83,10 +83,10 @@ public class Chassis extends Subsystem {
 		setDefaultCommand(new Drive());
 	}
 
-	public void tankDrive(GenericHID l, GenericHID r) {
+	public void tankDrive(GenericHID c) {
 		// Squared to make slower easier
-		drive.tankDrive(l.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear),
-				r.getRawAxis(RobotMap.CONT_RY) * gearSetter(currentGear), true);
+		drive.tankDrive(c.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear),
+				c.getRawAxis(RobotMap.CONT_RY) * gearSetter(currentGear), true);
 	}
 
 	public void arcadeDrive(GenericHID stick) {
