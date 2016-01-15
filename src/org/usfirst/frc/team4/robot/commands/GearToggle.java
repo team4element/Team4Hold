@@ -16,9 +16,9 @@ public class GearToggle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (RobotMap.driveCont.getType() == RobotMap.CONT_L1) {
+    	if (Robot.oi.R1(RobotMap.driveCont)) {
     		Robot.chassis.currentGear = DriveSpeed.HIGH;
-    	} else if (RobotMap.driveCont.getType() == RobotMap.CONT_R1){
+    	} else if (Robot.oi.L1(RobotMap.driveCont)){
     		Robot.chassis.currentGear = DriveSpeed.LOW;
     	} else {
     		System.out.println("No Button Mapped");

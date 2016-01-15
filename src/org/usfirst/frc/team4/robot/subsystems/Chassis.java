@@ -22,7 +22,7 @@ public class Chassis extends Subsystem {
 		HIGH, LOW;
 	}
 
-	public DriveSpeed currentGear = DriveSpeed.LOW;
+	public DriveSpeed currentGear = DriveSpeed.HIGH;
 
 	public double gearSetter(DriveSpeed s) {
 		if (s == DriveSpeed.HIGH) {
