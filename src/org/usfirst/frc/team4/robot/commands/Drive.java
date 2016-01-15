@@ -23,7 +23,7 @@ public class Drive extends Command {
     protected void execute() {
     	if(Robot.chassis.driveState == DriveState.TANK){
     		// Tank Drive
-        	Robot.chassis.tankDrive(RobotMap.driveCont, RobotMap.driveCont);
+        	Robot.chassis.tankDrive(RobotMap.driveCont);
     	} else {
     		// Arcade Drive
     		Robot.chassis.arcadeDrive(RobotMap.driveCont);
