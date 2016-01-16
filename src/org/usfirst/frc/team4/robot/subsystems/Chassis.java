@@ -27,7 +27,7 @@ public class Chassis extends Subsystem {
 	public double gearSetter(DriveSpeed s) {
 		if (s == DriveSpeed.HIGH) {
 			return 1.0;
-		}else {
+		} else {
 			return .75;
 		}
 	}
@@ -85,18 +85,23 @@ public class Chassis extends Subsystem {
 
 	public void tankDrive(GenericHID c) {
 		// Squared to make slower easier
-		drive.tankDrive(c.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear),
-				c.getRawAxis(RobotMap.CONT_RY) * gearSetter(currentGear), true);
+		drive.tankDrive(driveFilter(c.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear), .2),
+				driveFilter(c.getRawAxis(RobotMap.CONT_RY) * gearSetter(currentGear), .2), true);
 	}
 
 	public void arcadeDrive(GenericHID stick) {
 		// Squared to make slower speeds easier
-		drive.arcadeDrive(stick.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear),
-				stick.getRawAxis(RobotMap.CONT_LX) * gearSetter(currentGear), true);
+		drive.arcadeDrive(driveFilter(stick.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear), .2),
+				driveFilter(stick.getRawAxis(RobotMap.CONT_LX) * gearSetter(currentGear), .2), true);
 	}
 
 	public void stop() {
 		drive.stopMotor();
+	}
+
+	// Reduces Jerk
+	public double driveFilter(double n, double t) {
+		return Math.abs(n) > t ? n : 0;
 	}
 
 	public void log() {
