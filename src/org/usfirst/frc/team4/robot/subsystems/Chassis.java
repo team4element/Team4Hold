@@ -92,11 +92,7 @@ public class Chassis extends Subsystem {
 	}
 
 	public double gearSetter(DriveSpeed s) {
-		if (s == DriveSpeed.HIGH) {
-			return 1.0;
-		} else {
-			return .75;
-		}
+		return s == DriveSpeed.HIGH ? 1.0 : .75;
 	}
 	
 	public double getDistance() {
