@@ -17,35 +17,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Chassis extends Subsystem {
 
+	// Toggle Drive
+	public enum DriveState {
+		ARCADE, TANK;
+	}
 	// Drive Speeds
 	public enum DriveSpeed {
 		HIGH, LOW;
 	}
 
 	public DriveSpeed currentGear = DriveSpeed.HIGH;
-
-	public double gearSetter(DriveSpeed s) {
-		if (s == DriveSpeed.HIGH) {
-			return 1.0;
-		} else {
-			return .75;
-		}
-	}
-
-	// Toggle Drive
-	public enum DriveState {
-		ARCADE, TANK;
-	}
-
 	public DriveState driveState = DriveState.TANK;
 
 	// TODO: Change to actual speed controller
 	private VictorSP leftFwd, leftBwd, rightFwd, rightBwd;
-
 	private RobotDrive drive;
-
 	private Encoder leftEncoder, rightEncoder;
-
 	private AnalogGyro gyro;
 
 	public Chassis() {
@@ -104,12 +91,16 @@ public class Chassis extends Subsystem {
 		return Math.abs(n) > t ? n : 0;
 	}
 
-	public void log() {
-		SmartDashboard.putNumber("Distance", (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
-		SmartDashboard.putNumber("Left Speed", leftEncoder.getRate());
-		SmartDashboard.putNumber("Right Speed", rightEncoder.getRate());
-		SmartDashboard.putNumber("Average Speed", (rightEncoder.getRate() + leftEncoder.getRate()) / 2);
-		SmartDashboard.putNumber("Gyro", gyro.getAngle());
+	public double gearSetter(DriveSpeed s) {
+		if (s == DriveSpeed.HIGH) {
+			return 1.0;
+		} else {
+			return .75;
+		}
+	}
+	
+	public double getDistance() {
+		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
 	}
 
 	public void reset() {
@@ -117,9 +108,12 @@ public class Chassis extends Subsystem {
 		leftEncoder.reset();
 		rightEncoder.reset();
 	}
-
-	public double getDistance() {
-		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
-	}
-
+	
+	public void log() {
+		SmartDashboard.putNumber("Distance", (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
+		SmartDashboard.putNumber("Left Speed", leftEncoder.getRate());
+		SmartDashboard.putNumber("Right Speed", rightEncoder.getRate());
+		SmartDashboard.putNumber("Average Speed", (rightEncoder.getRate() + leftEncoder.getRate()) / 2);
+		SmartDashboard.putNumber("Gyro", gyro.getAngle());
+	}	
 }
