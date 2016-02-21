@@ -28,6 +28,8 @@ public class Chassis extends Subsystem {
 
 	public DriveSpeed currentGear = DriveSpeed.HIGH;
 	public DriveState driveState = DriveState.TANK;
+	
+	private Double kJERK_REDUCTION = .45;
 
 	// TODO: Change to actual speed controller
 	private VictorSP leftFwd, leftBwd, rightFwd, rightBwd;
@@ -72,14 +74,14 @@ public class Chassis extends Subsystem {
 
 	public void tankDrive(GenericHID c) {
 		// Squared to make slower easier
-		drive.tankDrive(driveFilter(c.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear), .25),
-				driveFilter(c.getRawAxis(RobotMap.CONT_RY) * gearSetter(currentGear), .25), true);
+		drive.tankDrive(driveFilter(c.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear), kJERK_REDUCTION),
+				driveFilter(c.getRawAxis(RobotMap.CONT_RY) * gearSetter(currentGear), kJERK_REDUCTION), true);
 	}
 
 	public void arcadeDrive(GenericHID stick) {
 		// Squared to make slower speeds easier
-		drive.arcadeDrive(driveFilter(stick.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear), .2),
-				driveFilter(stick.getRawAxis(RobotMap.CONT_LX) * gearSetter(currentGear), .2), true);
+		drive.arcadeDrive(driveFilter(stick.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear), kJERK_REDUCTION),
+				driveFilter(stick.getRawAxis(RobotMap.CONT_LX) * gearSetter(currentGear), kJERK_REDUCTION), true);
 	}
 
 	public void stop() {
@@ -97,6 +99,10 @@ public class Chassis extends Subsystem {
 	
 	public double getDistance() {
 		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
+	}
+	
+	public double getAngle(){
+		return gyro.getAngle();
 	}
 
 	public void reset() {

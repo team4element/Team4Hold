@@ -12,44 +12,44 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class RobotMap {
 
 	public static final int 
-    STICK_DRIVE       = 0,
-
-    CONT_A            = 1,
-    CONT_B            = 2,
-    CONT_X            = 3,
-    CONT_Y            = 4,
-
-    CONT_L1           = 5,
-    CONT_R1           = 6,
-
-    CONT_L2           = 2,
-    CONT_R2           = 3,
-
-    CONT_SELECT       = 7,
-    CONT_START        = 8,
-
-    CONT_L3           = 9,
-    CONT_R3           =10,
-
-    CONT_LY           = 1,
-    CONT_LX           = 0,
-
-    CONT_RY           = 5,
-    CONT_RX           = 4,
- 
-    CHASSIS_MOTOR_LEFTFRONT   = 2, //3
-    CHASSIS_MOTOR_LEFTREAR    = 3, //2
-    CHASSIS_MOTOR_RIGHTFRONT  = 4, //6
-    CHASSIS_MOTOR_RIGHTREAR   = 5, //7
-    
-    //TODO: Put Actual Values
-    GYRO = 1,
-    
-    CHASSIS_LEFT_ENCODER_FWD = 1,
-    CHASSIS_LEFT_ENCODER_BCK = 7,
-
-    CHASSIS_RIGHT_ENCODER_FWD = 3,
-    CHASSIS_RIGHT_ENCODER_BCK = 8;
+	    STICK_DRIVE       = 0,
+	
+	    CONT_A            = 1,
+	    CONT_B            = 2,
+	    CONT_X            = 3,
+	    CONT_Y            = 4,
+	
+	    CONT_L1           = 5,
+	    CONT_R1           = 6,
+	
+	    CONT_L2           = 2,
+	    CONT_R2           = 3,
+	
+	    CONT_SELECT       = 7,
+	    CONT_START        = 8,
+	
+	    CONT_L3           = 9,
+	    CONT_R3           =10,
+	
+	    CONT_LY           = 1,
+	    CONT_LX           = 0,
+	
+	    CONT_RY           = 5,
+	    CONT_RX           = 4,
+	 
+	    CHASSIS_MOTOR_LEFTFRONT   = 4, //3
+	    CHASSIS_MOTOR_LEFTREAR    = 5, //2
+	    CHASSIS_MOTOR_RIGHTFRONT  = 3, //6
+	    CHASSIS_MOTOR_RIGHTREAR   = 2, //7
+	    
+	    //TODO: Put Actual Values
+	    GYRO = 0,
+	    
+	    CHASSIS_LEFT_ENCODER_FWD = 2,
+	    CHASSIS_LEFT_ENCODER_BCK = 3,
+	
+	    CHASSIS_RIGHT_ENCODER_FWD = 0,
+	    CHASSIS_RIGHT_ENCODER_BCK = 1;
 
 	public static Joystick driveCont;
 	
