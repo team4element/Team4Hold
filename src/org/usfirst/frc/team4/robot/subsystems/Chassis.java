@@ -41,10 +41,10 @@ public class Chassis extends Subsystem {
 		// Registers Subsystem
 		super();
 
-		leftFwd = new VictorSP(RobotMap.CHASSIS_MOTOR_LEFTFRONT);
-		leftBwd = new VictorSP(RobotMap.CHASSIS_MOTOR_LEFTREAR);
-		rightFwd = new VictorSP(RobotMap.CHASSIS_MOTOR_RIGHTFRONT);
-		rightBwd = new VictorSP(RobotMap.CHASSIS_MOTOR_RIGHTREAR);
+		leftFwd = new VictorSP(RobotMap.kChassisMotorLeftFront);
+		leftBwd = new VictorSP(RobotMap.kChassisMotorLeftRear);
+		rightFwd = new VictorSP(RobotMap.kChassisMotorRightFront);
+		rightBwd = new VictorSP(RobotMap.kChassisMotorRightRear);
 
 		leftFwd.setInverted(true);
 		leftBwd.setInverted(true);
@@ -53,10 +53,10 @@ public class Chassis extends Subsystem {
 
 		drive = new RobotDrive(leftFwd, leftBwd, rightFwd, rightBwd);
 
-		leftEncoder = new Encoder(RobotMap.CHASSIS_LEFT_ENCODER_FWD, RobotMap.CHASSIS_LEFT_ENCODER_BCK);
-		rightEncoder = new Encoder(RobotMap.CHASSIS_RIGHT_ENCODER_FWD, RobotMap.CHASSIS_RIGHT_ENCODER_BCK);
+		leftEncoder = new Encoder(RobotMap.kChassisLeftEncoderForward, RobotMap.kChassisLeftEncoderReverse);
+		rightEncoder = new Encoder(RobotMap.kChassisRightEncoderForward, RobotMap.kChassisRightEncoderReverse);
 
-		gyro = new AnalogGyro(RobotMap.GYRO);
+		gyro = new AnalogGyro(RobotMap.kGyro);
 
 		LiveWindow.addActuator("Chassis", "Front_Left Motor", leftFwd);
 		LiveWindow.addActuator("Chassis", "Back Left Motor", leftBwd);
@@ -74,14 +74,14 @@ public class Chassis extends Subsystem {
 
 	public void tankDrive(GenericHID c) {
 		// Squared to make slower easier
-		drive.tankDrive(driveFilter(c.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear), kJERK_REDUCTION),
-				driveFilter(c.getRawAxis(RobotMap.CONT_RY) * gearSetter(currentGear), kJERK_REDUCTION), true);
+		drive.tankDrive(driveFilter(c.getRawAxis(RobotMap.AXIS_LEFT_Y) * gearSetter(currentGear), kJERK_REDUCTION),
+				driveFilter(c.getRawAxis(RobotMap.AXIS_RIGHT_Y) * gearSetter(currentGear), kJERK_REDUCTION), true);
 	}
 
 	public void arcadeDrive(GenericHID stick) {
 		// Squared to make slower speeds easier
-		drive.arcadeDrive(driveFilter(stick.getRawAxis(RobotMap.CONT_LY) * gearSetter(currentGear), kJERK_REDUCTION),
-				driveFilter(stick.getRawAxis(RobotMap.CONT_LX) * gearSetter(currentGear), kJERK_REDUCTION), true);
+		drive.arcadeDrive(driveFilter(stick.getRawAxis(RobotMap.AXIS_LEFT_Y) * gearSetter(currentGear), kJERK_REDUCTION),
+				driveFilter(stick.getRawAxis(RobotMap.AXIS_LEFT_X) * gearSetter(currentGear), kJERK_REDUCTION), true);
 	}
 
 	public void stop() {

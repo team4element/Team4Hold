@@ -19,11 +19,11 @@ public class OI {
 	}
 
 	public boolean L1(Joystick cont) {
-		return cont.getRawButton(RobotMap.CONT_L1);
+		return cont.getRawButton(RobotMap.BUTTON_LEFT_1);
 	}
 
 	public boolean R1(Joystick cont) {
-		return cont.getRawButton(RobotMap.CONT_R1);
+		return cont.getRawButton(RobotMap.BUTTON_RIGHT_1);
 	}
 
 }
