@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4.robot.subsystems;
 
+import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.Drive;
 
@@ -74,14 +75,14 @@ public class Chassis extends Subsystem {
 
 	public void tankDrive(GenericHID c) {
 		// Squared to make slower easier
-		drive.tankDrive(driveFilter(c.getRawAxis(RobotMap.AXIS_LEFT_Y) * gearSetter(currentGear), kJERK_REDUCTION),
-				driveFilter(c.getRawAxis(RobotMap.AXIS_RIGHT_Y) * gearSetter(currentGear), kJERK_REDUCTION), true);
+		drive.tankDrive(driveFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear), kJERK_REDUCTION),
+				driveFilter(c.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear), kJERK_REDUCTION), true);
 	}
 
 	public void arcadeDrive(GenericHID stick) {
 		// Squared to make slower speeds easier
-		drive.arcadeDrive(driveFilter(stick.getRawAxis(RobotMap.AXIS_LEFT_Y) * gearSetter(currentGear), kJERK_REDUCTION),
-				driveFilter(stick.getRawAxis(RobotMap.AXIS_LEFT_X) * gearSetter(currentGear), kJERK_REDUCTION), true);
+		drive.arcadeDrive(driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear), kJERK_REDUCTION),
+				driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_X) * gearSetter(currentGear), kJERK_REDUCTION), true);
 	}
 
 	public void stop() {
