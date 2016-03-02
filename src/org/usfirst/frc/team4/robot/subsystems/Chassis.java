@@ -22,6 +22,7 @@ public class Chassis extends Subsystem {
 	public enum DriveState {
 		ARCADE, TANK;
 	}
+
 	// Drive Speeds
 	public enum DriveSpeed {
 		HIGH, LOW;
@@ -29,7 +30,8 @@ public class Chassis extends Subsystem {
 
 	public DriveSpeed currentGear = DriveSpeed.HIGH;
 	public DriveState driveState = DriveState.TANK;
-	
+	public boolean isDriveInverse = false;
+
 	private Double kJERK_REDUCTION = .45;
 
 	// TODO: Change to actual speed controller
@@ -75,14 +77,40 @@ public class Chassis extends Subsystem {
 
 	public void tankDrive(GenericHID c) {
 		// Squared to make slower easier
-		drive.tankDrive(driveFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear), kJERK_REDUCTION),
-				driveFilter(c.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear), kJERK_REDUCTION), true);
+		if (!isDriveInverse) {
+			drive.tankDrive(
+					driveFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
+							kJERK_REDUCTION),
+					driveFilter(c.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear),
+							kJERK_REDUCTION),
+					true);
+		} else {
+			drive.tankDrive(
+					-driveFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
+							kJERK_REDUCTION),
+					-driveFilter(c.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear),
+							kJERK_REDUCTION),
+					true);
+		}
 	}
 
 	public void arcadeDrive(GenericHID stick) {
 		// Squared to make slower speeds easier
-		drive.arcadeDrive(driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear), kJERK_REDUCTION),
-				driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_X) * gearSetter(currentGear), kJERK_REDUCTION), true);
+		if (!isDriveInverse) {
+			drive.arcadeDrive(
+					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
+							kJERK_REDUCTION),
+					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_X) * gearSetter(currentGear),
+							kJERK_REDUCTION),
+					true);
+		} else {
+			drive.arcadeDrive(
+					-driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
+							kJERK_REDUCTION),
+					-driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_X) * gearSetter(currentGear),
+							kJERK_REDUCTION),
+					true);
+		}
 	}
 
 	public void stop() {
@@ -97,12 +125,12 @@ public class Chassis extends Subsystem {
 	public double gearSetter(DriveSpeed s) {
 		return s == DriveSpeed.HIGH ? 1.0 : .75;
 	}
-	
+
 	public double getDistance() {
 		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
 	}
-	
-	public double getAngle(){
+
+	public double getAngle() {
 		return gyro.getAngle();
 	}
 
@@ -111,12 +139,12 @@ public class Chassis extends Subsystem {
 		leftEncoder.reset();
 		rightEncoder.reset();
 	}
-	
+
 	public void log() {
 		SmartDashboard.putNumber("Distance", (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
 		SmartDashboard.putNumber("Left Speed", leftEncoder.getRate());
 		SmartDashboard.putNumber("Right Speed", rightEncoder.getRate());
 		SmartDashboard.putNumber("Average Speed", (rightEncoder.getRate() + leftEncoder.getRate()) / 2);
 		SmartDashboard.putNumber("Gyro", gyro.getAngle());
-	}	
+	}
 }

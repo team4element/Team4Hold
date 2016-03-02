@@ -2,6 +2,7 @@ package org.usfirst.frc.team4.robot;
 
 import org.usfirst.frc.team4.robot.commands.DriveToggle;
 import org.usfirst.frc.team4.robot.commands.GearToggle;
+import org.usfirst.frc.team4.robot.commands.ToggleInverseDrive;
 
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -12,18 +13,20 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 
 	public OI() {
-		RobotMap.driveL3.whenPressed(new DriveToggle());
+		ControllerConstants.driveLeftButton3.whenPressed(new DriveToggle());
 
-		RobotMap.driveL1.whenPressed(new GearToggle());
-		RobotMap.driveR1.whenPressed(new GearToggle());
+		ControllerConstants.driveLeftBumper1.whenPressed(new GearToggle());
+		ControllerConstants.driveRightBumper1.whenPressed(new GearToggle());
+
+		ControllerConstants.driveA.whenPressed(new ToggleInverseDrive());
 	}
 
 	public boolean L1(Joystick cont) {
-		return cont.getRawButton(RobotMap.BUTTON_LEFT_1);
+		return cont.getRawButton(ControllerConstants.AXIS_LEFT_Y);
 	}
 
 	public boolean R1(Joystick cont) {
-		return cont.getRawButton(RobotMap.BUTTON_RIGHT_1);
+		return cont.getRawButton(ControllerConstants.AXIS_RIGHT_Y);
 	}
 
 }
