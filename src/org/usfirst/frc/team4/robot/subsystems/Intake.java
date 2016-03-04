@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4.robot.subsystems;
 
 import org.usfirst.frc.team4.robot.RobotMap;
+import org.usfirst.frc.team4.robot.commands.IntakeController;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,7 +23,7 @@ public class Intake extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	public void initDefaultCommand() {
-
+		setDefaultCommand(new IntakeController());
 	}
 
 	public void setRollerSpeed(double speed) {
