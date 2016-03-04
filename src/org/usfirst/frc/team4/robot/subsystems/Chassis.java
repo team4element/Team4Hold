@@ -70,7 +70,7 @@ public class Chassis extends Subsystem {
 		LiveWindow.addSensor("Chassis", "Gyro", gyro);
 
 	}
-
+ 
 	public void initDefaultCommand() {
 		setDefaultCommand(new Drive());
 	}
@@ -86,9 +86,9 @@ public class Chassis extends Subsystem {
 					true);
 		} else {
 			drive.tankDrive(
-					-driveFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
 					-driveFilter(c.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear),
+							kJERK_REDUCTION),
+					-driveFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
 							kJERK_REDUCTION),
 					true);
 		}
