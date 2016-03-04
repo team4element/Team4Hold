@@ -33,4 +33,17 @@ public class Intake extends Subsystem {
 		intakeArm.set(angle);
 	}
 
+	public void stopRoller(){
+		intakeRoller.stopMotor();
+	}
+	
+	public void stopArm(){
+		intakeArm.stopMotor();
+	}
+	
+	public void stop(){
+		stopArm();
+		stopRoller();
+	}
+	
 }
