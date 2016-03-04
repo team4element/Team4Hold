@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class ControllerConstants {
 
 	public static final int CONTROLLER_DRIVE = 0;
+	public static final int CONTROLLER_OPERATOR = 1;
 
 	// Button, Trigger and Axis Constants
 	public static final int BUTTON_A = 1;
@@ -31,7 +32,7 @@ public class ControllerConstants {
 	public static final int AXIS_RIGHT_Y = 5;
 	public static final int AXIS_RIGHT_X = 4;
 
-	// Joystick and Button Initializer
+	// Drive Controller
 	public static Joystick driveController;
 
 	public static JoystickButton driveA;
@@ -50,8 +51,31 @@ public class ControllerConstants {
 
 	public static JoystickButton driveSelect;
 	public static JoystickButton driveStart;
+	
+	// Operator Controller
+	public static Joystick operatorController;
+	
+	public static JoystickButton operatorA;
+	public static JoystickButton operatorB;
+	public static JoystickButton operatorX;
+	public static JoystickButton operatorY;
 
+	public static JoystickButton operatorLeftBumper1;
+	public static JoystickButton operatorRightBumper1;
+
+	public static JoystickButton operatorLeftTrigger2;
+	public static JoystickButton operatorRightTrigger2;
+
+	public static JoystickButton operatorLeftButton3;
+	public static JoystickButton operatorRightButton3;
+
+	public static JoystickButton operatorSelect;
+	public static JoystickButton operatorStart;
+
+
+	// Joystick and Button Initializer
 	public static void init() {
+		// Drive Controller
 		driveController = new Joystick(CONTROLLER_DRIVE);
 
 		driveA = new JoystickButton(driveController, BUTTON_A);
@@ -70,6 +94,26 @@ public class ControllerConstants {
 
 		driveSelect = new JoystickButton(driveController, BUTTON_SELECT);
 		driveStart = new JoystickButton(driveController, BUTTON_START);
+		
+		// Operator Controller
+		operatorController = new Joystick(CONTROLLER_OPERATOR);
+
+		operatorA = new JoystickButton(operatorController, BUTTON_A);
+		operatorB = new JoystickButton(operatorController, BUTTON_B);
+		operatorX = new JoystickButton(operatorController, BUTTON_X);
+		operatorY = new JoystickButton(operatorController, BUTTON_Y);
+
+		operatorLeftBumper1 = new JoystickButton(operatorController, BUMPER_LEFT_1);
+		operatorRightBumper1 = new JoystickButton(operatorController, BUMPER_RIGHT_1);
+
+		operatorLeftTrigger2 = new JoystickButton(operatorController, TRIGGER_LEFT_2);
+		operatorRightTrigger2 = new JoystickButton(operatorController, TRIGGE_RIGHT_2);
+
+		operatorLeftButton3 = new JoystickButton(operatorController, BUTTON_LEFT_3);
+		operatorRightButton3 = new JoystickButton(operatorController, BUTTON_RIGHT_3);
+
+		operatorSelect = new JoystickButton(operatorController, BUTTON_SELECT);
+		operatorStart = new JoystickButton(operatorController, BUTTON_START);
 	}
 
 }
