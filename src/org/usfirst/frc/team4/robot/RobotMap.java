@@ -22,4 +22,10 @@ public class RobotMap {
 	public static int kChassisRightEncoderForward = 0;
 	public static int kChassisRightEncoderReverse = 1;
 
+	// Intake
+	public static int kIntakeMotorRoller = 0;
+	public static int kIntakeMotorArm = 1;
+	
+	public static int kIntakeLimitSwitch = 4;
+
 }
