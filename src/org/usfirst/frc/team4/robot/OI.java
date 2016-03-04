@@ -28,5 +28,4 @@ public class OI {
 	public boolean R1(Joystick cont) {
 		return cont.getRawButton(ControllerConstants.BUMPER_RIGHT_1);
 	}
-
 }

@@ -3,13 +3,17 @@ package org.usfirst.frc.team4.robot.commands;
 import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.Robot;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class IntakeController extends Command {
+
+	private double armSpeed = 0, armSpeedSquared = 0;
+	// Jerk Reduction
+	private double armSpeedFiltered = 0;
+	private final double JERK_FILTER = .4;
 
 	public IntakeController() {
 		requires(Robot.intake);
@@ -21,22 +25,20 @@ public class IntakeController extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (ControllerConstants.operatorController.getBumper(Hand.kRight)) {
-			Robot.intake
-					.setArmAngle(ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGE_RIGHT_2));
-		} else if (ControllerConstants.operatorController.getBumper(Hand.kLeft)) {
-			Robot.intake
-					.setArmAngle(-ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGER_LEFT_2));
-		} else {
-			Robot.intake.stopArm();
-			System.out.println("No button mapped.");
-		}
-		
-		if (ControllerConstants.operatorLeftBumper1.get()){
+
+		armSpeed = ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGER_LEFT_2)
+				- ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGE_RIGHT_2);
+		// Cut speed in half
+		armSpeedSquared = armSpeed * -Math.abs(armSpeed) * .50;
+		armSpeedFiltered = jerkFilter(armSpeedSquared, JERK_FILTER);
+
+		Robot.intake.setArmAngle(armSpeedFiltered);
+
+		if (ControllerConstants.operatorLeftBumper1.get()) {
 			Robot.intake.setRollerSpeed(1);
-		} else if (ControllerConstants.operatorRightButton3.get()){
+		} else if (ControllerConstants.operatorRightBumper1.get()) {
 			Robot.intake.setRollerSpeed(-1);
-		} else{
+		} else {
 			Robot.intake.stopRoller();
 			System.out.println("No button pressed.");
 		}
@@ -56,5 +58,9 @@ public class IntakeController extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		end();
+	}
+
+	private double jerkFilter(double n, double t) {
+		return Math.abs(n) > t ? n : 0;
 	}
 }
