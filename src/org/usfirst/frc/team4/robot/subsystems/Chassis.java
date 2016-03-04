@@ -100,14 +100,14 @@ public class Chassis extends Subsystem {
 			drive.arcadeDrive(
 					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
 							kJERK_REDUCTION),
-					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_X) * gearSetter(currentGear),
+					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * gearSetter(currentGear),
 							kJERK_REDUCTION),
 					true);
 		} else {
 			drive.arcadeDrive(
 					-driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
 							kJERK_REDUCTION),
-					-driveFilter(stick.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * gearSetter(currentGear),
+					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * gearSetter(currentGear),
 							kJERK_REDUCTION),
 					true);
 		}

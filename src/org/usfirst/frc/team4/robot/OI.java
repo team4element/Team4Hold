@@ -22,11 +22,11 @@ public class OI {
 	}
 
 	public boolean L1(Joystick cont) {
-		return cont.getRawButton(ControllerConstants.AXIS_LEFT_Y);
+		return cont.getRawButton(ControllerConstants.BUMPER_LEFT_1);
 	}
 
 	public boolean R1(Joystick cont) {
-		return cont.getRawButton(ControllerConstants.AXIS_RIGHT_Y);
+		return cont.getRawButton(ControllerConstants.BUMPER_RIGHT_1);
 	}
 
 }
