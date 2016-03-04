@@ -31,6 +31,15 @@ public class IntakeController extends Command {
 			Robot.intake.stopArm();
 			System.out.println("No button mapped.");
 		}
+		
+		if (ControllerConstants.operatorLeftBumper1.get()){
+			Robot.intake.setRollerSpeed(1);
+		} else if (ControllerConstants.operatorRightButton3.get()){
+			Robot.intake.setRollerSpeed(-1);
+		} else{
+			Robot.intake.stopRoller();
+			System.out.println("No button pressed.");
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
