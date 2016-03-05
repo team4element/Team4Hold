@@ -35,9 +35,9 @@ public class IntakeController extends Command {
 		Robot.intake.setArmAngle(armSpeedFiltered);
 
 		if (ControllerConstants.operatorLeftBumper1.get()) {
-			Robot.intake.setRollerSpeed(1);
+			Robot.intake.setRollerSpeed(jerkFilter(1, JERK_FILTER));
 		} else if (ControllerConstants.operatorRightBumper1.get()) {
-			Robot.intake.setRollerSpeed(-1);
+			Robot.intake.setRollerSpeed(jerkFilter(-1, JERK_FILTER));
 		} else {
 			Robot.intake.stopRoller();
 			System.out.println("No button pressed.");
