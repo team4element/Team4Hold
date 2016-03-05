@@ -17,12 +17,12 @@ public class SetArmAngles extends Command {
 	private final double TOP_kP = .05, TOP_kI = 0, TOP_kD = 0;
 	private final double BOT_kP = .05, BOT_kI = 0, BOT_kD = 0;
 	private final double kAbsoluteValue = .1;
-	
+
 	private PIDController botArmPID, topArmPID;
-	
-    public SetArmAngles(double botAngle, double topAngle) {
-        requires(Robot.climb);
-        
+
+	public SetArmAngles(double botAngle, double topAngle) {
+		requires(Robot.climb);
+
 		botArmPID = new PIDController(TOP_kP, TOP_kI, TOP_kD, new PIDSource() {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
 
@@ -46,7 +46,7 @@ public class SetArmAngles extends Command {
 		});
 		botArmPID.setSetpoint(botAngle);
 		botArmPID.setAbsoluteTolerance(kAbsoluteValue);
-		
+
 		topArmPID = new PIDController(BOT_kP, BOT_kI, BOT_kD, new PIDSource() {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
 
@@ -70,34 +70,36 @@ public class SetArmAngles extends Command {
 		});
 		topArmPID.setSetpoint(botAngle);
 		topArmPID.setAbsoluteTolerance(kAbsoluteValue);
-    }
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	topArmPID.reset();
-    	botArmPID.reset();	
-    	botArmPID.enable();
-    	topArmPID.enable();
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		topArmPID.reset();
+		botArmPID.reset();
+		botArmPID.enable();
+		topArmPID.enable();
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return botArmPID.onTarget() && topArmPID.onTarget();
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		// To keep angle no matter what
+		return false;
+		// botArmPID.onTarget() && topArmPID.onTarget();
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	topArmPID.disable();
-    	botArmPID.disable();
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+		topArmPID.disable();
+		botArmPID.disable();
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }
