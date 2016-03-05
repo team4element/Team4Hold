@@ -1,12 +1,11 @@
 package org.usfirst.frc.team4.robot.subsystems;
 
 import org.usfirst.frc.team4.robot.RobotMap;
-import org.usfirst.frc.team4.robot.commands.WinchPull;
+import org.usfirst.frc.team4.robot.commands.ManualClimbArmController;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -16,7 +15,7 @@ public class Climb extends Subsystem {
 	private VictorSP armTopMotor, armBotMotor, winchFrontMotor, winchBackMotor;
 	private AnalogPotentiometer potTop, potBot;
 	// TODO: Change to Actual Value
-	private final double kPotScaleFactor = .04;
+	private final double kPotScaleFactor = 1;
 	
 	public boolean isClimbing = false;
 
@@ -34,21 +33,21 @@ public class Climb extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
+		setDefaultCommand(new ManualClimbArmController());
 	}
 
 	public void setTopMotorSpeed(double speed) {
-		armTopMotor.set(speed);
+		armTopMotor.set(squareInput(speed) * .75);
 	}
 
 	public void setBotMotorSpeed(double speed) {
-		armBotMotor.set(speed);
+		armBotMotor.set(squareInput(speed));
 	}
 
 	public void setWinchSpeed(double speed) {
 		if (isClimbing) {
 			// Fail safe to prevent gearbox from breaking
-			// Squared to make smoother
-			double absoluteSpeed = -Math.abs(speed * Math.abs(speed));
+			double absoluteSpeed = -squareInput(speed);
 
 			winchFrontMotor.set(absoluteSpeed);
 			winchBackMotor.set(absoluteSpeed);
@@ -61,6 +60,15 @@ public class Climb extends Subsystem {
 
 	public double getBotArmAngle() {
 		return potBot.get();
+	}
+	
+	public void stopWinch(){
+		winchBackMotor.stopMotor();
+		winchFrontMotor.stopMotor();
+	}
+	
+	private double squareInput(double speed){
+		return speed * Math.abs(speed);
 	}
 
 }
