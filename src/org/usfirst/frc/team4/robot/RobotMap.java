@@ -26,4 +26,14 @@ public class RobotMap {
 	public static int kIntakeMotorRoller = 1;
 	public static int kIntakeMotorArm = 0;
 
+	// Climb
+	public static int kClimbWinchMotorFront = 6;
+	public static int kClimbWinchMotorBack = 7;
+	
+	public static int kClimbArmMotorBot = 8;
+	public static int kClimbArmMotorTop = 9;
+	
+	public static int kClimbArmPotTop = 1;
+	public static int kClimbArmPotBot = 2;
+
 }

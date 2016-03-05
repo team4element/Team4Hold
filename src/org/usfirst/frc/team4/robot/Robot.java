@@ -2,6 +2,7 @@
 package org.usfirst.frc.team4.robot;
 
 import org.usfirst.frc.team4.robot.subsystems.Chassis;
+import org.usfirst.frc.team4.robot.subsystems.Climb;
 import org.usfirst.frc.team4.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -23,6 +24,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static Chassis chassis;
 	public static Intake intake;
+	public static Climb climb;
     Command autonomousCommand;
     SendableChooser chooser;
 
@@ -35,6 +37,7 @@ public class Robot extends IterativeRobot {
     	oi = new OI();
     	chassis = new Chassis();
     	intake = new Intake();
+    	climb = new Climb();
     	
     	// Shows that the subsystems are working
         SmartDashboard.putData(chassis);
