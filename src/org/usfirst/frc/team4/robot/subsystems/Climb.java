@@ -16,13 +16,17 @@ public class Climb extends Subsystem {
 	private AnalogPotentiometer potTop, potBot;
 	// TODO: Change to Actual Value
 	private final double kPotScaleFactor = 1;
-	
+
+	public boolean isPortculisUp = false;
+
 	public enum ClimbState {
 		BOTH_ARMS_DOWN, TOP_ARM_RISING, BOTH_ARMS_RISING, PULLING_UP, DONE;
 	}
 
-	public ClimbState currentClimbState = ClimbState.BOTH_ARMS_DOWN;
-	
+	public ClimbState[] climbStates = ClimbState.values();
+	public int currentClimbInt = 0;
+	public ClimbState currentClimbState = climbStates[currentClimbInt];
+
 	public boolean isClimbing = false;
 
 	public Climb() {
@@ -43,12 +47,12 @@ public class Climb extends Subsystem {
 	}
 
 	public void setTopMotorSpeed(double speed) {
-		// Motor's are reversed 
+		// Motor's are reversed
 		armTopMotor.set(-squareInput(speed) * .75);
 	}
 
 	public void setBotMotorSpeed(double speed) {
-		// Motor's are reversed 
+		// Motor's are reversed
 		armBotMotor.set(-squareInput(speed));
 	}
 
@@ -69,13 +73,13 @@ public class Climb extends Subsystem {
 	public double getBotArmAngle() {
 		return potBot.get();
 	}
-	
-	public void stopWinch(){
+
+	public void stopWinch() {
 		winchBackMotor.stopMotor();
 		winchFrontMotor.stopMotor();
 	}
-	
-	private double squareInput(double speed){
+
+	private double squareInput(double speed) {
 		return speed * Math.abs(speed);
 	}
 

@@ -32,7 +32,7 @@ public class Chassis extends Subsystem {
 	public DriveState driveState = DriveState.TANK;
 	public boolean isDriveInverse = false;
 
-	private Double kJERK_REDUCTION = .45;
+	private Double kJERK_REDUCTION = .2;
 
 	// TODO: Change to actual speed controller
 	private VictorSP leftFwd, leftBwd, rightFwd, rightBwd;

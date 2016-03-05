@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4.robot;
 
+import org.usfirst.frc.team4.robot.commands.ClimbStateController;
 import org.usfirst.frc.team4.robot.commands.DriveToggle;
 import org.usfirst.frc.team4.robot.commands.GearToggle;
 import org.usfirst.frc.team4.robot.commands.ToggleClimb;
@@ -25,6 +26,9 @@ public class OI {
 		ControllerConstants.operatorStart.whenPressed(new ToggleClimb());
 		
 		ControllerConstants.operatorA.whenPressed(new TogglePortcullisActuator());
+		
+		ControllerConstants.operatorPOVBot.whenPressed(new ClimbStateController(ControllerConstants.POV_BOT));
+		ControllerConstants.operatorPOVTop.whenPressed(new ClimbStateController(ControllerConstants.POV_TOP));
 	}
 
 	public boolean L1(Joystick cont) {

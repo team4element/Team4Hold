@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ClimbController extends Command {
 
-	SetArmAngles setArmAngles;
+	private SetArmAngles setArmAngles;
 
 	// TODO: Change to actual values
 	private double kStartingAngle = 0, kFirstTopAngle = 70, kFirstBotAngle = 0, kSecondBotAngle = 70,
@@ -23,15 +23,19 @@ public class ClimbController extends Command {
 	protected void initialize() {
 		switch (Robot.climb.currentClimbState) {
 		case BOTH_ARMS_DOWN:
+			setArmAngles.end();
 			setArmAngles = new SetArmAngles(kStartingAngle, kStartingAngle);
 			break;
 		case TOP_ARM_RISING:
+			setArmAngles.end();
 			setArmAngles = new SetArmAngles(kStartingAngle, kFirstTopAngle);
 			break;
 		case BOTH_ARMS_RISING:
+			setArmAngles.end();
 			setArmAngles = new SetArmAngles(kSecondBotAngle, kSecondTopAngle);
 			break;
 		case PULLING_UP:
+			setArmAngles.end();
 			Robot.climb.isClimbing = true;
 			break;
 		case DONE:
