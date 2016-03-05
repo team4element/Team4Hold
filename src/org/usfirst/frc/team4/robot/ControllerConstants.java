@@ -31,6 +31,12 @@ public class ControllerConstants {
 
 	public static final int AXIS_RIGHT_Y = 5;
 	public static final int AXIS_RIGHT_X = 4;
+	
+	public static final int POV_TOP = 2;
+	public static final int POV_BOT = 3;
+	
+	public static final int POV_LEFT = 4;
+	public static final int POV_RIGHT = 5;
 
 	// Drive Controller
 	public static Joystick driveController;
