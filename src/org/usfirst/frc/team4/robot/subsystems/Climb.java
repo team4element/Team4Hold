@@ -17,6 +17,12 @@ public class Climb extends Subsystem {
 	// TODO: Change to Actual Value
 	private final double kPotScaleFactor = 1;
 	
+	public enum ClimbState {
+		BOTH_ARMS_DOWN, TOP_ARM_RISING, BOTH_ARMS_RISING, PULLING_UP, DONE;
+	}
+
+	public ClimbState currentClimbState = ClimbState.BOTH_ARMS_DOWN;
+	
 	public boolean isClimbing = false;
 
 	public Climb() {
