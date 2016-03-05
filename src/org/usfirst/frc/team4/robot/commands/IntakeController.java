@@ -26,13 +26,16 @@ public class IntakeController extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		armSpeed = ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGER_LEFT_2)
-				- ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGE_RIGHT_2);
-		// Cut speed in half
-		armSpeedSquared = armSpeed * -Math.abs(armSpeed) * .50;
-		armSpeedFiltered = jerkFilter(armSpeedSquared, JERK_FILTER);
+		if (!Robot.climb.isClimbing) {
 
-		Robot.intake.setArmAngle(armSpeedFiltered);
+			armSpeed = ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGER_LEFT_2)
+					- ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGE_RIGHT_2);
+			// Cut speed in half
+			armSpeedSquared = armSpeed * -Math.abs(armSpeed) * .50;
+			armSpeedFiltered = jerkFilter(armSpeedSquared, JERK_FILTER);
+
+			Robot.intake.setArmAngle(armSpeedFiltered);
+		}
 
 		if (ControllerConstants.operatorLeftBumper1.get()) {
 			Robot.intake.setRollerSpeed(1);
