@@ -28,8 +28,8 @@ public class IntakeController extends Command {
 
 		if (!Robot.climb.isClimbing) {
 
-			armSpeed = ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGER_LEFT_2)
-					- ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGE_RIGHT_2);
+			armSpeed = ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGE_RIGHT_2)
+					- ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGER_LEFT_2);
 			// Cut speed in half
 			armSpeedSquared = armSpeed * -Math.abs(armSpeed) * .50;
 			armSpeedFiltered = jerkFilter(armSpeedSquared, JERK_FILTER);
