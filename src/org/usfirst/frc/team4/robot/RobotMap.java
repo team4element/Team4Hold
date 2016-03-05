@@ -25,7 +25,5 @@ public class RobotMap {
 	// Intake
 	public static int kIntakeMotorRoller = 1;
 	public static int kIntakeMotorArm = 0;
-	
-	public static int kIntakeLimitSwitch = 4;
 
 }

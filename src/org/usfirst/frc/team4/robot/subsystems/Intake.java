@@ -20,8 +20,6 @@ public class Intake extends Subsystem {
 		intakeArm = new VictorSP(RobotMap.kIntakeMotorArm);
 	}
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
 	public void initDefaultCommand() {
 		setDefaultCommand(new IntakeController());
 	}
