@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 
 	public OI() {
-		ControllerConstants.driveLeftButton3.whenPressed(new DriveToggle());
+		ControllerConstants.driveY.whenPressed(new DriveToggle());
 
 		ControllerConstants.driveLeftBumper1.whenPressed(new GearToggle());
 		ControllerConstants.driveRightBumper1.whenPressed(new GearToggle());
