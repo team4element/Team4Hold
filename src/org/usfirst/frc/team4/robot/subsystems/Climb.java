@@ -24,8 +24,7 @@ public class Climb extends Subsystem {
 	}
 
 	public ClimbState[] climbStates = ClimbState.values();
-	public int currentClimbInt = 0;
-	public ClimbState currentClimbState = climbStates[currentClimbInt];
+	public ClimbState currentClimbState = climbStates[0];
 
 	public boolean isClimbing = false;
 
