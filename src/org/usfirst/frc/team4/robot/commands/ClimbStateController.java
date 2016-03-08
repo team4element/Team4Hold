@@ -2,7 +2,6 @@ package org.usfirst.frc.team4.robot.commands;
 
 import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.Robot;
-import org.usfirst.frc.team4.robot.subsystems.Climb.ClimbState;
 
 import edu.wpi.first.wpilibj.command.Command;
 
