@@ -13,7 +13,7 @@ public class IntakeController extends Command {
 	private double armSpeed = 0, armSpeedSquared = 0;
 	// Jerk Reduction
 	private double armSpeedFiltered = 0;
-	private final double JERK_FILTER = .4;
+	private final double JERK_FILTER = .35;
 
 	public IntakeController() {
 		requires(Robot.intake);
@@ -38,9 +38,9 @@ public class IntakeController extends Command {
 		}
 
 		if (ControllerConstants.operatorLeftBumper1.get()) {
-			Robot.intake.setRollerSpeed(1);
+			Robot.intake.setRollerSpeed(jerkFilter(1, JERK_FILTER));
 		} else if (ControllerConstants.operatorRightBumper1.get()) {
-			Robot.intake.setRollerSpeed(-1);
+			Robot.intake.setRollerSpeed(jerkFilter(-1, JERK_FILTER));
 		} else {
 			Robot.intake.stopRoller();
 			System.out.println("No button pressed.");
