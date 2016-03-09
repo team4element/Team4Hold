@@ -5,7 +5,6 @@ import org.usfirst.frc.team4.robot.commands.DriveToggle;
 import org.usfirst.frc.team4.robot.commands.GearToggle;
 import org.usfirst.frc.team4.robot.commands.ToggleClimb;
 import org.usfirst.frc.team4.robot.commands.ToggleInverseDrive;
-import org.usfirst.frc.team4.robot.commands.TogglePortcullisActuator;
 
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -25,8 +24,8 @@ public class OI {
 		
 		ControllerConstants.operatorStart.whenPressed(new ToggleClimb());
 		
-		ControllerConstants.operatorA.whenPressed(new TogglePortcullisActuator());
-		
+		//ControllerConstants.operatorA.whenPressed(new TogglePortcullisActuator());
+	
 		ControllerConstants.operatorPOVBot.whenPressed(new ClimbStateController(ControllerConstants.POV_BOT));
 		ControllerConstants.operatorPOVTop.whenPressed(new ClimbStateController(ControllerConstants.POV_TOP));
 	}

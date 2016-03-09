@@ -43,7 +43,6 @@ public class IntakeController extends Command {
 			Robot.intake.setRollerSpeed(jerkFilter(-1, JERK_FILTER));
 		} else {
 			Robot.intake.stopRoller();
-			System.out.println("No button pressed.");
 		}
 	}
 

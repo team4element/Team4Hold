@@ -16,7 +16,7 @@ public class SetArmAngles extends Command {
 	// TODO: Change to actual values
 	private final double TOP_kP = .05, TOP_kI = 0, TOP_kD = 0;
 	private final double BOT_kP = .05, BOT_kI = 0, BOT_kD = 0;
-	private final double kAbsoluteValue = .1;
+	private final double kAbsoluteValue = .001;
 
 	private PIDController botArmPID, topArmPID;
 
@@ -41,7 +41,8 @@ public class SetArmAngles extends Command {
 			}
 		}, new PIDOutput() {
 			public void pidWrite(double angle) {
-				Robot.climb.setBotMotorSpeed(angle);
+				Robot.climb.setBotMotorSpeed(-angle);
+				System.out.println("Bot Worked");
 			}
 		});
 		botArmPID.setSetpoint(botAngle);
@@ -65,7 +66,8 @@ public class SetArmAngles extends Command {
 			}
 		}, new PIDOutput() {
 			public void pidWrite(double angle) {
-				Robot.climb.setTopMotorSpeed(angle);
+				Robot.climb.setTopMotorSpeed(-angle);
+				System.out.println("Top Worked");
 			}
 		});
 		topArmPID.setSetpoint(botAngle);
@@ -82,13 +84,12 @@ public class SetArmAngles extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		// To keep angle no matter what
-		return false;
-		// botArmPID.onTarget() && topArmPID.onTarget();
+		return botArmPID.onTarget() && topArmPID.onTarget();
 	}
 
 	// Called once after isFinished returns true

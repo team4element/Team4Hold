@@ -37,8 +37,8 @@ public class Climb extends Subsystem {
 		winchFrontMotor = new VictorSP(RobotMap.kClimbWinchMotorFront);
 		winchBackMotor = new VictorSP(RobotMap.kClimbWinchMotorBack);
 
-		potTop = new AnalogPotentiometer(RobotMap.kClimbArmPotTop, kPotScaleFactor);
-		potBot = new AnalogPotentiometer(RobotMap.kClimbArmPotBot, kPotScaleFactor);
+		potTop = new AnalogPotentiometer(RobotMap.kClimbArmPotTop);
+		potBot = new AnalogPotentiometer(RobotMap.kClimbArmPotBot);
 	}
 
 	public void initDefaultCommand() {
