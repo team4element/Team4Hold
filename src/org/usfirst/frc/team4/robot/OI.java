@@ -23,8 +23,6 @@ public class OI {
 		ControllerConstants.driveA.whenPressed(new ToggleInverseDrive());
 		
 		ControllerConstants.operatorStart.whenPressed(new ToggleClimb());
-		
-		//ControllerConstants.operatorA.whenPressed(new TogglePortcullisActuator());
 	
 		ControllerConstants.operatorPOVBot.whenPressed(new ClimbStateController(ControllerConstants.POV_BOT));
 		ControllerConstants.operatorPOVTop.whenPressed(new ClimbStateController(ControllerConstants.POV_TOP));
