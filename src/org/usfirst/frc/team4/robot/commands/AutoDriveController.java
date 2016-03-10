@@ -41,7 +41,7 @@ public class AutoDriveController extends Command {
 			}
 		}, new PIDOutput() {
 			public void pidWrite(double output) {
-				speed = output;
+				speed = -output;
 			}
 		});
 		distancePID.setSetpoint(distance);
@@ -65,7 +65,7 @@ public class AutoDriveController extends Command {
 			}
 		}, new PIDOutput() {
 			public void pidWrite(double angle) {
-				Robot.chassis.arcadeDrive(-speed, angle);
+				Robot.chassis.arcadeDrive(speed, angle);
 			}
 		});
 		rotatePID.setSetpoint(angle);

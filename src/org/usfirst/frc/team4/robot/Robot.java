@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4.robot;
 
+import org.usfirst.frc.team4.robot.commands.Autonomous;
 import org.usfirst.frc.team4.robot.subsystems.Chassis;
 import org.usfirst.frc.team4.robot.subsystems.Climb;
 import org.usfirst.frc.team4.robot.subsystems.Intake;
@@ -78,7 +79,8 @@ public class Robot extends IterativeRobot {
 	 * or additional FUNCTIONS comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
+        // autonomousCommand = (Command) chooser.getSelected();
+    	autonomousCommand = new Autonomous();
     	/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
 		case "My Auto":
