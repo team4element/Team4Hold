@@ -60,15 +60,7 @@ public class Chassis extends Subsystem {
 		rightEncoder = new Encoder(RobotMap.kChassisRightEncoderForward, RobotMap.kChassisRightEncoderReverse);
 
 		gyro = new AnalogGyro(RobotMap.kGyro);
-
-		LiveWindow.addActuator("Chassis", "Front_Left Motor", leftFwd);
-		LiveWindow.addActuator("Chassis", "Back Left Motor", leftBwd);
-		LiveWindow.addActuator("Chassis", "Front Right Motor", rightFwd);
-		LiveWindow.addActuator("Chassis", "Back Right Motor", rightBwd);
-		LiveWindow.addSensor("Chassis", "Left Encoder", leftEncoder);
-		LiveWindow.addSensor("Chassis", "Right Encoder", rightEncoder);
-		LiveWindow.addSensor("Chassis", "Gyro", gyro);
-
+		
 	}
  
 	public void initDefaultCommand() {
@@ -139,12 +131,24 @@ public class Chassis extends Subsystem {
 		leftEncoder.reset();
 		rightEncoder.reset();
 	}
+	
+	private String getCurrentGear(){
+		return currentGear.toString();
+	}
+	
+	private String getCurrentDriveMode(){
+		return driveState.toString();
+	}
+	
+	private String getCurrentDriveState(){
+		return isDriveInverse ? "Normal Drive" : "Reverse Drive";
+	}
 
 	public void log() {
-		SmartDashboard.putNumber("Distance", (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
-		SmartDashboard.putNumber("Left Speed", leftEncoder.getRate());
-		SmartDashboard.putNumber("Right Speed", rightEncoder.getRate());
-		SmartDashboard.putNumber("Average Speed", (rightEncoder.getRate() + leftEncoder.getRate()) / 2);
+		SmartDashboard.putNumber("Robot Speed", (rightEncoder.getRate() + leftEncoder.getRate()) / 2);
+		SmartDashboard.putString("Drive Mode", getCurrentDriveMode());
+		SmartDashboard.putString("Current Gear", getCurrentGear());
+		SmartDashboard.putString("Current State", getCurrentDriveState());
 		SmartDashboard.putNumber("Gyro", gyro.getAngle());
 	}
 }

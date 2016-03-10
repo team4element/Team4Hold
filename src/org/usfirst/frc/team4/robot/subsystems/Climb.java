@@ -6,6 +6,7 @@ import org.usfirst.frc.team4.robot.commands.ManualClimbArmController;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Climb extends Subsystem {
 	// TODO: Change to Actual Value
 	private final double kPotScaleFactor = 1;
 
-	public boolean isPortculisUp = false;
+	public boolean isPortculisUp = true;
 
 	public enum ClimbState {
 		BOTH_ARMS_DOWN, TOP_ARM_RISING, BOTH_ARMS_RISING, PULLING_UP, DONE;
@@ -82,4 +83,16 @@ public class Climb extends Subsystem {
 		return speed * Math.abs(speed);
 	}
 
+
+public void log() {
+        SmartDashboard.getString("Winch", isWinch());
+    }
+
+    private String isWinch() {
+        if (isClimbing = true) {
+            return "Enabled";
+        } else {
+            return "Disabled";
+        }
+    }
 }

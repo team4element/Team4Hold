@@ -5,6 +5,7 @@ import org.usfirst.frc.team4.robot.subsystems.Chassis;
 import org.usfirst.frc.team4.robot.subsystems.Climb;
 import org.usfirst.frc.team4.robot.subsystems.Intake;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -25,9 +26,16 @@ public class Robot extends IterativeRobot {
 	public static Chassis chassis;
 	public static Intake intake;
 	public static Climb climb;
+	private CameraServer cameraServer;
     Command autonomousCommand;
     SendableChooser chooser;
 
+    public Robot(){
+        cameraServer = CameraServer.getInstance();
+        cameraServer.setQuality(50);
+        cameraServer.startAutomaticCapture("cam2");
+    }
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
