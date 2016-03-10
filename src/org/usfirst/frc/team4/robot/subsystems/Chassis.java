@@ -143,9 +143,13 @@ public class Chassis extends Subsystem {
 	private String getCurrentDriveState(){
 		return isDriveInverse ? "Normal Drive" : "Reverse Drive";
 	}
+	
+	private double getRate(){
+		return (rightEncoder.getRate() + leftEncoder.getRate()) / 2;
+	}
 
 	public void log() {
-		SmartDashboard.putNumber("Robot Speed", (rightEncoder.getRate() + leftEncoder.getRate()) / 2);
+		SmartDashboard.putNumber("Robot Speed", getRate());
 		SmartDashboard.putString("Drive Mode", getCurrentDriveMode());
 		SmartDashboard.putString("Current Gear", getCurrentGear());
 		SmartDashboard.putString("Current State", getCurrentDriveState());
