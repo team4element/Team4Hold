@@ -27,4 +27,14 @@ public class Rumble {
 		controller.setRumble(RumbleType.kRightRumble, rumbleMagnitude);
 	}
 	
+	public Rumble(Joystick controller,float rumbleMagnitude, double delay){
+		controller.setRumble(RumbleType.kLeftRumble, rumbleMagnitude);
+		controller.setRumble(RumbleType.kRightRumble, rumbleMagnitude);
+
+		Timer.delay(delay);
+
+		controller.setRumble(RumbleType.kLeftRumble, rumbleMagnitude);
+		controller.setRumble(RumbleType.kRightRumble, rumbleMagnitude);
+	}
+	
 }
