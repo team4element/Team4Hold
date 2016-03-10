@@ -1,7 +1,10 @@
 package org.usfirst.frc.team4.robot.commands;
 
+import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -14,6 +17,15 @@ public class ToggleClimb extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
+		ControllerConstants.operatorController.setRumble(RumbleType.kLeftRumble, .75f);
+		ControllerConstants.operatorController.setRumble(RumbleType.kRightRumble, .75f);
+
+		Timer.delay(.15);
+
+		ControllerConstants.operatorController.setRumble(RumbleType.kLeftRumble, 0);
+		ControllerConstants.operatorController.setRumble(RumbleType.kRightRumble, 0);
+    	
     	Robot.climb.isClimbing = !Robot.climb.isClimbing;
     }
 
