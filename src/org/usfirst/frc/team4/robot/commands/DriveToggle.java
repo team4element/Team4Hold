@@ -6,8 +6,6 @@ import org.usfirst.frc.team4.robot.subsystems.Chassis.DriveState;
 
 import com.team4element.library.Rumble;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
