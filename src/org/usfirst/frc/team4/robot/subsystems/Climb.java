@@ -83,16 +83,12 @@ public class Climb extends Subsystem {
 		return speed * Math.abs(speed);
 	}
 
+	private String isWinch() {
+		return isClimbing ? "Enabled" : "Disabled";
+	}
+	
+	public void log() {
+		SmartDashboard.getString("Winch", isWinch());
+	}
 
-public void log() {
-        SmartDashboard.getString("Winch", isWinch());
-    }
-
-    private String isWinch() {
-        if (isClimbing = true) {
-            return "Enabled";
-        } else {
-            return "Disabled";
-        }
-    }
 }
