@@ -87,6 +87,7 @@ public class Chassis extends Subsystem {
 	}
 
 	public void arcadeDrive(GenericHID stick) {
+		
 		// Squared to make slower speeds easier
 		if (!isDriveInverse) {
 			drive.arcadeDrive(
@@ -103,6 +104,10 @@ public class Chassis extends Subsystem {
 							kJERK_REDUCTION),
 					true);
 		}
+	}
+	
+	public void arcadeDrive(double speed, double angle){
+		drive.arcadeDrive(speed, angle);
 	}
 
 	public void stop() {
