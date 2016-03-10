@@ -1,7 +1,10 @@
 package org.usfirst.frc.team4.robot.commands;
 
+import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -16,6 +19,15 @@ public class ToggleInverseDrive extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
+		ControllerConstants.driveController.setRumble(RumbleType.kLeftRumble, .75f);
+		ControllerConstants.driveController.setRumble(RumbleType.kRightRumble, .75f);
+
+		Timer.delay(.15);
+
+		ControllerConstants.driveController.setRumble(RumbleType.kLeftRumble, 0);
+		ControllerConstants.driveController.setRumble(RumbleType.kRightRumble, 0);
+    	
     	Robot.chassis.isDriveInverse = !Robot.chassis.isDriveInverse;
     }
 
