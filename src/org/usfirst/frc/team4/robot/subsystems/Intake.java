@@ -1,10 +1,12 @@
 package org.usfirst.frc.team4.robot.subsystems;
 
+import org.usfirst.frc.team4.robot.Robot;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.IntakeController;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -43,6 +45,14 @@ public class Intake extends Subsystem {
 	public void stop(){
 		stopArm();
 		stopRoller();
+	}
+	
+	private String intakeStatus() {
+		return Robot.climb.isClimbing ? "Disabled" : "Enabled";
+	}
+	
+	public void log() {
+		SmartDashboard.getString("Intake: ", intakeStatus());
 	}
 	
 }
