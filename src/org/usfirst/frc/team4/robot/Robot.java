@@ -128,5 +128,6 @@ public class Robot extends IterativeRobot {
     private void log() {
        chassis.log();
        climb.log();
+       intake.log();
     }
 }
