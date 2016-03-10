@@ -4,6 +4,8 @@ import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.Robot;
 import org.usfirst.frc.team4.robot.subsystems.Chassis.DriveState;
 
+import com.team4element.library.Rumble;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
@@ -13,30 +15,21 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveToggle extends Command {
 
+	private Rumble rumble;
+	
 	public DriveToggle() {
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		if (Robot.chassis.driveState == DriveState.TANK) {
-			ControllerConstants.driveController.setRumble(RumbleType.kLeftRumble, .75f);
-			ControllerConstants.driveController.setRumble(RumbleType.kRightRumble, .75f);
-
-			Timer.delay(.15);
-
-			ControllerConstants.driveController.setRumble(RumbleType.kLeftRumble, 0);
-			ControllerConstants.driveController.setRumble(RumbleType.kRightRumble, 0);
+			
+			rumble = new Rumble(ControllerConstants.driveController);
 			
 			Robot.chassis.driveState = DriveState.ARCADE;
 		} else {
 
-			ControllerConstants.driveController.setRumble(RumbleType.kLeftRumble, .75f);
-			ControllerConstants.driveController.setRumble(RumbleType.kRightRumble, .75f);
-
-			Timer.delay(.15);
-
-			ControllerConstants.driveController.setRumble(RumbleType.kLeftRumble, 0);
-			ControllerConstants.driveController.setRumble(RumbleType.kRightRumble, 0);
+			rumble = new Rumble(ControllerConstants.driveController);
 
 			Robot.chassis.driveState = DriveState.TANK;
 		}

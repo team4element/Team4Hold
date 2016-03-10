@@ -4,20 +4,21 @@ import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.Drive;
 
+import com.team4element.library.JerkFilter;
+
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class Chassis extends Subsystem {
-
+	
 	// Toggle Drive
 	public enum DriveState {
 		ARCADE, TANK;
@@ -38,6 +39,7 @@ public class Chassis extends Subsystem {
 	private VictorSP leftFwd, leftBwd, rightFwd, rightBwd;
 	private RobotDrive drive;
 	private Encoder leftEncoder, rightEncoder;
+	private JerkFilter jerkFilter;
 	private AnalogGyro gyro;
 
 	public Chassis() {

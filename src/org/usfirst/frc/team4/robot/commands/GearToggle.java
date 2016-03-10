@@ -1,11 +1,11 @@
 package org.usfirst.frc.team4.robot.commands;
 
-import org.usfirst.frc.team4.robot.Robot;
 import org.usfirst.frc.team4.robot.ControllerConstants;
+import org.usfirst.frc.team4.robot.Robot;
 import org.usfirst.frc.team4.robot.subsystems.Chassis.DriveSpeed;
 
-import edu.wpi.first.wpilibj.Joystick.RumbleType;
-import edu.wpi.first.wpilibj.Timer;
+import com.team4element.library.Rumble;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -13,37 +13,27 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GearToggle extends Command {
 
+	private Rumble rumble;
+
 	public GearToggle() {
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		if (Robot.oi.R1(ControllerConstants.driveController)) {
-			
-			if (Robot.chassis.currentGear != DriveSpeed.HIGH){
-				ControllerConstants.driveController.setRumble(RumbleType.kLeftRumble, .75f);
-				ControllerConstants.driveController.setRumble(RumbleType.kRightRumble, .75f);
-	
-				Timer.delay(.15);
-	
-				ControllerConstants.driveController.setRumble(RumbleType.kLeftRumble, 0);
-				ControllerConstants.driveController.setRumble(RumbleType.kRightRumble, 0);
+
+			if (Robot.chassis.currentGear != DriveSpeed.HIGH) {
+				rumble = new Rumble(ControllerConstants.driveController);
 			}
-			
+
 			Robot.chassis.currentGear = DriveSpeed.HIGH;
-			
+
 		} else if (Robot.oi.L1(ControllerConstants.driveController)) {
 
-			if (Robot.chassis.currentGear != DriveSpeed.LOW){
-				ControllerConstants.driveController.setRumble(RumbleType.kLeftRumble, .75f);
-				ControllerConstants.driveController.setRumble(RumbleType.kRightRumble, .75f);
-	
-				Timer.delay(.15);
-	
-				ControllerConstants.driveController.setRumble(RumbleType.kLeftRumble, 0);
-				ControllerConstants.driveController.setRumble(RumbleType.kRightRumble, 0);
+			if (Robot.chassis.currentGear != DriveSpeed.LOW) {
+				rumble = new Rumble(ControllerConstants.driveController);
 			}
-			
+
 			Robot.chassis.currentGear = DriveSpeed.LOW;
 
 		} else {
