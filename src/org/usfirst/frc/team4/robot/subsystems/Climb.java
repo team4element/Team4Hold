@@ -88,7 +88,7 @@ public class Climb extends Subsystem {
 	}
 	
 	public void log() {
-		SmartDashboard.getString("Winch", isWinchEnabled());
+		SmartDashboard.getString("Winch", winchStatus());
 	}
 
 }
