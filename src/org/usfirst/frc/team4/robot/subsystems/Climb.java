@@ -79,6 +79,11 @@ public class Climb extends Subsystem {
 		winchFrontMotor.stopMotor();
 	}
 
+	public void stopArms(){
+		armBotMotor.stopMotor();
+		armTopMotor.stopMotor();
+	}
+	
 	private double squareInput(double speed) {
 		return speed * Math.abs(speed);
 	}
