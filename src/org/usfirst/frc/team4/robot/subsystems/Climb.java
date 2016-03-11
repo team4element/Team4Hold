@@ -60,7 +60,7 @@ public class Climb extends Subsystem {
 		if (isClimbing) {
 			// Fail safe to prevent gearbox from breaking
 			double absoluteSpeed = -squareInput(speed);
-
+			
 			winchFrontMotor.set(absoluteSpeed);
 			winchBackMotor.set(absoluteSpeed);
 		}
