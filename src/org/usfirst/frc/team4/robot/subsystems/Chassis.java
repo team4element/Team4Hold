@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -39,6 +40,7 @@ public class Chassis extends Subsystem {
 	private RobotDrive drive;
 	private Encoder leftEncoder, rightEncoder;
 	private AnalogGyro gyro;
+	//private SPI gyroN;
 
 	public Chassis() {
 		// Registers Subsystem
@@ -61,6 +63,8 @@ public class Chassis extends Subsystem {
 
 		gyro = new AnalogGyro(RobotMap.kGyro);
 		
+		//gyroN = new SPI(RobotMap.kGyro);
+		//SPI gyro = new SPI(RobotMap.kgyro)
 	}
  
 	public void initDefaultCommand() {
@@ -86,6 +90,10 @@ public class Chassis extends Subsystem {
 		}
 	}
 
+	public void arcadeDrive(double speed){
+		drive.arcadeDrive(speed, 0);
+	}
+	
 	public void arcadeDrive(GenericHID stick) {
 		// Squared to make slower speeds easier
 		if (!isDriveInverse) {
