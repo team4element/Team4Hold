@@ -18,7 +18,7 @@ public class Climb extends Subsystem {
 	// TODO: Change to Actual Value
 	private final double kPotScaleFactor = 1;
 
-	public boolean isPortculisUp = true;
+	public boolean isPortculisUp = false;
 
 	public enum ClimbState {
 		BOTH_ARMS_DOWN, TOP_ARM_RISING, BOTH_ARMS_RISING, PULLING_UP, DONE;
