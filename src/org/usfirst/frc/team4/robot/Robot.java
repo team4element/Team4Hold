@@ -33,7 +33,7 @@ public class Robot extends IterativeRobot {
     public Robot(){
         cameraServer = CameraServer.getInstance();
         cameraServer.setQuality(50);
-        cameraServer.startAutomaticCapture("cam2");
+        cameraServer.startAutomaticCapture("cam0");
     }
     
     /**
