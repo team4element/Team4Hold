@@ -14,11 +14,11 @@ public class SecondAutonomous extends CommandGroup {
 		addSequential(new BringArmsDown(), 1); 
 		
 		// Change to actual values
-		addSequential(new AutoDriveController(254, 0));
+		addSequential(new AutoDriveController(238.2, 0));
 		
-		addSequential(new AutoDriveController(0, 90));
+		addSequential(new AutoDriveController(0, 60));
 		
-		addSequential(new AutoDriveController(254, 0));
+		addSequential(new AutoDriveController(61.3, 0));
 		
 		addSequential(new OutTakeBall(), 3);
 	}

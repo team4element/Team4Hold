@@ -14,11 +14,15 @@ public class FourthAutonomous extends CommandGroup {
 		addSequential(new BringArmsDown(), 1); 
 		
 		// Change to actual values
-		addSequential(new AutoDriveController(254, 0));
+		addSequential(new AutoDriveController(177.5, 0));
 		
-		addSequential(new AutoDriveController(0, 90));
+		addSequential(new AutoDriveController(0, 35));
 		
-		addSequential(new AutoDriveController(254, 0));
+		addSequential(new AutoDriveController(91.6, 0));
+		
+		addSequential(new AutoDriveController(0, 84));
+		
+		addSequential(new AutoDriveController(35, 0));
 		
 		addSequential(new OutTakeBall(), 3);
 	}
