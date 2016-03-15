@@ -1,8 +1,5 @@
 package org.usfirst.frc.team4.robot.commands;
 
-import org.usfirst.frc.team4.robot.ControllerConstants;
-import org.usfirst.frc.team4.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -19,6 +16,7 @@ public class ClimbStateController extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		/*
 		if (button == ControllerConstants.POV_TOP) {
 			Robot.climb.currentClimbState = Robot.climb.climbStates[Robot.climb.currentClimbState.ordinal() + 1];
 		} else if (button == ControllerConstants.POV_BOT) {
@@ -34,6 +32,7 @@ public class ClimbStateController extends Command {
 		} else {
 			System.out.println("Something went wrong ;(");
 		}
+		*/
 	}
 
 	// Called repeatedly when this Command is scheduled to run

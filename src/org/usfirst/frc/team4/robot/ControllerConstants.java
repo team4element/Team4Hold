@@ -31,12 +31,6 @@ public class ControllerConstants {
 
 	public static final int AXIS_RIGHT_Y = 5;
 	public static final int AXIS_RIGHT_X = 4;
-	
-	public static final int POV_TOP = 0;
-	public static final int POV_BOT = 180;
-	
-	public static final int POV_LEFT = 270;
-	public static final int POV_RIGHT = 90;
 
 	// Drive Controller
 	public static Joystick driveController;
@@ -58,12 +52,6 @@ public class ControllerConstants {
 	public static JoystickButton driveSelect;
 	public static JoystickButton driveStart;
 	
-	public static JoystickButton drivePOVTop;
-	public static JoystickButton drivePOVBot;
-
-	public static JoystickButton drivePOVLeft;
-	public static JoystickButton drivePOVRight;
-	
 	// Operator Controller
 	public static Joystick operatorController;
 	
@@ -83,12 +71,6 @@ public class ControllerConstants {
 
 	public static JoystickButton operatorSelect;
 	public static JoystickButton operatorStart;
-	
-	public static JoystickButton operatorPOVTop;
-	public static JoystickButton operatorPOVBot;
-
-	public static JoystickButton operatorPOVLeft;
-	public static JoystickButton operatorPOVRight;
 
 
 	// Joystick and Button Initializer
@@ -113,12 +95,6 @@ public class ControllerConstants {
 		driveSelect = new JoystickButton(driveController, BUTTON_SELECT);
 		driveStart = new JoystickButton(driveController, BUTTON_START);
 		
-		drivePOVTop = new JoystickButton(operatorController, POV_TOP);
-		drivePOVBot = new JoystickButton(operatorController, POV_BOT);
-
-		drivePOVLeft = new JoystickButton(operatorController, POV_LEFT);
-		drivePOVRight = new JoystickButton(operatorController, POV_RIGHT);
-		
 		// Operator Controller
 		operatorController = new Joystick(CONTROLLER_OPERATOR);
 
@@ -138,12 +114,6 @@ public class ControllerConstants {
 
 		operatorSelect = new JoystickButton(operatorController, BUTTON_SELECT);
 		operatorStart = new JoystickButton(operatorController, BUTTON_START);
-		
-		operatorPOVTop = new JoystickButton(operatorController, POV_TOP);
-		operatorPOVBot = new JoystickButton(operatorController, POV_BOT);
-
-		operatorPOVLeft = new JoystickButton(operatorController, POV_LEFT);
-		operatorPOVRight = new JoystickButton(operatorController, POV_RIGHT);
 	}
 
 }

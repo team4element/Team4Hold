@@ -24,8 +24,8 @@ public class OI {
 		
 		ControllerConstants.operatorStart.whenPressed(new ToggleClimb());
 	
-		ControllerConstants.operatorPOVBot.whenPressed(new ClimbStateController(ControllerConstants.POV_BOT));
-		ControllerConstants.operatorPOVTop.whenPressed(new ClimbStateController(ControllerConstants.POV_TOP));
+		//ControllerConstants.operatorPOVBot.whenPressed(new ClimbStateController(ControllerConstants.POV_BOT));
+		//ControllerConstants.operatorPOVTop.whenPressed(new ClimbStateController(ControllerConstants.POV_TOP));
 	}
 
 	public boolean L1(Joystick cont) {

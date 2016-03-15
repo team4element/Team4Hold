@@ -48,7 +48,7 @@ public class Climb extends Subsystem {
 
 	public void setTopMotorSpeed(double speed) {
 		// Motor's are reversed
-		armTopMotor.set(-squareInput(speed) * .75);
+		armTopMotor.set(-squareInput(speed) * .60);
 	}
 
 	public void setBotMotorSpeed(double speed) {
