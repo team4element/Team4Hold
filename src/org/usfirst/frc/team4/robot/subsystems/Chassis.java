@@ -86,6 +86,10 @@ public class Chassis extends Subsystem {
 		}
 	}
 
+	public void arcadeDrive(double speed){
+		drive.arcadeDrive(speed, 0);
+	}
+	
 	public void arcadeDrive(GenericHID stick) {
 		
 		// Squared to make slower speeds easier
