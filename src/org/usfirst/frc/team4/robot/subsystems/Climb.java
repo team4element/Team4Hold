@@ -3,6 +3,8 @@ package org.usfirst.frc.team4.robot.subsystems;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.ManualClimbArmController;
 
+import com.team4element.library.ElementMath;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,7 +18,7 @@ public class Climb extends Subsystem {
 	private VictorSP armTopMotor, armBotMotor, winchFrontMotor, winchBackMotor;
 	private AnalogPotentiometer potTop, potBot;
 	// TODO: Change to Actual Value
-	private final double kPotScaleFactor = 1;
+	//private final double kPotScaleFactor = 1;
 
 	public boolean isPortculisUp = true;
 
@@ -48,18 +50,17 @@ public class Climb extends Subsystem {
 
 	public void setTopMotorSpeed(double speed) {
 		// Motor's are reversed
-		armTopMotor.set(-squareInput(speed) * .75);
+		armTopMotor.set(-ElementMath.squareNumber(speed) * .75);
 	}
 
 	public void setBotMotorSpeed(double speed) {
 		// Motor's are reversed
-		armBotMotor.set(-squareInput(speed));
+		armBotMotor.set(-ElementMath.squareNumber(speed));
 	}
 
 	public void setWinchSpeed(double speed) {
 		if (isClimbing) {
-			// Fail safe to prevent gearbox from breaking
-			double absoluteSpeed = -squareInput(speed);
+			double absoluteSpeed = ElementMath.squareNumber(speed);
 
 			winchFrontMotor.set(absoluteSpeed);
 			winchBackMotor.set(absoluteSpeed);
@@ -82,10 +83,6 @@ public class Climb extends Subsystem {
 	public void stopArms(){
 		armBotMotor.stopMotor();
 		armTopMotor.stopMotor();
-	}
-	
-	private double squareInput(double speed) {
-		return speed * Math.abs(speed);
 	}
 
 	private String winchStatus() {

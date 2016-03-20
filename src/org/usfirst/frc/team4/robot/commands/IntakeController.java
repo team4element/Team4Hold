@@ -3,6 +3,8 @@ package org.usfirst.frc.team4.robot.commands;
 import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.Robot;
 
+import com.team4element.library.ElementMath;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -30,11 +32,8 @@ public class IntakeController extends Command {
 
 			armSpeed = ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGE_RIGHT_2)
 					- ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGER_LEFT_2);
-			// Cut speed in half
-			armSpeedSquared = armSpeed * -Math.abs(armSpeed) * .50;
-			armSpeedFiltered = jerkFilter(armSpeedSquared, JERK_FILTER);
 
-			Robot.intake.setArmAngle(armSpeedFiltered);
+			Robot.intake.setArmAngle(armSpeed);
 		}
 
 		if (ControllerConstants.operatorLeftBumper1.get()) {

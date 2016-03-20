@@ -4,6 +4,8 @@ import org.usfirst.frc.team4.robot.Robot;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.IntakeController;
 
+import com.team4element.library.ElementMath;
+
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,7 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Intake extends Subsystem {
 
 	private VictorSP intakeRoller, intakeArm;
-
+	private double kMaxArmSpeed = .5;	
+	
 	public Intake() {
 		super();
 
@@ -31,7 +34,7 @@ public class Intake extends Subsystem {
 	}
 
 	public void setArmAngle(double angle) {
-		intakeArm.set(angle);
+		intakeArm.set(ElementMath.squareNumber(angle) * kMaxArmSpeed);
 	}
 
 	public void stopRoller(){

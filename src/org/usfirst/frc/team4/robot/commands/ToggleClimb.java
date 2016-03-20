@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ToggleClimb extends Command {
-
-	public ToggleClimb() {
+	
+    public ToggleClimb() {
     }
 
     // Called just before this Command runs the first time
