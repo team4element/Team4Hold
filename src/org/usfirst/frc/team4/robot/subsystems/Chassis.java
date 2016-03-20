@@ -4,8 +4,6 @@ import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.Drive;
 
-import com.team4element.library.JerkFilter;
-
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -33,13 +31,12 @@ public class Chassis extends Subsystem {
 	public DriveState driveState = DriveState.TANK;
 	public boolean isDriveInverse = false;
 
-	private Double kJERK_REDUCTION = .2;
+	private double kJerkReduction = .2, kMaxTurnSpeed = .8;
 
 	// TODO: Change to actual speed controller
 	private VictorSP leftFwd, leftBwd, rightFwd, rightBwd;
 	private RobotDrive drive;
 	private Encoder leftEncoder, rightEncoder;
-	private JerkFilter jerkFilter;
 	private AnalogGyro gyro;
 
 	public Chassis() {
@@ -74,16 +71,16 @@ public class Chassis extends Subsystem {
 		if (!isDriveInverse) {
 			drive.tankDrive(
 					driveFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
+							kJerkReduction),
 					driveFilter(c.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
+							kJerkReduction),
 					true);
 		} else {
 			drive.tankDrive(
 					-driveFilter(c.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
+							kJerkReduction),
 					-driveFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
+							kJerkReduction),
 					true);
 		}
 	}
@@ -94,16 +91,16 @@ public class Chassis extends Subsystem {
 		if (!isDriveInverse) {
 			drive.arcadeDrive(
 					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
-					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * gearSetter(currentGear),
-							kJERK_REDUCTION),
+							kJerkReduction),
+					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * kMaxTurnSpeed * gearSetter(currentGear),
+							kJerkReduction),
 					true);
 		} else {
 			drive.arcadeDrive(
 					-driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
-					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * gearSetter(currentGear),
-							kJERK_REDUCTION),
+							kJerkReduction),
+					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * kMaxTurnSpeed * gearSetter(currentGear),
+							kJerkReduction),
 					true);
 		}
 	}

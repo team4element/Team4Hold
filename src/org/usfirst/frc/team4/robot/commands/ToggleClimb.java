@@ -12,15 +12,13 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ToggleClimb extends Command {
 
-	private Rumble rumble;
-	
-    public ToggleClimb() {
+	public ToggleClimb() {
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	
-    	rumble = new Rumble(ControllerConstants.operatorController);
+    	new Rumble(ControllerConstants.operatorController);
     	
     	Robot.climb.isClimbing = !Robot.climb.isClimbing;
     }
