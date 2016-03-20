@@ -3,8 +3,6 @@ package org.usfirst.frc.team4.robot.commands;
 import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.Robot;
 
-import com.team4element.library.ElementMath;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -12,10 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class IntakeController extends Command {
 
-	private double armSpeed = 0, armSpeedSquared = 0;
-	// Jerk Reduction
-	private double armSpeedFiltered = 0;
-	private final double JERK_FILTER = .35;
+	private double armSpeed = 0;
 
 	public IntakeController() {
 		requires(Robot.intake);
@@ -37,9 +32,9 @@ public class IntakeController extends Command {
 		}
 
 		if (ControllerConstants.operatorLeftBumper1.get()) {
-			Robot.intake.setRollerSpeed(jerkFilter(1, JERK_FILTER));
+			Robot.intake.setRollerSpeed(1);
 		} else if (ControllerConstants.operatorRightBumper1.get()) {
-			Robot.intake.setRollerSpeed(jerkFilter(-1, JERK_FILTER));
+			Robot.intake.setRollerSpeed(-1);
 		} else {
 			Robot.intake.stopRoller();
 		}
@@ -59,9 +54,5 @@ public class IntakeController extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		end();
-	}
-
-	private double jerkFilter(double n, double t) {
-		return Math.abs(n) > t ? n : 0;
 	}
 }

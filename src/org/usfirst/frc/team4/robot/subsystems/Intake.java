@@ -4,6 +4,7 @@ import org.usfirst.frc.team4.robot.Robot;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.IntakeController;
 
+import com.team4element.library.DeadZone;
 import com.team4element.library.ElementMath;
 
 import edu.wpi.first.wpilibj.VictorSP;
@@ -16,8 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Intake extends Subsystem {
 
 	private VictorSP intakeRoller, intakeArm;
-	private double kMaxArmSpeed = .5;	
-	
+	private double kMaxArmSpeed = .5, kArmFilter = .1;
+
 	public Intake() {
 		super();
 
@@ -34,28 +35,28 @@ public class Intake extends Subsystem {
 	}
 
 	public void setArmAngle(double angle) {
-		intakeArm.set(ElementMath.squareNumber(angle) * kMaxArmSpeed);
+		intakeArm.set(DeadZone.inputFilter((ElementMath.squareNumber(angle) * kMaxArmSpeed), kArmFilter));
 	}
 
-	public void stopRoller(){
+	public void stopRoller() {
 		intakeRoller.stopMotor();
 	}
-	
-	public void stopArm(){
+
+	public void stopArm() {
 		intakeArm.stopMotor();
 	}
-	
-	public void stop(){
+
+	public void stop() {
 		stopArm();
 		stopRoller();
 	}
-	
+
 	private String intakeStatus() {
 		return Robot.climb.isClimbing ? "Disabled" : "Enabled";
 	}
-	
+
 	public void log() {
 		SmartDashboard.getString("Intake: ", intakeStatus());
 	}
-	
+
 }
