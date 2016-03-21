@@ -4,10 +4,12 @@ import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.Drive;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -38,7 +40,7 @@ public class Chassis extends Subsystem {
 	private VictorSP leftFwd, leftBwd, rightFwd, rightBwd;
 	private RobotDrive drive;
 	private Encoder leftEncoder, rightEncoder;
-	private AnalogGyro gyro;
+	private ADXRS450_Gyro gyro;
 
 	public Chassis() {
 		// Registers Subsystem
@@ -59,7 +61,7 @@ public class Chassis extends Subsystem {
 		leftEncoder = new Encoder(RobotMap.kChassisLeftEncoderForward, RobotMap.kChassisLeftEncoderReverse);
 		rightEncoder = new Encoder(RobotMap.kChassisRightEncoderForward, RobotMap.kChassisRightEncoderReverse);
 
-		gyro = new AnalogGyro(RobotMap.kGyro);
+		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 		
 	}
  
@@ -126,7 +128,7 @@ public class Chassis extends Subsystem {
 	public double gearSetter(DriveSpeed s) {
 		return s == DriveSpeed.HIGH ? 1.0 : .75;
 	}
-
+	
 	public double getDistance() {
 		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
 	}
