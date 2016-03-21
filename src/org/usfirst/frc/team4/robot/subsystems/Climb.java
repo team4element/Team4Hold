@@ -5,6 +5,7 @@ import org.usfirst.frc.team4.robot.commands.ManualClimbArmController;
 
 import com.team4element.library.DeadZone;
 import com.team4element.library.ElementMath;
+import com.team4element.library.JerkFilter;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -19,8 +20,9 @@ public class Climb extends Subsystem {
 	private VictorSP armTopMotor, armBotMotor, winchFrontMotor, winchBackMotor;
 	private AnalogPotentiometer potTop, potBot;
 	private double kArmFilter = .1;
+	private JerkFilter botJerkFilter, topJerkFilter;
 	// TODO: Change to Actual Value
-	//private final double kPotScaleFactor = 1;
+	// private final double kPotScaleFactor = 1;
 
 	public boolean isPortculisUp = true;
 
@@ -35,6 +37,9 @@ public class Climb extends Subsystem {
 
 	public Climb() {
 		super();
+
+		botJerkFilter = new JerkFilter();
+		topJerkFilter = new JerkFilter();
 
 		armTopMotor = new VictorSP(RobotMap.kClimbArmMotorTop);
 		armBotMotor = new VictorSP(RobotMap.kClimbArmMotorBot);
@@ -52,12 +57,12 @@ public class Climb extends Subsystem {
 
 	public void setTopMotorSpeed(double speed) {
 		// Motor's are reversed
-		armTopMotor.set(DeadZone.inputFilter((-ElementMath.squareNumber(speed) * .75), kArmFilter));
+		armTopMotor.set(topJerkFilter.filter(DeadZone.inputFilter((-ElementMath.squareNumber(speed) * .75), kArmFilter)));
 	}
 
 	public void setBotMotorSpeed(double speed) {
 		// Motor's are reversed
-		armBotMotor.set(DeadZone.inputFilter(-ElementMath.squareNumber(speed), kArmFilter));
+		armBotMotor.set(botJerkFilter.filter(DeadZone.inputFilter(-ElementMath.squareNumber(speed), kArmFilter)));
 	}
 
 	public void setWinchSpeed(double speed) {
@@ -82,7 +87,7 @@ public class Climb extends Subsystem {
 		winchFrontMotor.stopMotor();
 	}
 
-	public void stopArms(){
+	public void stopArms() {
 		armBotMotor.stopMotor();
 		armTopMotor.stopMotor();
 	}
@@ -90,7 +95,7 @@ public class Climb extends Subsystem {
 	private String winchStatus() {
 		return isClimbing ? "Enabled" : "Disabled";
 	}
-	
+
 	public void log() {
 		SmartDashboard.getString("Winch", winchStatus());
 	}
