@@ -4,13 +4,14 @@ import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.Drive;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -32,13 +33,15 @@ public class Chassis extends Subsystem {
 	public DriveState driveState = DriveState.TANK;
 	public boolean isDriveInverse = false;
 
-	private Double kJERK_REDUCTION = .2;
+	private double kJERK_REDUCTION = .2;
+	private double kWheelDiameter = 8;
+	private double pulsePerRev = 128;
 
 	// TODO: Change to actual speed controller
 	private VictorSP leftFwd, leftBwd, rightFwd, rightBwd;
 	private RobotDrive drive;
 	private Encoder leftEncoder, rightEncoder;
-	private AnalogGyro gyro;
+	private Gyro gyro;
 
 	public Chassis() {
 		// Registers Subsystem
@@ -58,8 +61,11 @@ public class Chassis extends Subsystem {
 
 		leftEncoder = new Encoder(RobotMap.kChassisLeftEncoderForward, RobotMap.kChassisLeftEncoderReverse);
 		rightEncoder = new Encoder(RobotMap.kChassisRightEncoderForward, RobotMap.kChassisRightEncoderReverse);
+		
+		leftEncoder.setDistancePerPulse((kWheelDiameter * Math.PI)/pulsePerRev);
+		rightEncoder.setDistancePerPulse(-(kWheelDiameter * Math.PI)/pulsePerRev);
 
-		gyro = new AnalogGyro(RobotMap.kGyro);
+		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 		
 	}
  
@@ -162,6 +168,7 @@ public class Chassis extends Subsystem {
 		SmartDashboard.putString("Drive Mode", getCurrentDriveMode());
 		SmartDashboard.putString("Current Gear", getCurrentGear());
 		SmartDashboard.putString("Current State", getCurrentDriveState());
+		SmartDashboard.putNumber("Robot Distance", getDistance());
 		SmartDashboard.putNumber("Gyro", gyro.getAngle());
 	}
 }
