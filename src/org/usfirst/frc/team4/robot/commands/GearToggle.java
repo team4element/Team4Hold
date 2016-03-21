@@ -13,7 +13,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GearToggle extends Command {
 
+	private Rumble rumble;
+	
 	public GearToggle() {
+		rumble = new Rumble(ControllerConstants.driveController);
 	}
 
 	// Called just before this Command runs the first time
@@ -21,7 +24,7 @@ public class GearToggle extends Command {
 		if (Robot.oi.R1(ControllerConstants.driveController)) {
 
 			if (Robot.chassis.currentGear != DriveSpeed.HIGH) {
-				new Rumble(ControllerConstants.driveController);
+				rumble.runRumble();
 			}
 
 			Robot.chassis.currentGear = DriveSpeed.HIGH;
@@ -29,7 +32,7 @@ public class GearToggle extends Command {
 		} else if (Robot.oi.L1(ControllerConstants.driveController)) {
 
 			if (Robot.chassis.currentGear != DriveSpeed.LOW) {
-				new Rumble(ControllerConstants.driveController);
+				rumble.runRumble();
 			}
 
 			Robot.chassis.currentGear = DriveSpeed.LOW;

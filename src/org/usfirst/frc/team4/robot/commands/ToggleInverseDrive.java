@@ -12,15 +12,16 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ToggleInverseDrive extends Command {
 
+	private Rumble rumble;
+	
 	public ToggleInverseDrive() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+		rumble = new Rumble(ControllerConstants.driveController);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	
-    	new Rumble(ControllerConstants.driveController);
+    	rumble.runRumble();
     	
     	Robot.chassis.isDriveInverse = !Robot.chassis.isDriveInverse;
     }

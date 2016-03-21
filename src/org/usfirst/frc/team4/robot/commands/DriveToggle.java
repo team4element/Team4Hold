@@ -13,20 +13,23 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveToggle extends Command {
 
+	private Rumble rumble;
+	
 	public DriveToggle() {
+		rumble = new Rumble(ControllerConstants.driveController);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		if (Robot.chassis.driveState == DriveState.TANK) {
 			
-			new Rumble(ControllerConstants.driveController);
+			rumble.runRumble();
 			
 			Robot.chassis.driveState = DriveState.ARCADE;
 		} else {
 
-			new Rumble(ControllerConstants.driveController);
-
+			rumble.runRumble();
+			
 			Robot.chassis.driveState = DriveState.TANK;
 		}
 	}
