@@ -15,10 +15,10 @@ public class AutoDriveController extends Command {
 
 	private PIDController rotatePID, distancePID;
 
-	private final double ROTATE_kP = .032, ROTATE_kI = 0.007, ROTATE_kD = 0;
+	private final double ROTATE_kP = .153, ROTATE_kI = 0, ROTATE_kD = .295;
 	
 	// TODO: Change to actual values
-	private final double DISTANCE_kP = .05, DISTANCE_kI = 0, DISTANCE_kD = 0;
+	private final double DISTANCE_kP = .05, DISTANCE_kI = 0, DISTANCE_kD = .005;
 	
 	private double speed = 0;
 	
@@ -45,7 +45,7 @@ public class AutoDriveController extends Command {
 			}
 		});
 		distancePID.setSetpoint(distance);
-		distancePID.setAbsoluteTolerance(1);
+		distancePID.setAbsoluteTolerance(.5);
 		
 		rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
@@ -68,6 +68,7 @@ public class AutoDriveController extends Command {
 				Robot.chassis.arcadeDrive(speed, angle);
 			}
 		});
+		rotatePID.setAbsoluteTolerance(3);
 		rotatePID.setSetpoint(angle);
 	}
 
@@ -82,12 +83,11 @@ public class AutoDriveController extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return distancePID.onTarget();
+		return distancePID.onTarget() && rotatePID.onTarget();
 	}
 
 	// Called once after isFinished returns true

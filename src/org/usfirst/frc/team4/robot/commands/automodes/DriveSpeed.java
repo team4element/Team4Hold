@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4.robot.commands;
+package org.usfirst.frc.team4.robot.commands.automodes;
 
 import org.usfirst.frc.team4.robot.Robot;
 
@@ -7,13 +7,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveS extends Command {
+public class DriveSpeed extends Command {
 
-	int s;
-    public DriveS(int speed) {
+	int speed;
+	
+    public DriveSpeed(int speed) {
         // Use requires() here to declare subsystem dependencies
     	requires(Robot.chassis);
-    	s = speed;
+    	this.speed = speed;
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +23,7 @@ public class DriveS extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.chassis.arcadeDrive(s);
+    	Robot.chassis.arcadeDrive(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

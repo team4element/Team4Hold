@@ -1,12 +1,17 @@
 
 package org.usfirst.frc.team4.robot;
 
-import org.usfirst.frc.team4.robot.commands.Autonomous;
+import org.usfirst.frc.team4.robot.commands.automodes.DoNothingMode;
+import org.usfirst.frc.team4.robot.commands.automodes.FifthAutonomous;
+import org.usfirst.frc.team4.robot.commands.automodes.FirstAutonomous;
+import org.usfirst.frc.team4.robot.commands.automodes.FourthAutonomous;
+import org.usfirst.frc.team4.robot.commands.automodes.SecondAutonomous;
+import org.usfirst.frc.team4.robot.commands.automodes.ThirdAutonomous;
+import org.usfirst.frc.team4.robot.commands.automodes.TunePID;
 import org.usfirst.frc.team4.robot.subsystems.Chassis;
 import org.usfirst.frc.team4.robot.subsystems.Climb;
 import org.usfirst.frc.team4.robot.subsystems.Intake;
 
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -27,16 +32,17 @@ public class Robot extends IterativeRobot {
 	public static Chassis chassis;
 	public static Intake intake;
 	public static Climb climb;
-	private CameraServer cameraServer;
+	//private CameraServer cameraServer;
     Command autonomousCommand;
     SendableChooser chooser;
-
+/*
     public Robot(){
-        cameraServer = CameraServer.getInstance();
+    
+    	cameraServer = CameraServer.getInstance();
         cameraServer.setQuality(50);
         cameraServer.startAutomaticCapture("cam2");
     }
-    
+  */  
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -79,18 +85,32 @@ public class Robot extends IterativeRobot {
 	 * or additional FUNCTIONS comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        // autonomousCommand = (Command) chooser.getSelected();
-    	autonomousCommand = new Autonomous();
-    	/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+        autonomousCommand = (Command) chooser.getSelected();
+    	String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
+		case "First":
+			autonomousCommand = new FirstAutonomous();
 			break;
-		case "Default Auto":
+		case "Second":
+			autonomousCommand = new SecondAutonomous();
+			break;
+		case "Third":
+			autonomousCommand = new ThirdAutonomous();
+			break;
+		case "Fourth":
+			autonomousCommand = new FourthAutonomous();
+			break;
+		case "Fifth":
+			autonomousCommand = new FifthAutonomous();
+			break;
+		case "Tune":
+			autonomousCommand = new TunePID();
+			break;
+		case "Default":
 		default:
-			autonomousCommand = new ExampleCommand();
+			autonomousCommand = new DoNothingMode();
 			break;
-		} */
+		} 
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();

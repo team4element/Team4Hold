@@ -1,4 +1,9 @@
-package org.usfirst.frc.team4.robot.commands;
+package org.usfirst.frc.team4.robot.commands.automodes;
+
+import org.usfirst.frc.team4.robot.commands.AutoDriveController;
+import org.usfirst.frc.team4.robot.commands.BringArmsDown;
+import org.usfirst.frc.team4.robot.commands.BringIntakeArmsDown;
+import org.usfirst.frc.team4.robot.commands.OutTakeBall;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
