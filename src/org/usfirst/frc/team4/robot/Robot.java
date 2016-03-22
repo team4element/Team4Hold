@@ -56,6 +56,8 @@ public class Robot extends IterativeRobot {
     	
     	// Shows that the subsystems are working
         SmartDashboard.putData(chassis);
+        SmartDashboard.putData(intake);
+        SmartDashboard.putData(climb);
     	
         chooser = new SendableChooser();
         chooser.addObject("First", new FirstAutonomous());

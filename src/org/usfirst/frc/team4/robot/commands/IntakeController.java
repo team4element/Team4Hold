@@ -25,8 +25,8 @@ public class IntakeController extends Command {
 
 		if (!Robot.climb.isClimbing) {
 
-			armSpeed = ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGE_RIGHT_2)
-					- ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGER_LEFT_2);
+			armSpeed = ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGER_LEFT_2)
+					- ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGER_RIGHT_2);
 
 			Robot.intake.setArmAngle(armSpeed);
 		}

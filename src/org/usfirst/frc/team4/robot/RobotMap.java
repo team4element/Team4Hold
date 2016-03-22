@@ -13,7 +13,6 @@ public class RobotMap {
 	public static int kChassisMotorRightFront = 3;
 	public static int kChassisMotorRightRear = 2;
 
-	// TODO: Put Actual Values
 	public static int kGyro = 0;
 
 	public static int kChassisLeftEncoderForward = 2;
@@ -33,7 +32,7 @@ public class RobotMap {
 	public static int kClimbArmMotorBot = 8;
 	public static int kClimbArmMotorTop = 9;
 	
-	public static int kClimbArmPotTop = 1;
-	public static int kClimbArmPotBot = 2;
+	public static int kClimbArmPotTop = 2;
+	public static int kClimbArmPotBot = 1;
 
 }

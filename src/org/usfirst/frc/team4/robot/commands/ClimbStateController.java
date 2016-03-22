@@ -32,7 +32,7 @@ public class ClimbStateController extends Command {
 		} else if (button == ControllerConstants.POV_RIGHT) {
 
 		} else {
-			System.out.println("Something went wrong ;(");
+			System.out.println("Something went wrong :'(");
 		}
 	}
 

@@ -40,7 +40,7 @@ public class Rumble {
 
 		Timer.delay(timerDelay);
 
-		controller.setRumble(RumbleType.kLeftRumble, rumbleMagnitude);
-		controller.setRumble(RumbleType.kRightRumble, rumbleMagnitude);
+		controller.setRumble(RumbleType.kLeftRumble, 0);
+		controller.setRumble(RumbleType.kRightRumble, 0);
 	}
 }

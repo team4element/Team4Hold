@@ -20,9 +20,8 @@ public class ManualClimbArmController extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Robot.climb.isClimbing) {
-			Robot.climb.setWinchSpeed(
-					ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGE_RIGHT_2));
+		if (ControllerConstants.operatorStart.get() && ControllerConstants.operatorSelect.get()) {
+			Robot.climb.setWinchSpeed(1);
 		} else {
 			Robot.climb.stopWinch();
 		}

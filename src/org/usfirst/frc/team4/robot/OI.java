@@ -1,10 +1,7 @@
 package org.usfirst.frc.team4.robot;
 
-import org.usfirst.frc.team4.robot.commands.AutoDriveController;
-import org.usfirst.frc.team4.robot.commands.ClimbStateController;
 import org.usfirst.frc.team4.robot.commands.DriveToggle;
 import org.usfirst.frc.team4.robot.commands.GearToggle;
-import org.usfirst.frc.team4.robot.commands.ToggleClimb;
 import org.usfirst.frc.team4.robot.commands.ToggleInverseDrive;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,13 +20,8 @@ public class OI {
 
 		ControllerConstants.driveA.whenPressed(new ToggleInverseDrive());
 		
-		ControllerConstants.operatorStart.whenPressed(new ToggleClimb());
-		
 		// Turn in place 180
-		ControllerConstants.driveB.whenPressed(new AutoDriveController(0, 180));
-	
-		ControllerConstants.operatorPOVBot.whenPressed(new ClimbStateController(ControllerConstants.POV_BOT));
-		ControllerConstants.operatorPOVTop.whenPressed(new ClimbStateController(ControllerConstants.POV_TOP));
+		//ControllerConstants.driveB.whenPressed(new AutoDriveController(0, 180));
 	}
 
 	public boolean L1(Joystick cont) {

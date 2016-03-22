@@ -63,6 +63,7 @@ public class Climb extends Subsystem {
 	public void setBotMotorSpeed(double speed) {
 		// Motor's are reversed
 		armBotMotor.set(botJerkFilter.filter(DeadZone.inputFilter(ElementMath.squareNumber(speed), kArmFilter)));
+		System.out.println(potBot.get());
 	}
 
 	public void setWinchSpeed(double speed) {

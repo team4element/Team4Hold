@@ -18,7 +18,7 @@ public class ControllerConstants {
 	public static final int BUMPER_RIGHT_1 = 6;
 
 	public static final int TRIGGER_LEFT_2 = 2;
-	public static final int TRIGGE_RIGHT_2 = 3;
+	public static final int TRIGGER_RIGHT_2 = 3;
 
 	public static final int BUTTON_LEFT_3 = 9;
 	public static final int BUTTON_RIGHT_3 = 10;
@@ -105,7 +105,7 @@ public class ControllerConstants {
 		driveRightBumper1 = new JoystickButton(driveController, BUMPER_RIGHT_1);
 
 		driveLeftTrigger2 = new JoystickButton(driveController, TRIGGER_LEFT_2);
-		driveRightTrigger2 = new JoystickButton(driveController, TRIGGE_RIGHT_2);
+		driveRightTrigger2 = new JoystickButton(driveController, TRIGGER_RIGHT_2);
 
 		driveLeftButton3 = new JoystickButton(driveController, BUTTON_LEFT_3);
 		driveRightButton3 = new JoystickButton(driveController, BUTTON_RIGHT_3);
@@ -131,7 +131,7 @@ public class ControllerConstants {
 		operatorRightBumper1 = new JoystickButton(operatorController, BUMPER_RIGHT_1);
 
 		operatorLeftTrigger2 = new JoystickButton(operatorController, TRIGGER_LEFT_2);
-		operatorRightTrigger2 = new JoystickButton(operatorController, TRIGGE_RIGHT_2);
+		operatorRightTrigger2 = new JoystickButton(operatorController, TRIGGER_RIGHT_2);
 
 		operatorLeftButton3 = new JoystickButton(operatorController, BUTTON_LEFT_3);
 		operatorRightButton3 = new JoystickButton(operatorController, BUTTON_RIGHT_3);

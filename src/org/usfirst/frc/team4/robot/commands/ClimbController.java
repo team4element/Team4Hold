@@ -42,7 +42,7 @@ public class ClimbController extends Command {
 			System.out.println("Hooray!!!");
 			break;
 		default:
-			System.out.println("Something went wrong ;(");
+			System.out.println("Something went wrong :'(");
 			break;
 		}
 	}
