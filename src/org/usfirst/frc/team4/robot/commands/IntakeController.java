@@ -10,10 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class IntakeController extends Command {
 
-	private double armSpeed = 0, armSpeedSquared = 0;
-	// Jerk Reduction
-	private double armSpeedFiltered = 0;
-	private final double JERK_FILTER = .35;
+	private double armSpeed = 0;
 
 	public IntakeController() {
 		requires(Robot.intake);
@@ -30,17 +27,14 @@ public class IntakeController extends Command {
 
 			armSpeed = ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGE_RIGHT_2)
 					- ControllerConstants.operatorController.getRawAxis(ControllerConstants.TRIGGER_LEFT_2);
-			// Cut speed in half
-			armSpeedSquared = armSpeed * -Math.abs(armSpeed) * .50;
-			armSpeedFiltered = jerkFilter(armSpeedSquared, JERK_FILTER);
 
-			Robot.intake.setArmAngle(armSpeedFiltered);
+			Robot.intake.setArmAngle(armSpeed);
 		}
 
 		if (ControllerConstants.operatorLeftBumper1.get()) {
-			Robot.intake.setRollerSpeed(jerkFilter(1, JERK_FILTER));
+			Robot.intake.setRollerSpeed(1);
 		} else if (ControllerConstants.operatorRightBumper1.get()) {
-			Robot.intake.setRollerSpeed(jerkFilter(-1, JERK_FILTER));
+			Robot.intake.setRollerSpeed(-1);
 		} else {
 			Robot.intake.stopRoller();
 		}
@@ -60,9 +54,5 @@ public class IntakeController extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		end();
-	}
-
-	private double jerkFilter(double n, double t) {
-		return Math.abs(n) > t ? n : 0;
 	}
 }

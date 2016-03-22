@@ -42,7 +42,7 @@ public class Robot extends IterativeRobot {
         cameraServer.setQuality(50);
         cameraServer.startAutomaticCapture("cam2");
     }
-  */  
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.

@@ -4,6 +4,8 @@ import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.Drive;
 
+import com.team4element.library.DeadZone;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -17,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Chassis extends Subsystem {
-
+	
 	// Toggle Drive
 	public enum DriveState {
 		ARCADE, TANK;
@@ -32,12 +34,11 @@ public class Chassis extends Subsystem {
 	public DriveState driveState = DriveState.TANK;
 	public boolean isDriveInverse = false;
 
-	private double kJERK_REDUCTION = .2;
-	private double kWheelDiameter = 8;
-	private double pulsePerRev = 128;
+	private final double kDriveFilter = .1, kMaxTurnSpeed = .8;
+	private final double kWheelDiameter = 8;
+	private final double kPulsePerRev = 128;
 
-	// TODO: Change to actual speed controller
-	private VictorSP leftFwd, leftBwd, rightFwd, rightBwd;
+	private VictorSP leftFront, leftRear, rightFront, rightRear;
 	private RobotDrive drive;
 	private Encoder leftEncoder, rightEncoder;
 	private ADXRS450_Gyro gyro;
@@ -46,23 +47,23 @@ public class Chassis extends Subsystem {
 		// Registers Subsystem
 		super();
 
-		leftFwd = new VictorSP(RobotMap.kChassisMotorLeftFront);
-		leftBwd = new VictorSP(RobotMap.kChassisMotorLeftRear);
-		rightFwd = new VictorSP(RobotMap.kChassisMotorRightFront);
-		rightBwd = new VictorSP(RobotMap.kChassisMotorRightRear);
+		leftFront = new VictorSP(RobotMap.kChassisMotorLeftFront);
+		leftRear = new VictorSP(RobotMap.kChassisMotorLeftRear);
+		rightFront = new VictorSP(RobotMap.kChassisMotorRightFront);
+		rightRear = new VictorSP(RobotMap.kChassisMotorRightRear);
 
-		leftFwd.setInverted(true);
-		leftBwd.setInverted(true);
-		rightFwd.setInverted(true);
-		rightBwd.setInverted(true);
+		leftFront.setInverted(true);
+		leftRear.setInverted(true);
+		rightFront.setInverted(true);
+		rightRear.setInverted(true);
 
-		drive = new RobotDrive(leftFwd, leftBwd, rightFwd, rightBwd);
+		drive = new RobotDrive(leftFront, leftRear, rightFront, rightRear);
 
 		leftEncoder = new Encoder(RobotMap.kChassisLeftEncoderForward, RobotMap.kChassisLeftEncoderReverse);
 		rightEncoder = new Encoder(RobotMap.kChassisRightEncoderForward, RobotMap.kChassisRightEncoderReverse);
 		
-		leftEncoder.setDistancePerPulse((kWheelDiameter * Math.PI)/pulsePerRev);
-		rightEncoder.setDistancePerPulse(-(kWheelDiameter * Math.PI)/pulsePerRev);
+		leftEncoder.setDistancePerPulse((kWheelDiameter * Math.PI)/kPulsePerRev);
+		rightEncoder.setDistancePerPulse(-(kWheelDiameter * Math.PI)/kPulsePerRev);
 
 		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 		
@@ -76,17 +77,17 @@ public class Chassis extends Subsystem {
 		// Squared to make slower easier
 		if (!isDriveInverse) {
 			drive.tankDrive(
-					driveFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
-					driveFilter(c.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
+					DeadZone.inputFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
+							kDriveFilter),
+					DeadZone.inputFilter(c.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear),
+							kDriveFilter),
 					true);
 		} else {
 			drive.tankDrive(
-					-driveFilter(c.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
-					-driveFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
+					-DeadZone.inputFilter(c.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear),
+							kDriveFilter),
+					-DeadZone.inputFilter(c.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
+							kDriveFilter),
 					true);
 		}
 	}
@@ -100,17 +101,17 @@ public class Chassis extends Subsystem {
 		// Squared to make slower speeds easier
 		if (!isDriveInverse) {
 			drive.arcadeDrive(
-					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
-					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * gearSetter(currentGear),
-							kJERK_REDUCTION),
+					DeadZone.inputFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
+							kDriveFilter),
+					DeadZone.inputFilter(stick.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * kMaxTurnSpeed * gearSetter(currentGear),
+							kDriveFilter),
 					true);
 		} else {
 			drive.arcadeDrive(
-					-driveFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
-							kJERK_REDUCTION),
-					driveFilter(stick.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * gearSetter(currentGear),
-							kJERK_REDUCTION),
+					-DeadZone.inputFilter(stick.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear),
+							kDriveFilter),
+					DeadZone.inputFilter(stick.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * kMaxTurnSpeed * gearSetter(currentGear),
+							kDriveFilter),
 					true);
 		}
 	}
@@ -121,11 +122,6 @@ public class Chassis extends Subsystem {
 
 	public void stop() {
 		drive.stopMotor();
-	}
-
-	// Reduces Jerk
-	public double driveFilter(double n, double t) {
-		return Math.abs(n) > t ? n : 0;
 	}
 
 	public double gearSetter(DriveSpeed s) {
@@ -168,6 +164,6 @@ public class Chassis extends Subsystem {
 		SmartDashboard.putString("Current Gear", getCurrentGear());
 		SmartDashboard.putString("Current State", getCurrentDriveState());
 		SmartDashboard.putNumber("Robot Distance", getDistance());
-		SmartDashboard.putNumber("Gyro", gyro.getAngle());
+		SmartDashboard.putNumber("Gyro", getAngle());
 	}
 }
