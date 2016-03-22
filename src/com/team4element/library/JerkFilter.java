@@ -2,7 +2,7 @@ package com.team4element.library;
 
 public class JerkFilter {
 
-	private static double lastInput;
+	private double lastInput;
 	private double changeMax = 0.5;
 	private double changeMin = 0.5;
 

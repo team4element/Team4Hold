@@ -57,17 +57,17 @@ public class Climb extends Subsystem {
 
 	public void setTopMotorSpeed(double speed) {
 		// Motor's are reversed
-		armTopMotor.set(topJerkFilter.filter(DeadZone.inputFilter((-ElementMath.squareNumber(speed) * .75), kArmFilter)));
+		armTopMotor.set(topJerkFilter.filter(DeadZone.inputFilter((ElementMath.squareNumber(speed) * .75), kArmFilter)));
 	}
 
 	public void setBotMotorSpeed(double speed) {
 		// Motor's are reversed
-		armBotMotor.set(botJerkFilter.filter(DeadZone.inputFilter(-ElementMath.squareNumber(speed), kArmFilter)));
+		armBotMotor.set(botJerkFilter.filter(DeadZone.inputFilter(ElementMath.squareNumber(speed), kArmFilter)));
 	}
 
 	public void setWinchSpeed(double speed) {
 		if (isClimbing) {
-			double absoluteSpeed = ElementMath.squareNumber(speed);
+			double absoluteSpeed = -ElementMath.squareNumber(speed);
 
 			winchFrontMotor.set(absoluteSpeed);
 			winchBackMotor.set(absoluteSpeed);
