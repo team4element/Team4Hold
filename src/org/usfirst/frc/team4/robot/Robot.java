@@ -58,7 +58,13 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(chassis);
     	
         chooser = new SendableChooser();
-//        chooser.addObject("My Auto", new MyAutoCommand());
+        chooser.addObject("First", new FirstAutonomous());
+        chooser.addObject("Second", new SecondAutonomous());
+        chooser.addObject("Third", new ThirdAutonomous());
+        chooser.addObject("Fourth", new FourthAutonomous());
+        chooser.addObject("Fifth", new FifthAutonomous());
+        chooser.addObject("Tune", new TunePID());
+        chooser.addObject("Default", new DoNothingMode());
         SmartDashboard.putData("Auto mode", chooser);
     }
 	
