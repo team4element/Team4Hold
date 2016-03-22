@@ -63,6 +63,7 @@ public class Chassis extends Subsystem {
 		rightEncoder = new Encoder(RobotMap.kChassisRightEncoderForward, RobotMap.kChassisRightEncoderReverse);
 		
 		leftEncoder.setDistancePerPulse((kWheelDiameter * Math.PI)/kPulsePerRev);
+		// Right side is mirrored
 		rightEncoder.setDistancePerPulse(-(kWheelDiameter * Math.PI)/kPulsePerRev);
 
 		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
