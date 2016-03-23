@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4.robot.commands.automodes;
+package org.usfirst.frc.team4.robot.commands.routines;
 
 import org.usfirst.frc.team4.robot.Robot;
 
