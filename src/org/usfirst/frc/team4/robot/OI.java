@@ -1,9 +1,9 @@
 package org.usfirst.frc.team4.robot;
 
-import org.usfirst.frc.team4.robot.commands.DriveToggle;
-import org.usfirst.frc.team4.robot.commands.GearToggle;
-import org.usfirst.frc.team4.robot.commands.ToggleInverseDrive;
 import org.usfirst.frc.team4.robot.commands.WinchOn;
+import org.usfirst.frc.team4.robot.commands.toggles.DriveToggle;
+import org.usfirst.frc.team4.robot.commands.toggles.GearToggle;
+import org.usfirst.frc.team4.robot.commands.toggles.ToggleInverseDrive;
 import org.usfirst.frc.team4.robot.triggers.MultiButton;
 
 import edu.wpi.first.wpilibj.Joystick;

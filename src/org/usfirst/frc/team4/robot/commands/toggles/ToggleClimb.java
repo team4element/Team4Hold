@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4.robot.commands;
+package org.usfirst.frc.team4.robot.commands.toggles;
 
 import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.Robot;
@@ -32,7 +32,7 @@ public class ToggleClimb extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

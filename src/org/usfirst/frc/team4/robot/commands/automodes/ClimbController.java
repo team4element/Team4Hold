@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4.robot.commands.automodes;
 
 import org.usfirst.frc.team4.robot.Robot;
-import org.usfirst.frc.team4.robot.commands.SetArmAngles;
+import org.usfirst.frc.team4.robot.commands.routines.SetArmAngles;
 
 import edu.wpi.first.wpilibj.command.Command;
 
