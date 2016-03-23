@@ -1,6 +1,7 @@
-package org.usfirst.frc.team4.robot.commands;
+package org.usfirst.frc.team4.robot.commands.automodes;
 
 import org.usfirst.frc.team4.robot.Robot;
+import org.usfirst.frc.team4.robot.commands.SetArmAngles;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -23,19 +24,19 @@ public class ClimbController extends Command {
 	protected void initialize() {
 		switch (Robot.climb.currentClimbState) {
 		case BOTH_ARMS_DOWN:
-			setArmAngles.end();
+			setArmAngles.endPID();
 			setArmAngles = new SetArmAngles(kStartingAngle, kStartingAngle);
 			break;
 		case TOP_ARM_RISING:
-			setArmAngles.end();
+			setArmAngles.endPID();
 			setArmAngles = new SetArmAngles(kStartingAngle, kFirstTopAngle);
 			break;
 		case BOTH_ARMS_RISING:
-			setArmAngles.end();
+			setArmAngles.endPID();
 			setArmAngles = new SetArmAngles(kSecondBotAngle, kSecondTopAngle);
 			break;
 		case PULLING_UP:
-			setArmAngles.end();
+			setArmAngles.endPID();
 			Robot.climb.isClimbing = true;
 			break;
 		case DONE:

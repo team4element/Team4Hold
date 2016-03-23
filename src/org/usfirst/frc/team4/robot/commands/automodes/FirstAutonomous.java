@@ -1,10 +1,10 @@
 package org.usfirst.frc.team4.robot.commands.automodes;
 
-import org.usfirst.frc.team4.robot.commands.AutoDriveController;
-import org.usfirst.frc.team4.robot.commands.BringArmsDown;
-import org.usfirst.frc.team4.robot.commands.BringIntakeArmsDown;
-import org.usfirst.frc.team4.robot.commands.OutTakeBall;
-import org.usfirst.frc.team4.robot.commands.TurnInPlace;
+import org.usfirst.frc.team4.robot.commands.routines.AutoDriveController;
+import org.usfirst.frc.team4.robot.commands.routines.BringArmsDown;
+import org.usfirst.frc.team4.robot.commands.routines.BringIntakeArmsDown;
+import org.usfirst.frc.team4.robot.commands.routines.OutTakeBall;
+import org.usfirst.frc.team4.robot.commands.routines.TurnInPlace;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;

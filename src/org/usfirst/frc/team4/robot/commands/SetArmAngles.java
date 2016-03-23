@@ -103,4 +103,9 @@ public class SetArmAngles extends Command {
 	protected void interrupted() {
 		end();
 	}
+	
+	public void endPID(){
+		topArmPID.disable();
+		botArmPID.disable();
+	}
 }
