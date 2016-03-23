@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class BringIntakeArmsDown extends Command {
+public class WinchOn extends Command {
 
-    public BringIntakeArmsDown() {
-    	requires(Robot.chassis);
+    public WinchOn() {
+    	requires(Robot.climb);
     }
 
     // Called just before this Command runs the first time
@@ -19,7 +19,7 @@ public class BringIntakeArmsDown extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.setArmAngle(.75);
+    	Robot.climb.setWinchSpeed(1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -29,10 +29,12 @@ public class BringIntakeArmsDown extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+		Robot.climb.stopWinch();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

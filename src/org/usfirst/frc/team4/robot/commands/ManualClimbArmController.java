@@ -20,12 +20,6 @@ public class ManualClimbArmController extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (ControllerConstants.operatorStart.get() && ControllerConstants.operatorSelect.get()) {
-			Robot.climb.setWinchSpeed(1);
-		} else {
-			Robot.climb.stopWinch();
-		}
-		
 		// Manual Control
 		Robot.climb
 				.setBotMotorSpeed(ControllerConstants.operatorController.getRawAxis(ControllerConstants.AXIS_LEFT_Y));
@@ -40,7 +34,6 @@ public class ManualClimbArmController extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.climb.stopWinch();
 	}
 
 	// Called when another command which requires one or more of the same

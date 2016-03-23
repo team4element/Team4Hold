@@ -3,8 +3,8 @@ package com.team4element.library;
 public class JerkFilter {
 
 	private double lastInput;
-	private double changeMax = 0.5;
-	private double changeMin = 0.5;
+	private double changeMax = 0.25;
+	private double changeMin = 0.25;
 
 	public JerkFilter() {
 		lastInput = 0;

@@ -19,7 +19,7 @@ public class BringArmsDown extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.climb.setBotMotorSpeed(.75);
+    	Robot.climb.setBotMotorSpeed(1);
     }
 
     // Make this return true when this Command no longer needs to run execute()

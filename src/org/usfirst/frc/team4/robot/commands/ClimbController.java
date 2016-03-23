@@ -12,7 +12,7 @@ public class ClimbController extends Command {
 	private SetArmAngles setArmAngles;
 
 	// TODO: Change to actual values
-	private double kStartingAngle = 0, kFirstTopAngle = 70, kFirstBotAngle = 0, kSecondBotAngle = 70,
+	private double kStartingAngle = 0, kFirstTopAngle = 70, kSecondBotAngle = 70,
 			kSecondTopAngle = kFirstTopAngle + kSecondBotAngle;
 
 	public ClimbController() {

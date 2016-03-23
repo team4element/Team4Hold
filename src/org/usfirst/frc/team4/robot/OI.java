@@ -3,6 +3,8 @@ package org.usfirst.frc.team4.robot;
 import org.usfirst.frc.team4.robot.commands.DriveToggle;
 import org.usfirst.frc.team4.robot.commands.GearToggle;
 import org.usfirst.frc.team4.robot.commands.ToggleInverseDrive;
+import org.usfirst.frc.team4.robot.commands.WinchOn;
+import org.usfirst.frc.team4.robot.triggers.MultiButton;
 
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -19,9 +21,13 @@ public class OI {
 		ControllerConstants.driveRightBumper1.whenPressed(new GearToggle());
 
 		ControllerConstants.driveA.whenPressed(new ToggleInverseDrive());
-		
+
+		new MultiButton(ControllerConstants.operatorController, ControllerConstants.BUTTON_START,
+				ControllerConstants.BUTTON_SELECT).whileActive(new WinchOn());
+
 		// Turn in place 180
-		//ControllerConstants.driveB.whenPressed(new AutoDriveController(0, 180));
+		// ControllerConstants.driveB.whenPressed(new AutoDriveController(0,
+		// 180));
 	}
 
 	public boolean L1(Joystick cont) {

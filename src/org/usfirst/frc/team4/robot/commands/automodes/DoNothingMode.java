@@ -12,7 +12,7 @@ public class DoNothingMode extends CommandGroup {
 
 	public DoNothingMode() {
 		// No PID on Arms to save time on Tuning
-		addSequential(new BringIntakeArmsDown(), .01);
+		addSequential(new BringIntakeArmsDown(), .5);
 		
 		addSequential(new BringArmsDown(), 1); 
 	}
