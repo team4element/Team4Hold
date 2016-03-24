@@ -12,18 +12,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class TurnInPlace extends Command {
+public class DriveDistance extends Command {
 
-	private PIDController rotatePID;
-	
-	private final double ROTATE_kP = .28, ROTATE_kI = 0, ROTATE_kD = .9;
-	
-	public TurnInPlace( double angle) {
-			rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {
+	private PIDController distancePID;
+
+	private final double DISTANCE_kP = .25, DISTANCE_kI = 0, DISTANCE_kD = .030, DISTANCE_kF = 1 / 118;
+
+	public DriveDistance(double distance) {
+		distancePID = new PIDController(DISTANCE_kP, DISTANCE_kI, DISTANCE_kD, DISTANCE_kF, new PIDSource() {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
 
 			public double pidGet() {
-				return Robot.chassis.getAngle();
+				return Robot.chassis.getDistance();
 			}
 
 			@Override
@@ -36,35 +36,36 @@ public class TurnInPlace extends Command {
 				return m_sourceType;
 			}
 		}, new PIDOutput() {
-			public void pidWrite(double angle) {
-				Robot.chassis.arcadeDrive(0, angle);
+			public void pidWrite(double output) {
+				Robot.chassis.arcadeDrive(output);
 			}
 		});
-		rotatePID.setAbsoluteTolerance(1);
-		rotatePID.setSetpoint(angle);
+		distancePID.setSetpoint(distance);
+		distancePID.setAbsoluteTolerance(.5);
+
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-        Robot.chassis.reset();
-        rotatePID.reset();
-    	rotatePID.enable();
+		Robot.chassis.reset();
+		distancePID.reset();
+		distancePID.enable();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		SmartDashboard.putData("Angle Tune", rotatePID);
+		SmartDashboard.putData("Distance Tune", distancePID);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return distancePID.onTarget();
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-    	rotatePID.disable();
-    	Robot.chassis.arcadeDrive(0, 0);
+    	distancePID.disable();
+        Robot.chassis.arcadeDrive(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same
