@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4.robot;
 
+import org.usfirst.frc.team4.robot.commands.automodes.BangBangAutoMode;
 import org.usfirst.frc.team4.robot.commands.automodes.DoNothingMode;
 import org.usfirst.frc.team4.robot.commands.automodes.FifthAutonomous;
 import org.usfirst.frc.team4.robot.commands.automodes.FirstAutonomous;
@@ -55,6 +56,8 @@ public class Robot extends IterativeRobot {
 
 		// Adds Automodes
 		chooser = new SendableChooser();
+		chooser.addObject("Default", new DoNothingMode());
+		chooser.addObject("BangBang", new BangBangAutoMode());
 		chooser.addObject("First", new FirstAutonomous());
 		chooser.addObject("Second", new SecondAutonomous());
 		chooser.addObject("Third", new ThirdAutonomous());
@@ -62,7 +65,6 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Fifth", new FifthAutonomous());
 		chooser.addObject("Tune Drive", new TuneDistance());
 		chooser.addObject("Tune Turn", new TuneTurn());
-		chooser.addObject("Default", new DoNothingMode());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 
