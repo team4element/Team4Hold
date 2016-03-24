@@ -7,7 +7,9 @@ import org.usfirst.frc.team4.robot.commands.automodes.FirstAutonomous;
 import org.usfirst.frc.team4.robot.commands.automodes.FourthAutonomous;
 import org.usfirst.frc.team4.robot.commands.automodes.SecondAutonomous;
 import org.usfirst.frc.team4.robot.commands.automodes.ThirdAutonomous;
+import org.usfirst.frc.team4.robot.commands.automodes.TuneDistance;
 import org.usfirst.frc.team4.robot.commands.automodes.TunePID;
+import org.usfirst.frc.team4.robot.commands.automodes.TuneTurn;
 import org.usfirst.frc.team4.robot.subsystems.Chassis;
 import org.usfirst.frc.team4.robot.subsystems.Climb;
 import org.usfirst.frc.team4.robot.subsystems.Intake;
@@ -58,7 +60,8 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Third", new ThirdAutonomous());
 		chooser.addObject("Fourth", new FourthAutonomous());
 		chooser.addObject("Fifth", new FifthAutonomous());
-		chooser.addObject("Tune", new TunePID());
+		chooser.addObject("Tune Drive", new TuneDistance());
+		chooser.addObject("Tune Turn", new TuneTurn());
 		chooser.addObject("Default", new DoNothingMode());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
