@@ -22,10 +22,16 @@ public class IntakeController extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
-		if (!ControllerConstants.operatorStart.get() && !ControllerConstants.operatorSelect.get()) {
+		/*
+		if (ControllerConstants.operatorStart.get() && ControllerConstants.operatorSelect.get()) {
 			Robot.climb.setWinchSpeed(1);
-		}
+			System.out.println("Start1:" + ControllerConstants.operatorStart.get() + " Select1:" + ControllerConstants.operatorSelect.getSmartDashboardType());
+		} else if (ControllerConstants.operatorStart.get() && ControllerConstants.operatorSelect.get() && ControllerConstants.operatorB.get()){
+			Robot.climb.setWinchSpeed(-1);
+			System.out.println("Start2:" + ControllerConstants.operatorStart.get() + " Select2:" + ControllerConstants.operatorSelect.getSmartDashboardType() + " ControllerB:" + ControllerConstants.operatorB.get());
+		} else
+			Robot.climb.setBotMotorSpeed(0);
+		*/
 		
 		if (!Robot.climb.isClimbing) {
 

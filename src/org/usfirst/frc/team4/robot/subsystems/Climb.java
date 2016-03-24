@@ -67,12 +67,10 @@ public class Climb extends Subsystem {
 	}
 	
 	public void setWinchSpeed(double speed) {
-		if (isClimbing) {
 			double absoluteSpeed = -ElementMath.squareNumber(speed);
 
 			winchFrontMotor.set(absoluteSpeed);
 			winchBackMotor.set(absoluteSpeed);
-		}
 	}
 
 	public double getTopArmAngle() {
