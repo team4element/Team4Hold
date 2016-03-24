@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -15,13 +16,14 @@ public class AutoDriveController extends Command {
 
 	private PIDController rotatePID, distancePID;
 
-	private final double ROTATE_kP = .25, ROTATE_kI = 0, ROTATE_kD = .3;
+	private final double ROTATE_kP = .28, ROTATE_kI = 0, ROTATE_kD = .9;
 	
 	private final double DISTANCE_kP = .25, DISTANCE_kI = 0, DISTANCE_kD = .030, DISTANCE_kF = 1/118;
 	
 	private double speed = 0;
 	
 	public AutoDriveController(double distance, double angle) {
+
 		distancePID = new PIDController(DISTANCE_kP, DISTANCE_kI, DISTANCE_kD, DISTANCE_kF, new PIDSource() {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
 
@@ -71,7 +73,7 @@ public class AutoDriveController extends Command {
 		rotatePID.setSetpoint(angle);
 	}
 
-	// Called just before this Command runs the first time
+	// Called just before this Command runs the first time,meme
 	protected void initialize() {
         Robot.chassis.reset();
     	distancePID.reset();
@@ -82,11 +84,12 @@ public class AutoDriveController extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		SmartDashboard.putData("Distance PID", distancePID);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return rotatePID.onTarget() && distancePID.onTarget();
+		return distancePID.onTarget();
 	}
 
 	// Called once after isFinished returns true

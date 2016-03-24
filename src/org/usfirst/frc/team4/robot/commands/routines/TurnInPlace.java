@@ -15,7 +15,7 @@ public class TurnInPlace extends Command {
 
 	private PIDController rotatePID;
 	
-	private final double ROTATE_kP = .3, ROTATE_kI = 0, ROTATE_kD = .3;
+	private final double ROTATE_kP = .28, ROTATE_kI = 0, ROTATE_kD = .9;
 	
 	public TurnInPlace( double angle) {
 			rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {
@@ -52,7 +52,6 @@ public class TurnInPlace extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
