@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveSpeed extends Command {
 
-	int speed;
+	double speed;
 	
-    public DriveSpeed(int speed) {
+    public DriveSpeed(double d) {
         // Use requires() here to declare subsystem dependencies
     	requires(Robot.chassis);
-    	this.speed = speed;
+    	this.speed = d;
     }
 
     // Called just before this Command runs the first time

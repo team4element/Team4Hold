@@ -2,15 +2,8 @@
 package org.usfirst.frc.team4.robot;
 
 import org.usfirst.frc.team4.robot.commands.automodes.BangBangAutoMode;
+import org.usfirst.frc.team4.robot.commands.automodes.BreachAndStop;
 import org.usfirst.frc.team4.robot.commands.automodes.DoNothingMode;
-import org.usfirst.frc.team4.robot.commands.automodes.FifthAutonomous;
-import org.usfirst.frc.team4.robot.commands.automodes.FirstAutonomous;
-import org.usfirst.frc.team4.robot.commands.automodes.FourthAutonomous;
-import org.usfirst.frc.team4.robot.commands.automodes.SecondAutonomous;
-import org.usfirst.frc.team4.robot.commands.automodes.ThirdAutonomous;
-import org.usfirst.frc.team4.robot.commands.automodes.TuneDistance;
-import org.usfirst.frc.team4.robot.commands.automodes.TunePID;
-import org.usfirst.frc.team4.robot.commands.automodes.TuneTurn;
 import org.usfirst.frc.team4.robot.subsystems.Chassis;
 import org.usfirst.frc.team4.robot.subsystems.Climb;
 import org.usfirst.frc.team4.robot.subsystems.Intake;
@@ -37,7 +30,16 @@ public class Robot extends IterativeRobot {
 
 	private Command autonomousCommand;
 	private SendableChooser chooser;
-
+	/*
+	private CameraServer cameraServer;
+	
+	public Robot(){
+		cameraServer = CameraServer.getInstance();
+		cameraServer.setQuality(50);
+		cameraServer.startAutomaticCapture("cam0");
+	}
+	*/
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -56,15 +58,19 @@ public class Robot extends IterativeRobot {
 
 		// Adds Automodes
 		chooser = new SendableChooser();
-		chooser.addObject("Default", new DoNothingMode());
-		chooser.addObject("BangBang", new BangBangAutoMode());
-		chooser.addObject("First", new FirstAutonomous());
-		chooser.addObject("Second", new SecondAutonomous());
-		chooser.addObject("Third", new ThirdAutonomous());
-		chooser.addObject("Fourth", new FourthAutonomous());
-		chooser.addObject("Fifth", new FifthAutonomous());
+		chooser.addObject("Breach and Stop", new BreachAndStop());
+		chooser.addObject("Breach Defence", new BangBangAutoMode(2));
+		//chooser.addObject("Breach Defence 2", new BangBangAutoMode(2));
+		chooser.addObject("Do Nothing", new DoNothingMode());
+		//chooser.addObject("Score Low", new FirstAutonomous());
+		
+		
+		//add distance in here
+		/*
+		// Tuning
 		chooser.addObject("Tune Drive", new TuneDistance());
 		chooser.addObject("Tune Turn", new TuneTurn());
+		*/ 
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 
@@ -94,6 +100,7 @@ public class Robot extends IterativeRobot {
 	 * commands.
 	 */
 	public void autonomousInit() {
+		// Checks the Selected 
 		autonomousCommand = (Command) chooser.getSelected();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -114,7 +121,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		log();
+		
 	}
 
 	/**
@@ -122,6 +129,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		log();
 	}
 
 	/**

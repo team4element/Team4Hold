@@ -21,13 +21,13 @@ public class FirstAutonomous extends CommandGroup {
 		addSequential(new BringArmsDown(), 1);
 		
 		// Change to actual values
-		addSequential(new AutoDriveController(147.5, 0), 5);
-		//memes
-		Timer.delay(6);
+		addSequential(new AutoDriveController(147.5, 0), 3);
+		
+		Timer.delay(.5);
 		
 		addSequential(new TurnInPlace(60), 3);
 		
-		addSequential(new AutoDriveController(153.5, 0), 4);
+		addSequential(new AutoDriveController(153.5, 0), 3);
 		
 		addSequential(new OutTakeBall(), 3);
 		

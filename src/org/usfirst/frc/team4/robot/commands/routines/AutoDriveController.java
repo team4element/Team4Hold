@@ -16,9 +16,9 @@ public class AutoDriveController extends Command {
 
 	private PIDController rotatePID, distancePID;
 
-	private final double ROTATE_kP = .28, ROTATE_kI = 0, ROTATE_kD = .9;
+	private final double ROTATE_kP = .34, ROTATE_kI = 0, ROTATE_kD = .9;
 	
-	private final double DISTANCE_kP = .25, DISTANCE_kI = 0, DISTANCE_kD = .030, DISTANCE_kF = 1/118;
+	private final double DISTANCE_kP = .87, DISTANCE_kI = 0, DISTANCE_kD = 3.5, DISTANCE_kF = 1/118;
 	
 	private double speed = 0;
 	

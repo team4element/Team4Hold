@@ -16,7 +16,7 @@ public class TurnInPlace extends Command {
 
 	private PIDController rotatePID;
 	
-	private final double ROTATE_kP = .28, ROTATE_kI = 0, ROTATE_kD = .9;
+	private final double ROTATE_kP = 0.36, ROTATE_kI = 0, ROTATE_kD = 0.691;
 	
 	public TurnInPlace( double angle) {
 			rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {

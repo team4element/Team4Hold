@@ -16,7 +16,7 @@ public class DriveDistance extends Command {
 
 	private PIDController distancePID;
 
-	private final double DISTANCE_kP = .25, DISTANCE_kI = 0, DISTANCE_kD = .030, DISTANCE_kF = 1 / 118;
+	private final double DISTANCE_kP = 0.37, DISTANCE_kI = 0, DISTANCE_kD = 1, DISTANCE_kF = 1 / 120;
 
 	public DriveDistance(double distance) {
 		distancePID = new PIDController(DISTANCE_kP, DISTANCE_kI, DISTANCE_kD, DISTANCE_kF, new PIDSource() {
