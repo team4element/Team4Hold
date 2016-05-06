@@ -37,7 +37,7 @@ public class DriveDistance extends Command {
 			}
 		}, new PIDOutput() {
 			public void pidWrite(double output) {
-				Robot.chassis.arcadeDrive(output);
+				Robot.chassis.driveNoTurn(output);
 			}
 		});
 		distancePID.setSetpoint(distance);

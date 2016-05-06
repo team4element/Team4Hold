@@ -19,7 +19,7 @@ public class BringIntakeArmsDown extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.setArmAngle(.75);
+    	Robot.intake.setArmOutput(.75);
     }
 
     // Make this return true when this Command no longer needs to run execute()

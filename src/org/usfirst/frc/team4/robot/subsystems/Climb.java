@@ -22,7 +22,7 @@ public class Climb extends Subsystem {
 	private double kArmFilter = .1;
 	private JerkFilter botJerkFilter, topJerkFilter;
 	// TODO: Change to Actual Value
-	// private final double kPotScaleFactor = 1;
+	private final double kPotScaleFactor = 1;
 
 	public boolean isPortculisUp = true;
 
@@ -47,8 +47,8 @@ public class Climb extends Subsystem {
 		winchFrontMotor = new VictorSP(RobotMap.kClimbWinchMotorFront);
 		winchBackMotor = new VictorSP(RobotMap.kClimbWinchMotorBack);
 
-		potTop = new AnalogPotentiometer(RobotMap.kClimbArmPotTop);
-		potBot = new AnalogPotentiometer(RobotMap.kClimbArmPotBot);
+		potTop = new AnalogPotentiometer(RobotMap.kClimbArmPotTop, kPotScaleFactor);
+		potBot = new AnalogPotentiometer(RobotMap.kClimbArmPotBot, kPotScaleFactor);
 	}
 
 	public void initDefaultCommand() {
@@ -57,20 +57,29 @@ public class Climb extends Subsystem {
 
 	public void setTopMotorSpeed(double speed) {
 		// Motor's are reversed
-		armTopMotor.set(topJerkFilter.filter(DeadZone.inputFilter((ElementMath.squareNumber(speed) * .75), kArmFilter)));
-		
+		double maxSpeed = .75;
+		double filteredSpeed = topJerkFilter
+				.filter(DeadZone.inputFilter((ElementMath.squareNumber(speed) * maxSpeed), kArmFilter));
+
+		armTopMotor.set(filteredSpeed);
+
 	}
 
 	public void setBotMotorSpeed(double speed) {
 		// Motor's are reversed
-		armBotMotor.set(botJerkFilter.filter(DeadZone.inputFilter(ElementMath.squareNumber(speed) * .5, kArmFilter)));
-	}
-	
-	public void setWinchSpeed(double speed) {
-			double absoluteSpeed = -ElementMath.squareNumber(speed);
+		double maxSpeed = .5;
+		double filteredSpeed = botJerkFilter
+				.filter(DeadZone.inputFilter(ElementMath.squareNumber(speed) * maxSpeed, kArmFilter));
 
-			winchFrontMotor.set(absoluteSpeed);
-			winchBackMotor.set(absoluteSpeed);
+		armBotMotor.set(filteredSpeed);
+	}
+
+	public void setWinchSpeed(double speed) {
+		// Motor is reversed
+		double absoluteSpeed = -ElementMath.squareNumber(speed);
+
+		winchFrontMotor.set(absoluteSpeed);
+		winchBackMotor.set(absoluteSpeed);
 	}
 
 	public double getTopArmAngle() {

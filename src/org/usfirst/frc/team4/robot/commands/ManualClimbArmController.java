@@ -20,11 +20,12 @@ public class ManualClimbArmController extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		double botMotorOutput = ControllerConstants.operatorController.getRawAxis(ControllerConstants.AXIS_LEFT_Y);
+		double topMotorOutput = ControllerConstants.operatorController.getRawAxis(ControllerConstants.AXIS_RIGHT_Y);
+
 		// Manual Control
-		Robot.climb
-				.setBotMotorSpeed(ControllerConstants.operatorController.getRawAxis(ControllerConstants.AXIS_LEFT_Y));
-		Robot.climb
-				.setTopMotorSpeed(ControllerConstants.operatorController.getRawAxis(ControllerConstants.AXIS_RIGHT_Y));
+		Robot.climb.setBotMotorSpeed(botMotorOutput);
+		Robot.climb.setTopMotorSpeed(topMotorOutput);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

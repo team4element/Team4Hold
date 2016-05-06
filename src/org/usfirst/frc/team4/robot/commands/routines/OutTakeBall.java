@@ -21,7 +21,7 @@ public class OutTakeBall extends Command {
     protected void execute() {
     	// TODO: Change to actual value
     	
-    	Robot.intake.setArmAngle(-.25);
+    	Robot.intake.setArmOutput(-.25);
     	Robot.intake.setRollerSpeed(-1);
     }
 

@@ -13,14 +13,14 @@ public class BangBangAutoMode extends CommandGroup {
     
 	double time;
 	
-    public  BangBangAutoMode(double t) {
+    public BangBangAutoMode(double time) {
 
-    	t = time;
+    	this.time = time;
     	
     	addSequential(new BringIntakeArmsDown(), .5);
 		
 		addSequential(new BringArmsDown(), 1);
 		
-		addSequential(new DriveSpeed(1), t);
+		addSequential(new DriveSpeed(1), time);
     }
 }

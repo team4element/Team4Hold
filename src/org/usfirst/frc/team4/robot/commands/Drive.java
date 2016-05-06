@@ -23,10 +23,10 @@ public class Drive extends Command {
     protected void execute() {
     	if(Robot.chassis.driveState == DriveState.TANK){
     		// Tank Drive
-        	Robot.chassis.tankDrive(ControllerConstants.driveController);
+        	Robot.chassis.filteredTankDrive(ControllerConstants.driveController);
     	} else {
     		// Arcade Drive
-    		Robot.chassis.arcadeDrive(ControllerConstants.driveController);
+    		Robot.chassis.filteredArcadeDrive(ControllerConstants.driveController);
     	}
     }
 

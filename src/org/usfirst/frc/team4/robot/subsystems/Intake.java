@@ -34,8 +34,10 @@ public class Intake extends Subsystem {
 		intakeRoller.set(speed);
 	}
 
-	public void setArmAngle(double angle) {
-		intakeArm.set(DeadZone.inputFilter((ElementMath.squareNumber(angle) * kMaxArmSpeed), kArmFilter));
+	public void setArmOutput(double angle) {
+		double filteredOutput = DeadZone.inputFilter((ElementMath.squareNumber(angle) * kMaxArmSpeed), kArmFilter);
+		
+		intakeArm.set(filteredOutput);
 	}
 
 	public void stopRoller() {

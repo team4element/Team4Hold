@@ -3,7 +3,8 @@ package org.usfirst.frc.team4.robot;
 
 import org.usfirst.frc.team4.robot.commands.automodes.BangBangAutoMode;
 import org.usfirst.frc.team4.robot.commands.automodes.BreachAndStop;
-import org.usfirst.frc.team4.robot.commands.automodes.DoNothingMode;
+import org.usfirst.frc.team4.robot.commands.automodes.TuneDistance;
+import org.usfirst.frc.team4.robot.commands.automodes.TuneTurn;
 import org.usfirst.frc.team4.robot.subsystems.Chassis;
 import org.usfirst.frc.team4.robot.subsystems.Climb;
 import org.usfirst.frc.team4.robot.subsystems.Intake;
@@ -61,16 +62,11 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Breach and Stop", new BreachAndStop());
 		chooser.addObject("Breach Defence", new BangBangAutoMode(2));
 		//chooser.addObject("Breach Defence 2", new BangBangAutoMode(2));
-		chooser.addObject("Do Nothing", new DoNothingMode());
+		//chooser.addObject("Do Nothing", new DoNothingMode());
 		//chooser.addObject("Score Low", new FirstAutonomous());
 		
-		
-		//add distance in here
-		/*
-		// Tuning
 		chooser.addObject("Tune Drive", new TuneDistance());
-		chooser.addObject("Tune Turn", new TuneTurn());
-		*/ 
+		chooser.addObject("Tune Turn", new TuneTurn()); 
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 
