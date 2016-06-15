@@ -5,6 +5,7 @@ import org.usfirst.frc.team4.robot.commands.automodes.BangBangAutoMode;
 import org.usfirst.frc.team4.robot.commands.automodes.BreachAndStop;
 import org.usfirst.frc.team4.robot.commands.automodes.TuneDistance;
 import org.usfirst.frc.team4.robot.commands.automodes.TuneTurn;
+import org.usfirst.frc.team4.robot.commands.routines.TrackTarget;
 import org.usfirst.frc.team4.robot.subsystems.Chassis;
 import org.usfirst.frc.team4.robot.subsystems.Climb;
 import org.usfirst.frc.team4.robot.subsystems.Intake;
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -31,6 +33,9 @@ public class Robot extends IterativeRobot {
 
 	private Command autonomousCommand;
 	private SendableChooser chooser;
+	
+	public static NetworkTable visionTable;
+	
 	/*
 	private CameraServer cameraServer;
 	
@@ -40,6 +45,10 @@ public class Robot extends IterativeRobot {
 		cameraServer.startAutomaticCapture("cam0");
 	}
 	*/
+	
+	public Robot(){
+		visionTable = NetworkTable.getTable("GRIP/trackTarget");
+	}
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -61,6 +70,7 @@ public class Robot extends IterativeRobot {
 		chooser = new SendableChooser();
 		chooser.addObject("Breach and Stop", new BreachAndStop());
 		chooser.addObject("Breach Defence", new BangBangAutoMode(2));
+		chooser.addObject("Track Target", new TrackTarget());
 		//chooser.addObject("Breach Defence 2", new BangBangAutoMode(2));
 		//chooser.addObject("Do Nothing", new DoNothingMode());
 		//chooser.addObject("Score Low", new FirstAutonomous());
