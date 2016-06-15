@@ -1,7 +1,10 @@
 package org.usfirst.frc.team4.robot.commands.routines;
 
+import java.io.IOException;
+
 import org.usfirst.frc.team4.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -16,18 +19,33 @@ public class TrackTarget extends Command {
 	private double targetArea = -1;
 
 	public TrackTarget() {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
+
+		try{
+			new ProcessBuilder("home/lvuser/grip").inheritIO().start();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+
+	}
+
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
 		double[] defaultValue = new double[0];
 
-		double[] areas = Robot.visionTable.getNumberArray("trackTarget/area", defaultValue);
-		double[] xS = Robot.visionTable.getNumberArray("trackTarget/x", defaultValue);
+		double[] areas = Robot.visionTable.getNumberArray("GRIP/trackTarget/area", defaultValue);
+		double[] xS = Robot.visionTable.getNumberArray("GRIP/trackTarget/x", defaultValue);
 	
-	// TODO Add option to turn when it can't find anything	
+	// TODO Add option to turn when it can't find anything		
+		/*
+		if (areas[1] < 0){
+			new AutoDriveController(0, 180);
+		}	
+		*/
 		
 		for (int i = 0; i < areas.length; i++) {
 			if (areas[i] > targetArea) {
@@ -40,14 +58,13 @@ public class TrackTarget extends Command {
 				}
 			}
 		}
-	}
-
-	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
+		
 		if (targetX < center - tolerance) {
 			new TurnRight();
+			Timer.delay(.5);
 		} else if (targetX > center + tolerance) {
 			new TurnLeft();
+			Timer.delay(.5);
 		} else {
 			System.out.println("NICE BRUH");
 			end();
@@ -68,5 +85,6 @@ public class TrackTarget extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 }
