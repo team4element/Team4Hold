@@ -27,7 +27,8 @@ public class TrackTarget extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		
+		// Uncomment if it execute doesn't work
+		//turnToTarget();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -78,4 +79,37 @@ public class TrackTarget extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 	}
+	/*
+	private void turnToTarget(){
+		 double[] areas = Robot.visionTable.getNumberArray("area", defaultValue);
+		 double[] xS = Robot.visionTable.getNumberArray("centerX", defaultValue);
+		 
+		 System.out.println("Areas1: " + areas[0]);
+		 System.out.println("xs1: " + xS[0]);
+	// TODO Add option to turn when it can't find anything	
+		
+		for (int i = 0; i < areas.length; i++) {
+			if (areas[i] > targetArea) {
+				targetArea = areas[i];
+				if (targetArea < 0) {
+					System.out.println("No target found");
+					end();
+				} else {
+					targetX = xS[i];
+				}
+			}
+		}
+		
+		if (targetX < center - tolerance) {
+			turnLeft.start();
+			turnToTarget();
+		} else if (targetX > center + tolerance) {
+			turnRight.start();
+			turnToTarget();
+		} else {
+			System.out.println("NICE BRUH");
+			end();
+		}
+	} 
+	*/
 }

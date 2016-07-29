@@ -8,6 +8,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class TurnRight extends CommandGroup {
     
     public  TurnRight() {
-    	addSequential(new AutoDriveController(0, 15));
+    	addSequential(new AutoDriveController(0, 5));
     }
 }
