@@ -9,24 +9,35 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TrackTarget extends Command {
 
+	double[] defaultValue = new double[0];
+	
+	private TurnRight turnRight;
+	private TurnLeft turnLeft;
+	
 	private int center = 320;
-	private int tolerance = 20;
+	private int tolerance = 10;
 
 	private double targetX = -1;
 	private double targetArea = -1;
 
 	public TrackTarget() {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
+		turnRight = new TurnRight();
+		turnLeft = new TurnLeft();
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		double[] defaultValue = new double[0];
+		
+	}
 
-		double[] areas = Robot.visionTable.getNumberArray("trackTarget/area", defaultValue);
-		double[] xS = Robot.visionTable.getNumberArray("trackTarget/x", defaultValue);
-	
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+			
+		 double[] areas = Robot.visionTable.getNumberArray("area", defaultValue);
+		 double[] xS = Robot.visionTable.getNumberArray("centerX", defaultValue);
+		 
+		 System.out.println("Areas1: " + areas[0]);
+		 System.out.println("xs1: " + xS[0]);
 	// TODO Add option to turn when it can't find anything	
 		
 		for (int i = 0; i < areas.length; i++) {
@@ -40,19 +51,17 @@ public class TrackTarget extends Command {
 				}
 			}
 		}
-	}
-
-	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
+		
 		if (targetX < center - tolerance) {
-			new TurnRight();
+			turnLeft.start();
 		} else if (targetX > center + tolerance) {
-			new TurnLeft();
+			turnRight.start();
 		} else {
 			System.out.println("NICE BRUH");
 			end();
 		}
-
+		
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
