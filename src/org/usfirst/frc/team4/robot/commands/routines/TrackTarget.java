@@ -1,7 +1,10 @@
 package org.usfirst.frc.team4.robot.commands.routines;
 
+import java.io.IOException;
+
 import org.usfirst.frc.team4.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -55,8 +58,10 @@ public class TrackTarget extends Command {
 		
 		if (targetX < center - tolerance) {
 			turnLeft.start();
+			Timer.delay(.25);
 		} else if (targetX > center + tolerance) {
 			turnRight.start();
+			Timer.delay(.25);
 		} else {
 			System.out.println("NICE BRUH");
 			end();
@@ -78,6 +83,7 @@ public class TrackTarget extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 	/*
 	private void turnToTarget(){

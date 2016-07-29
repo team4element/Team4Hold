@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4.robot.commands;
 
-import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.Robot;
 
 import edu.wpi.first.wpilibj.PIDController;
