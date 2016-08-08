@@ -15,9 +15,7 @@ public class TurnPID extends Command {
 
 	private PIDController pid;
 	
-	private double kP = 1;
-	private double kI = 0;
-	private double kD = 0;
+	private final double kP = .34, kI = 0, kD = .9;
 	
     public TurnPID(double setPoint) {    	
     	requires(Robot.chassis);

@@ -56,12 +56,18 @@ public class TrackTarget extends Command {
 			}
 		}
 		
+		System.out.println(targetX);
+		
 		if (targetX < center - tolerance) {
+			
 			turnLeft.start();
 			Timer.delay(.25);
+			System.out.println("Turning Left");
 		} else if (targetX > center + tolerance) {
+		
 			turnRight.start();
 			Timer.delay(.25);
+			System.out.println("Turning Right");
 		} else {
 			System.out.println("NICE BRUH");
 			end();
