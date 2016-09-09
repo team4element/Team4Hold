@@ -23,7 +23,7 @@ public class ControllerConstants {
 	public static final int BUTTON_LEFT_3 = 9;
 	public static final int BUTTON_RIGHT_3 = 10;
 
-	//public static final int BUTTON_SELECT = 7;
+	public static final int BUTTON_SELECT = 7;
 	public static final int BUTTON_START = 8;
 
 	public static final int AXIS_LEFT_Y = 1;

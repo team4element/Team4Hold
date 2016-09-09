@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4.robot.commands.routines;
 
-import java.io.IOException;
-
 import org.usfirst.frc.team4.robot.Robot;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -17,8 +15,10 @@ public class TrackTarget extends Command {
 	private TurnRight turnRight;
 	private TurnLeft turnLeft;
 	
+	private boolean canGo = false;
+	
 	private int center = 320;
-	private int tolerance = 10;
+	private int tolerance = 5;
 
 	private double targetX = -1;
 	private double targetArea = -1;
@@ -40,8 +40,6 @@ public class TrackTarget extends Command {
 		 double[] areas = Robot.visionTable.getNumberArray("area", defaultValue);
 		 double[] xS = Robot.visionTable.getNumberArray("centerX", defaultValue);
 		 
-		 System.out.println("Areas1: " + areas[0]);
-		 System.out.println("xs1: " + xS[0]);
 	// TODO Add option to turn when it can't find anything	
 		
 		for (int i = 0; i < areas.length; i++) {
@@ -59,17 +57,18 @@ public class TrackTarget extends Command {
 		System.out.println(targetX);
 		
 		if (targetX < center - tolerance) {
-			
-			turnLeft.start();
-			Timer.delay(.25);
-			System.out.println("Turning Left");
-		} else if (targetX > center + tolerance) {
-		
-			turnRight.start();
-			Timer.delay(.25);
+			Robot.chassis.arcadeDrive(0, .15);
+//			turnLeft.start();
+		Timer.delay(.15);
 			System.out.println("Turning Right");
+		} else if (targetX > center + tolerance) {
+			Robot.chassis.arcadeDrive(0, -.15);
+			//turnRight.start();
+			Timer.delay(.15);
+			System.out.println("Turning Left");
 		} else {
 			System.out.println("NICE BRUH");
+			canGo = true;
 			end();
 		}
 		
@@ -78,11 +77,12 @@ public class TrackTarget extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return canGo;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
+		canGo = true;
 		Robot.chassis.stop();
 	}
 

@@ -22,7 +22,7 @@ public class OI {
 		ControllerConstants.driveRightBumper1.whenPressed(new GearToggle());
 
 		ControllerConstants.driveA.whenPressed(new ToggleInverseDrive());
-		/*
+
 		new MultiButton(ControllerConstants.operatorController, ControllerConstants.BUTTON_START,
 				ControllerConstants.BUTTON_SELECT).whileActive(new WinchOn());
 		
@@ -30,7 +30,6 @@ public class OI {
 		new MultiButton(ControllerConstants.operatorController, ControllerConstants.BUTTON_SELECT,
 				ControllerConstants.BUTTON_START, ControllerConstants.BUTTON_B).whileActive(new WinchReverse());
 		;
-				*/
 
 		// Turn in place 180
 		// ControllerConstants.driveB.whenPressed(new AutoDriveController(0,

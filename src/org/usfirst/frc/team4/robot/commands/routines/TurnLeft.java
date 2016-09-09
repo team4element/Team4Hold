@@ -10,6 +10,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class TurnLeft extends CommandGroup {
     
     public  TurnLeft() {
-    	addSequential(new TurnPID(-5));
+    	addSequential(new TurnPID(-2));
     }
 }
