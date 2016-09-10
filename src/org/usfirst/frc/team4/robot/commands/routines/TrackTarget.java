@@ -18,7 +18,7 @@ public class TrackTarget extends Command {
 	private boolean canGo = false;
 	
 	private int center = 320;
-	private int tolerance = 5;
+	private int tolerance = 15;
 
 	private double targetX = -1;
 	private double targetArea = -1;
@@ -42,29 +42,21 @@ public class TrackTarget extends Command {
 		 
 	// TODO Add option to turn when it can't find anything	
 		
-		for (int i = 0; i < areas.length; i++) {
-			if (areas[i] > targetArea) {
-				targetArea = areas[i];
-				if (targetArea < 0) {
-					System.out.println("No target found");
-					end();
-				} else {
-					targetX = xS[i];
-				}
-			}
-		}
+
+		
+		targetX = xS[0];
 		
 		System.out.println(targetX);
 		
 		if (targetX < center - tolerance) {
-			Robot.chassis.arcadeDrive(0, .15);
+			Robot.chassis.arcadeDrive(0, -.13);
 //			turnLeft.start();
-		Timer.delay(.15);
+		//Timer.delay(.15);
 			System.out.println("Turning Right");
 		} else if (targetX > center + tolerance) {
-			Robot.chassis.arcadeDrive(0, -.15);
+			Robot.chassis.arcadeDrive(0, .13);
 			//turnRight.start();
-			Timer.delay(.15);
+			//Timer.delay(.15);
 			System.out.println("Turning Left");
 		} else {
 			System.out.println("NICE BRUH");

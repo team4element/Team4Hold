@@ -108,6 +108,8 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		// Checks the Selected 
 		autonomousCommand = (Command) chooser.getSelected();
+		
+		//autonomousCommand = new TrackTarget();
 		if (autonomousCommand != null)
 			//visionTable = NetworkTable.getTable("GRIP/trackTarget");
 			autonomousCommand.start();
