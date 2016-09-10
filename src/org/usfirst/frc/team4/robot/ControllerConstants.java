@@ -110,7 +110,7 @@ public class ControllerConstants {
 		driveLeftButton3 = new JoystickButton(driveController, BUTTON_LEFT_3);
 		driveRightButton3 = new JoystickButton(driveController, BUTTON_RIGHT_3);
 
-		driveSelect = new JoystickButton(driveController, BUTTON_SELECT);
+		//driveSelect = new JoystickButton(driveController, BUTTON_SELECT);
 		driveStart = new JoystickButton(driveController, BUTTON_START);
 		
 		drivePOVTop = new JoystickButton(operatorController, POV_TOP);
@@ -136,7 +136,7 @@ public class ControllerConstants {
 		operatorLeftButton3 = new JoystickButton(operatorController, BUTTON_LEFT_3);
 		operatorRightButton3 = new JoystickButton(operatorController, BUTTON_RIGHT_3);
 
-		operatorSelect = new JoystickButton(operatorController, BUTTON_SELECT);
+		//operatorSelect = new JoystickButton(operatorController, BUTTON_SELECT);
 		operatorStart = new JoystickButton(operatorController, BUTTON_START);
 		
 		operatorPOVTop = new JoystickButton(operatorController, POV_TOP);

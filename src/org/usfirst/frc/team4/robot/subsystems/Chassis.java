@@ -4,13 +4,14 @@ import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.Drive;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.team4element.library.DeadZone;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -41,7 +42,7 @@ public class Chassis extends Subsystem {
 	private VictorSP leftFront, leftRear, rightFront, rightRear;
 	private RobotDrive drive;
 	private Encoder leftEncoder, rightEncoder;
-	private ADXRS450_Gyro gyro;
+	private AHRS gyro;
 
 	public Chassis() {
 		// Registers Subsystem
@@ -66,8 +67,12 @@ public class Chassis extends Subsystem {
 		// Right side is mirrored
 		rightEncoder.setDistancePerPulse((kWheelDiameter * Math.PI) / kPulsePerRev);
 
-		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 
+		 try {
+            gyro = new AHRS(SPI.Port.kMXP); 
+        } catch (RuntimeException ex ) {
+            DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+        }
 	}
 
 	public void initDefaultCommand() {
@@ -200,7 +205,15 @@ public class Chassis extends Subsystem {
 	}
 
 	public double getDistance() {
-		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
+		return (getLeftDistance() + getRightDistance()) / 2;
+	}
+	
+	public double getLeftDistance(){
+		return leftEncoder.getDistance();
+	}
+	
+	public double getRightDistance() {
+		return rightEncoder.getDistance();
 	}
 
 	public double getAngle() {
@@ -222,7 +235,7 @@ public class Chassis extends Subsystem {
 	}
 
 	private String getCurrentDriveState() {
-		return isDriveInverse ? "Normal Drive" : "Reverse Drive";
+		return !isDriveInverse ? "Normal Drive" : "Reverse Drive";
 	}
 
 	private double getRate() {
@@ -231,6 +244,8 @@ public class Chassis extends Subsystem {
 
 	public void log() {
 		SmartDashboard.putNumber("Robot Speed", getRate());
+		//SmartDashboard.putNumber("Left Distance", getLeftDistance());
+		//SmartDashboard.putNumber("Right Distance", getRightDistance());
 		SmartDashboard.putString("Drive Mode", getCurrentDriveMode());
 		SmartDashboard.putString("Current Gear", getCurrentGear());
 		SmartDashboard.putString("Current State", getCurrentDriveState());
