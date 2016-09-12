@@ -222,6 +222,7 @@ public class Chassis extends Subsystem {
 
 	public void reset() {
 		gyro.reset();
+		gyro.resetDisplacement();
 		leftEncoder.reset();
 		rightEncoder.reset();
 	}
