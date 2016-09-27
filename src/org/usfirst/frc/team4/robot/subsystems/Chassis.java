@@ -16,16 +16,10 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 /**
  *
  */
 public class Chassis extends Subsystem {
-
-	// Toggle Drive
-	public enum DriveState {
-		ARCADE, TANK;
-	}
 
 	// Drive Speeds
 	public enum DriveSpeed {
@@ -33,7 +27,6 @@ public class Chassis extends Subsystem {
 	}
 
 	public DriveSpeed currentGear = DriveSpeed.HIGH;
-	public DriveState driveState = DriveState.TANK;
 	public boolean isDriveInverse = false;
 
 	private final double kDriveFilter = .1, kMaxTurnSpeed = .8;
@@ -68,72 +61,17 @@ public class Chassis extends Subsystem {
 		// Right side is mirrored
 		rightEncoder.setDistancePerPulse((kWheelDiameter * Math.PI) / kPulsePerRev);
 
-
-		 try {
-            gyro = new AHRS(SPI.Port.kMXP); 
-        } catch (RuntimeException ex ) {
-            DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
-        }
+		try {
+			gyro = new AHRS(SPI.Port.kMXP);
+		} catch (RuntimeException ex) {
+			DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+		}
 	}
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new Drive());
 	}
 
-	// NO FILTER
-	public void tankDrive(GenericHID controller) {
-		double leftMotorOutput = controller.getRawAxis(ControllerConstants.AXIS_LEFT_Y);
-		double rightMotorOutput = controller.getRawAxis(ControllerConstants.AXIS_RIGHT_Y);
-
-		drive.tankDrive(leftMotorOutput, rightMotorOutput, false);
-	}
-
-	public void tankDrive(GenericHID controller, boolean squareInputs) {
-		double leftMotorOutput = controller.getRawAxis(ControllerConstants.AXIS_LEFT_Y);
-		double rightMotorOutput = controller.getRawAxis(ControllerConstants.AXIS_RIGHT_Y);
-
-		drive.tankDrive(leftMotorOutput, rightMotorOutput, squareInputs);
-	}
-
-	public void tankDrive(double leftInput, double rightInput) {
-		drive.tankDrive(leftInput, rightInput, false);
-	}
-
-	public void tankDrive(double leftInput, double rightInput, boolean squareInputs) {
-		drive.tankDrive(leftInput, rightInput, squareInputs);
-	}
-
-	// FILTERED
-	public void filteredTankDrive(GenericHID controller) {
-
-		double leftMotorOutput = DeadZone.inputFilter(
-				controller.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear), kDriveFilter);
-
-		double rightMotorOutput = DeadZone.inputFilter(
-				controller.getRawAxis(ControllerConstants.AXIS_RIGHT_Y) * gearSetter(currentGear), kDriveFilter);
-
-		if (!isDriveInverse) {
-			// True squares outputs
-			drive.tankDrive(leftMotorOutput, rightMotorOutput, true);
-		} else {
-			// Switched to reverse drive
-			drive.tankDrive(-rightMotorOutput, -leftMotorOutput, true);
-		}
-	}
-
-	public void filteredTankDrive(double leftInput, double rightInput) {
-		double leftMotorOutput = DeadZone.inputFilter(leftInput * gearSetter(currentGear), kDriveFilter);
-
-		double rightMotorOutput = DeadZone.inputFilter(rightInput * gearSetter(currentGear), kDriveFilter);
-
-		if (!isDriveInverse) {
-			// True squares outputs
-			drive.tankDrive(leftMotorOutput, rightMotorOutput, true);
-		} else {
-			// Switched to reverse drive
-			drive.tankDrive(-rightMotorOutput, -leftMotorOutput, true);
-		}
-	}
 
 	public void arcadeDrive(GenericHID controller) {
 		double leftMotorOutput = controller.getRawAxis(ControllerConstants.AXIS_LEFT_Y);
@@ -143,20 +81,10 @@ public class Chassis extends Subsystem {
 		drive.arcadeDrive(leftMotorOutput, rightMotorOutput);
 	}
 
-	public void arcadeDrive(GenericHID controller, boolean squareInputs) {
-		double leftMotorOutput = controller.getRawAxis(ControllerConstants.AXIS_LEFT_Y);
-
-		double rightMotorOutput = controller.getRawAxis(ControllerConstants.AXIS_RIGHT_X);
-
-		drive.arcadeDrive(leftMotorOutput, rightMotorOutput, squareInputs);
-	}
+	
 
 	public void arcadeDrive(double speed, double angle) {
-		drive.arcadeDrive(speed, angle, false);
-	}
-
-	public void arcadeDrive(double speed, double angle, boolean squareInputs) {
-		drive.arcadeDrive(speed, angle, squareInputs);
+		drive.arcadeDrive(speed, angle);
 	}
 
 	public void filteredArcadeDrive(GenericHID controller) {
@@ -165,7 +93,7 @@ public class Chassis extends Subsystem {
 				controller.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear), kDriveFilter);
 
 		double rightMotorOutput = DeadZone.inputFilter(
-				controller.getRawAxis(ControllerConstants.AXIS_RIGHT_X) * kMaxTurnSpeed * gearSetter(currentGear),
+				controller.getRawAxis(ControllerConstants.AXIS_LEFT_X) * kMaxTurnSpeed * gearSetter(currentGear),
 				kDriveFilter);
 
 		// Squared to make slower speeds easier
@@ -208,11 +136,11 @@ public class Chassis extends Subsystem {
 	public double getDistance() {
 		return (getLeftDistance() + getRightDistance()) / 2;
 	}
-	
-	public double getLeftDistance(){
+
+	public double getLeftDistance() {
 		return leftEncoder.getDistance();
 	}
-	
+
 	public double getRightDistance() {
 		return rightEncoder.getDistance();
 	}
@@ -232,10 +160,6 @@ public class Chassis extends Subsystem {
 		return currentGear.toString();
 	}
 
-	private String getCurrentDriveMode() {
-		return driveState.toString();
-	}
-
 	private String getCurrentDriveState() {
 		return !isDriveInverse ? "Normal Drive" : "Reverse Drive";
 	}
@@ -246,9 +170,8 @@ public class Chassis extends Subsystem {
 
 	public void log() {
 		SmartDashboard.putNumber("Robot Speed", getRate());
-		//SmartDashboard.putNumber("Left Distance", getLeftDistance());
-		//SmartDashboard.putNumber("Right Distance", getRightDistance());
-		SmartDashboard.putString("Drive Mode", getCurrentDriveMode());
+		// SmartDashboard.putNumber("Left Distance", getLeftDistance());
+		// SmartDashboard.putNumber("Right Distance", getRightDistance());
 		SmartDashboard.putString("Current Gear", getCurrentGear());
 		SmartDashboard.putString("Current State", getCurrentDriveState());
 		SmartDashboard.putNumber("Robot Distance", getDistance());

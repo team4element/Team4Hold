@@ -65,7 +65,7 @@ public class DriveDistance extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
     	distancePID.disable();
-        Robot.chassis.arcadeDrive(0, 0);
+        Robot.chassis.filteredArcadeDrive(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same

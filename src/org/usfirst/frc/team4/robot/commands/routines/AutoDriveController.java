@@ -66,14 +66,14 @@ public class AutoDriveController extends Command {
 			}
 		}, new PIDOutput() {
 			public void pidWrite(double angle) {
-				Robot.chassis.arcadeDrive(speed, angle);
+				Robot.chassis.filteredArcadeDrive(speed, angle);
 			}
 		});
 		rotatePID.setAbsoluteTolerance(1);
 		rotatePID.setSetpoint(angle);
 	}
 
-	// Called just before this Command runs the first time,meme
+	// Called just before this Command runs the first time,
 	protected void initialize() {
         Robot.chassis.reset();
     	distancePID.reset();
@@ -96,7 +96,7 @@ public class AutoDriveController extends Command {
 	protected void end() {
     	rotatePID.disable();
     	distancePID.disable();
-        Robot.chassis.arcadeDrive(0, 0);
+        Robot.chassis.filteredArcadeDrive(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same
