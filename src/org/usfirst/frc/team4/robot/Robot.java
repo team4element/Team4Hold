@@ -1,13 +1,8 @@
 
 package org.usfirst.frc.team4.robot;
 
-import org.usfirst.frc.team4.robot.commands.automodes.AutoLowBar_RockyTerrain;
-import org.usfirst.frc.team4.robot.commands.automodes.BangBangAutoMode;
-import org.usfirst.frc.team4.robot.commands.automodes.BreachAndStop;
-import org.usfirst.frc.team4.robot.commands.automodes.Rockwall;
-import org.usfirst.frc.team4.robot.commands.automodes.TuneDistance;
-import org.usfirst.frc.team4.robot.commands.automodes.TuneTurn;
-import org.usfirst.frc.team4.robot.commands.routines.TrackTarget;
+import org.usfirst.frc.team4.robot.commands.automodes.SensorlessAutoLowBar_RockyTerrain;
+import org.usfirst.frc.team4.robot.commands.automodes.SensorlessRockwall;
 import org.usfirst.frc.team4.robot.subsystems.Chassis;
 import org.usfirst.frc.team4.robot.subsystems.Climb;
 import org.usfirst.frc.team4.robot.subsystems.Intake;
@@ -76,8 +71,8 @@ public class Robot extends IterativeRobot {
 		//chooser.addObject("Breach and Stop", new BreachAndStop());
 		//chooser.addObject("Breach Defence", new BangBangAutoMode(2));
 		//chooser.addObject("Track Target", new TrackTarget());
-		chooser.addObject("LowBar and RuffTerrian", new AutoLowBar_RockyTerrain());
-		chooser.addObject("RockWall", new Rockwall());
+		chooser.addObject("LowBar and RuffTerrian", new SensorlessAutoLowBar_RockyTerrain());
+		chooser.addObject("RockWall", new SensorlessRockwall());
 		//chooser.addObject("Breach Defence 2", new BangBangAutoMode(2));
 		//chooser.addObject("Do Nothing", new DoNothingMode());
 		//chooser.addObject("Score Low", new FirstAutonomous());
