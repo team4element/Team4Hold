@@ -10,12 +10,12 @@ import org.usfirst.frc.team4.robot.commands.routines.DriveDistance;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ShootHigh extends CommandGroup {
+public class Rockwall extends CommandGroup {
 
-	public ShootHigh() {
+	public Rockwall() {
 	addSequential(new BringIntakeArmsDown(), .5);
-		addSequential(new BringArmsDown(), .8);
-		addSequential(new AutoDrive(), 3);
+		addSequential(new BringArmsDown(), 1);
+		addSequential(new AutoDrive(), 2);
 	}
 }
 //	public void log(){

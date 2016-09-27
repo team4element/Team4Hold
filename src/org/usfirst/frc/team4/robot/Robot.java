@@ -1,9 +1,10 @@
 
 package org.usfirst.frc.team4.robot;
 
+import org.usfirst.frc.team4.robot.commands.automodes.AutoLowBar_RockyTerrain;
 import org.usfirst.frc.team4.robot.commands.automodes.BangBangAutoMode;
 import org.usfirst.frc.team4.robot.commands.automodes.BreachAndStop;
-import org.usfirst.frc.team4.robot.commands.automodes.ShootHigh;
+import org.usfirst.frc.team4.robot.commands.automodes.Rockwall;
 import org.usfirst.frc.team4.robot.commands.automodes.TuneDistance;
 import org.usfirst.frc.team4.robot.commands.automodes.TuneTurn;
 import org.usfirst.frc.team4.robot.commands.routines.TrackTarget;
@@ -71,19 +72,21 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(climb);
 
 		// Adds Automodes
-		/* chooser = new SendableChooser();
-		chooser.addObject("Breach and Stop", new BreachAndStop());
-		chooser.addObject("Breach Defence", new BangBangAutoMode(2));
-		chooser.addObject("Track Target", new TrackTarget());
-		chooser.addObject("ShootHigh", new ShootHigh());
+		 chooser = new SendableChooser();
+		//chooser.addObject("Breach and Stop", new BreachAndStop());
+		//chooser.addObject("Breach Defence", new BangBangAutoMode(2));
+		//chooser.addObject("Track Target", new TrackTarget());
+		chooser.addObject("LowBar and RuffTerrian", new AutoLowBar_RockyTerrain());
+		chooser.addObject("RockWall", new Rockwall());
 		//chooser.addObject("Breach Defence 2", new BangBangAutoMode(2));
 		//chooser.addObject("Do Nothing", new DoNothingMode());
 		//chooser.addObject("Score Low", new FirstAutonomous());
 		
-		chooser.addObject("Tune Drive", new TuneDistance());
-		chooser.addObject("Tune Turn", new TuneTurn()); 
-		SmartDashboard.putData("Auto mode", chooser);
-	}*/
+		//chooser.addObject("Tune Drive", new TuneDistance());
+		//chooser.addObject("Tune Turn", new TuneTurn()); 
+		SmartDashboard.putData("Auto Modes", chooser);
+	//	SmartDashboard.putData("Auto mode", chooser);
+	
 	}
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
@@ -112,7 +115,9 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousInit() {
 		// Checks the Selected 
-		autonomousCommand = new ShootHigh();
+		autonomousCommand = (Command) chooser.getSelected();
+		//autonomousCommand = new Rockwall();
+		//autonomousCommand = new AutoLowBar_RockyTerrain();
 		
 		//autonomousCommand = new TrackTarget();
 		if (autonomousCommand != null)
