@@ -7,6 +7,7 @@ import org.usfirst.frc.team4.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -29,12 +30,22 @@ public class Shooter extends Subsystem {
 	public void motorsOn() {
 		shooterTop.set(1);
 		shooterBot.set(1);
+		isShooting = true;
 
 	}
 
 	public void motorsOff() {
 		shooterTop.stopMotor();
 		shooterBot.stopMotor();
+		isShooting = false;
 
+	}
+	public void log(){
+		if(isShooting == true){
+			SmartDashboard.putString("Shooting Motors are:", "on");
+		}else{
+			SmartDashboard.putString("Shooting Motors are", "off");
+			
+		}
 	}
 }

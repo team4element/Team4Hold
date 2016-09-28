@@ -157,6 +157,7 @@ public class Robot extends IterativeRobot {
 		chassis.log();
 		climb.log();
 		intake.log();
+		shooter.log();
 	}
 
 }
