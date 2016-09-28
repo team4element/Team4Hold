@@ -37,7 +37,7 @@ public class TurnInPlace extends Command {
 			}
 		}, new PIDOutput() {
 			public void pidWrite(double angle) {
-				Robot.chassis.arcadeDrive(0, angle);
+				Robot.chassis.arcadeDrive2(0, angle);
 			}
 		});
 		rotatePID.setAbsoluteTolerance(1);
@@ -64,7 +64,7 @@ public class TurnInPlace extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
     	rotatePID.disable();
-    	Robot.chassis.arcadeDrive(0, 0);
+    	Robot.chassis.arcadeDrive2(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same

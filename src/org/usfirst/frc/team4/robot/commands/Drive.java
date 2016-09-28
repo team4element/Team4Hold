@@ -21,7 +21,7 @@ public class Drive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     		// Arcade Drive
-    		Robot.chassis.filteredArcadeDrive(ControllerConstants.driveController);
+    		Robot.chassis.arcadeDrive(ControllerConstants.driveController);
     	}
     
 

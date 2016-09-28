@@ -48,12 +48,12 @@ public class TrackTarget extends Command {
 		System.out.println(targetX);
 		
 		if (targetX < center - tolerance) {
-			Robot.chassis.arcadeDrive(0, -.13);
+			Robot.chassis.arcadeDrive2(0, -.13);
 //			turnLeft.start();
 		//Timer.delay(.15);
 			System.out.println("Turning Right");
 		} else if (targetX > center + tolerance) {
-			Robot.chassis.arcadeDrive(0, .13);
+			Robot.chassis.arcadeDrive2(0, .13);
 			//turnRight.start();
 			//Timer.delay(.15);
 			System.out.println("Turning Left");

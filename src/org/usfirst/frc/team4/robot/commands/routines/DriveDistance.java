@@ -36,8 +36,8 @@ public class DriveDistance extends Command {
 				return m_sourceType;
 			}
 		}, new PIDOutput() {
-			public void pidWrite(double output) {
-				Robot.chassis.driveNoTurn(-output);
+			public void pidWrite(double distance) {
+				Robot.chassis.arcadeDrive2(distance, 0);
 			}
 		});
 		distancePID.setSetpoint(100);
@@ -65,7 +65,7 @@ public class DriveDistance extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
     	distancePID.disable();
-        Robot.chassis.filteredArcadeDrive(0, 0);
+        Robot.chassis.arcadeDrive2(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same

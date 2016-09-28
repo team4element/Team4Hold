@@ -39,7 +39,7 @@ public class TurnPID extends Command {
 			
 			@Override
 			public void pidWrite(double output) {
-				Robot.chassis.arcadeDrive(0, output);
+				Robot.chassis.arcadeDrive2(0, output);
 			}
 		});	
     	pid.setAbsoluteTolerance(1);

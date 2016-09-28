@@ -66,7 +66,7 @@ public class AutoDriveController extends Command {
 			}
 		}, new PIDOutput() {
 			public void pidWrite(double angle) {
-				Robot.chassis.filteredArcadeDrive(speed, angle);
+				Robot.chassis.arcadeDrive2(0, 1);
 			}
 		});
 		rotatePID.setAbsoluteTolerance(1);
@@ -96,7 +96,7 @@ public class AutoDriveController extends Command {
 	protected void end() {
     	rotatePID.disable();
     	distancePID.disable();
-        Robot.chassis.filteredArcadeDrive(0, 0);
+        Robot.chassis.arcadeDrive2(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same

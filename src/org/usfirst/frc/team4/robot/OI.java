@@ -4,7 +4,6 @@ import org.usfirst.frc.team4.robot.commands.Shoot;
 import org.usfirst.frc.team4.robot.commands.WinchOn;
 import org.usfirst.frc.team4.robot.commands.WinchReverse;
 import org.usfirst.frc.team4.robot.commands.toggles.GearToggle;
-import org.usfirst.frc.team4.robot.commands.toggles.ToggleInverseDrive;
 import org.usfirst.frc.team4.robot.triggers.MultiButton;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -16,17 +15,14 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 
 	public OI() {
-		
+
 		ControllerConstants.driveB.toggleWhenPressed(new Shoot());
 
 		ControllerConstants.driveLeftBumper1.whenPressed(new GearToggle());
 		ControllerConstants.driveRightBumper1.whenPressed(new GearToggle());
 
-		ControllerConstants.driveA.whenPressed(new ToggleInverseDrive());
-
 		new MultiButton(ControllerConstants.operatorController, ControllerConstants.BUTTON_START,
 				ControllerConstants.BUTTON_SELECT).whileActive(new WinchOn());
-		
 
 		new MultiButton(ControllerConstants.operatorController, ControllerConstants.BUTTON_SELECT,
 				ControllerConstants.BUTTON_START, ControllerConstants.BUTTON_B).whileActive(new WinchReverse());

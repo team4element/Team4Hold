@@ -2,7 +2,6 @@ package org.usfirst.frc.team4.robot.commands.toggles;
 
 import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.Robot;
-import org.usfirst.frc.team4.robot.subsystems.Chassis.DriveSpeed;
 
 import com.team4element.library.Rumble;
 
@@ -23,19 +22,19 @@ public class GearToggle extends Command {
 	protected void initialize() {
 		if (Robot.oi.R1(ControllerConstants.driveController)) {
 
-			if (Robot.chassis.currentGear != DriveSpeed.HIGH) {
+			if (Robot.chassis.drive_slow == false) {
 				rumble.runRumble();
 			}
 
-			Robot.chassis.currentGear = DriveSpeed.HIGH;
+			Robot.chassis.drive_slow = Robot.chassis.drive_slow = false;
 
 		} else if (Robot.oi.L1(ControllerConstants.driveController)) {
 
-			if (Robot.chassis.currentGear != DriveSpeed.LOW) {
+			if (Robot.chassis.drive_slow = !Robot.chassis.drive_slow) {
 				rumble.runRumble();
 			}
 
-			Robot.chassis.currentGear = DriveSpeed.LOW;
+			Robot.chassis.drive_slow = true;
 
 		} else {
 			System.out.println("No Button Mapped");

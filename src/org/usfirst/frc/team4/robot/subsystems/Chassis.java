@@ -3,10 +3,8 @@ package org.usfirst.frc.team4.robot.subsystems;
 import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.Drive;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.team4element.library.DeadZone;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -16,22 +14,14 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
- */
 public class Chassis extends Subsystem {
 
-	// Drive Speeds
-	public enum DriveSpeed {
-		HIGH, LOW;
-	}
-
-	public DriveSpeed currentGear = DriveSpeed.HIGH;
+	public boolean drive_slow = false;
 	public boolean isDriveInverse = false;
-
-	private final double kDriveFilter = .1, kMaxTurnSpeed = .8;
+	private final double kDriveFilter = .1;
 	private final double kWheelDiameter = 8;
 	private final double kPulsePerRev = 128;
+	private final double distance_per_pulse = (kWheelDiameter * Math.PI) / kPulsePerRev;
 
 	private VictorSP leftFront, leftRear, rightFront, rightRear;
 	private RobotDrive drive;
@@ -57,9 +47,8 @@ public class Chassis extends Subsystem {
 		leftEncoder = new Encoder(RobotMap.kChassisLeftEncoderForward, RobotMap.kChassisLeftEncoderReverse);
 		rightEncoder = new Encoder(RobotMap.kChassisRightEncoderForward, RobotMap.kChassisRightEncoderReverse);
 
-		leftEncoder.setDistancePerPulse(-(kWheelDiameter * Math.PI) / kPulsePerRev);
-		// Right side is mirrored
-		rightEncoder.setDistancePerPulse((kWheelDiameter * Math.PI) / kPulsePerRev);
+		leftEncoder.setDistancePerPulse(-distance_per_pulse);
+		rightEncoder.setDistancePerPulse(distance_per_pulse);
 
 		try {
 			gyro = new AHRS(SPI.Port.kMXP);
@@ -72,65 +61,30 @@ public class Chassis extends Subsystem {
 		setDefaultCommand(new Drive());
 	}
 
-
+	// CALLED BY COMMANDS
 	public void arcadeDrive(GenericHID controller) {
-		double leftMotorOutput = controller.getRawAxis(ControllerConstants.AXIS_LEFT_Y);
-
-		double rightMotorOutput = controller.getRawAxis(ControllerConstants.AXIS_RIGHT_X);
-
-		drive.arcadeDrive(leftMotorOutput, rightMotorOutput);
+		double speed = DeadZone.inputFilter(controller.getRawAxis(ControllerConstants.AXIS_LEFT_Y), kDriveFilter);
+		double angle = DeadZone.inputFilter(controller.getRawAxis(ControllerConstants.AXIS_LEFT_X), kDriveFilter);
+		filter_arcade_inputs(speed, angle);
 	}
 
-	
+	// FILTER HELPER METHOD. NO NEED TO OVERLOAD
+	private void filter_arcade_inputs(double speed, double angle) {
+		double speed_const = drive_slow ? 1 : .75;
+		arcadeDrive2(speed * speed_const, angle);
+	}
 
-	public void arcadeDrive(double speed, double angle) {
+	// THIS IS THE MAIN ARCADE DRIVE METHOD Also used by auto commands
+	public void arcadeDrive2(double speed, double angle) {
 		drive.arcadeDrive(speed, angle);
 	}
 
-	public void filteredArcadeDrive(GenericHID controller) {
-
-		double leftMotorOutput = DeadZone.inputFilter(
-				controller.getRawAxis(ControllerConstants.AXIS_LEFT_Y) * gearSetter(currentGear), kDriveFilter);
-
-		double rightMotorOutput = DeadZone.inputFilter(
-				controller.getRawAxis(ControllerConstants.AXIS_LEFT_X) * kMaxTurnSpeed * gearSetter(currentGear),
-				kDriveFilter);
-
-		// Squared to make slower speeds easier
-		if (!isDriveInverse) {
-			drive.arcadeDrive(leftMotorOutput, rightMotorOutput, true);
-		} else {
-			drive.arcadeDrive(-leftMotorOutput, -rightMotorOutput, true);
-		}
-	}
-
-	public void filteredArcadeDrive(double speed, double angle) {
-
-		double leftMotorOutput = DeadZone.inputFilter(speed * gearSetter(currentGear), kDriveFilter);
-
-		double rightMotorOutput = DeadZone.inputFilter(angle * kMaxTurnSpeed * gearSetter(currentGear), kDriveFilter);
-
-		// Squared to make slower speeds easier
-		if (!isDriveInverse) {
-			drive.arcadeDrive(leftMotorOutput, rightMotorOutput, true);
-		} else {
-			drive.arcadeDrive(-leftMotorOutput, -rightMotorOutput, true);
-		}
-	}
-
-	public void driveNoTurn(double speed) {
+	public void driveStraight(double speed) {
 		drive.arcadeDrive(speed, 0);
 	}
 
 	public void stop() {
 		drive.stopMotor();
-	}
-
-	public double gearSetter(DriveSpeed s) {
-		double highSpeed = 1;
-		double lowSpeed = .75;
-
-		return s == DriveSpeed.HIGH ? highSpeed : lowSpeed;
 	}
 
 	public double getDistance() {
@@ -149,19 +103,15 @@ public class Chassis extends Subsystem {
 		return gyro.getAngle();
 	}
 
+	private String getCurrentDriveState() {
+		return !isDriveInverse ? "Normal Drive" : "Reverse Drive";
+	}
+
 	public void reset() {
 		gyro.reset();
 		gyro.resetDisplacement();
 		leftEncoder.reset();
 		rightEncoder.reset();
-	}
-
-	private String getCurrentGear() {
-		return currentGear.toString();
-	}
-
-	private String getCurrentDriveState() {
-		return !isDriveInverse ? "Normal Drive" : "Reverse Drive";
 	}
 
 	private double getRate() {
@@ -172,9 +122,8 @@ public class Chassis extends Subsystem {
 		SmartDashboard.putNumber("Robot Speed", getRate());
 		// SmartDashboard.putNumber("Left Distance", getLeftDistance());
 		// SmartDashboard.putNumber("Right Distance", getRightDistance());
-		SmartDashboard.putString("Current Gear", getCurrentGear());
-		SmartDashboard.putString("Current State", getCurrentDriveState());
 		SmartDashboard.putNumber("Robot Distance", getDistance());
 		SmartDashboard.putNumber("Gyro", getAngle());
+		SmartDashboard.putBoolean("Speed", drive_slow);
 	}
 }
