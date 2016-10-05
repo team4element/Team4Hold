@@ -46,7 +46,9 @@ public class TurnInPlace extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-        Robot.chassis.reset();
+        if(Robot.chassis.gyro.getAngle() != 0){
+        	Robot.chassis.reset();
+        }
         rotatePID.reset();
     	rotatePID.enable();
 	}

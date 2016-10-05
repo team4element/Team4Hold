@@ -14,7 +14,7 @@ public class SecondAutonomous extends CommandGroup {
 
 	public SecondAutonomous() {
 		// No PID on Arms to save time on Tuning
-		addSequential(new BringIntakeArmsDown(), .01);
+		addSequential(new BringIntakeArmsDown(), 1);
 		
 		addSequential(new BringArmsDown(), 1); 
 		

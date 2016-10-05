@@ -17,11 +17,11 @@ public class AutoDriveController extends Command {
 	private PIDController rotatePID, distancePID;
 
 	private final double ROTATE_kP = .83, ROTATE_kI = 0, ROTATE_kD = .06;
-	
+
 	private final double DISTANCE_kP = .36, DISTANCE_kI = 0, DISTANCE_kD = 1, DISTANCE_kF = .009;
-	
+
 	private double speed = 0;
-	
+
 	public AutoDriveController(double distance, double angle) {
 
 		distancePID = new PIDController(DISTANCE_kP, DISTANCE_kI, DISTANCE_kD, DISTANCE_kF, new PIDSource() {
@@ -47,7 +47,7 @@ public class AutoDriveController extends Command {
 		});
 		distancePID.setSetpoint(distance);
 		distancePID.setAbsoluteTolerance(1);
-		
+
 		rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
 
@@ -75,11 +75,11 @@ public class AutoDriveController extends Command {
 
 	// Called just before this Command runs the first time,
 	protected void initialize() {
-        Robot.chassis.reset();
-    	distancePID.reset();
-        rotatePID.reset();
-        distancePID.enable();
-    	rotatePID.enable();
+		Robot.chassis.reset();
+		distancePID.reset();
+		rotatePID.reset();
+		distancePID.enable();
+		rotatePID.enable();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -94,9 +94,9 @@ public class AutoDriveController extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-    	rotatePID.disable();
-    	distancePID.disable();
-        Robot.chassis.arcadeDrive2(0, 0);
+		rotatePID.disable();
+		distancePID.disable();
+		Robot.chassis.arcadeDrive2(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same

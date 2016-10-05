@@ -3,6 +3,8 @@ package org.usfirst.frc.team4.robot;
 
 import org.usfirst.frc.team4.robot.commands.automodes.SensorlessAutoLowBar_RockyTerrain;
 import org.usfirst.frc.team4.robot.commands.automodes.SensorlessRockwall;
+import org.usfirst.frc.team4.robot.commands.automodes.TuneDistance;
+import org.usfirst.frc.team4.robot.commands.automodes.TuneTurn;
 import org.usfirst.frc.team4.robot.subsystems.Chassis;
 import org.usfirst.frc.team4.robot.subsystems.Climb;
 import org.usfirst.frc.team4.robot.subsystems.Intake;
@@ -77,8 +79,8 @@ public class Robot extends IterativeRobot {
 		//chooser.addObject("Do Nothing", new DoNothingMode());
 		//chooser.addObject("Score Low", new FirstAutonomous());
 		
-		//chooser.addObject("Tune Drive", new TuneDistance());
-		//chooser.addObject("Tune Turn", new TuneTurn()); 
+	chooser.addObject("Tune Drive", new TuneDistance());
+	chooser.addObject("Tune Turn", new TuneTurn()); 
 		SmartDashboard.putData("Auto Modes", chooser);
 	//	SmartDashboard.putData("Auto mode", chooser);
 	

@@ -8,6 +8,7 @@ import com.team4element.library.DeadZone;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -22,11 +23,13 @@ public class Chassis extends Subsystem {
 	private final double kWheelDiameter = 8;
 	private final double kPulsePerRev = 128;
 	private final double distance_per_pulse = (kWheelDiameter * Math.PI) / kPulsePerRev;
+	// TODO: Make better
+	private double lastGyroValue = 0;
 
 	private VictorSP leftFront, leftRear, rightFront, rightRear;
 	private RobotDrive drive;
 	private Encoder leftEncoder, rightEncoder;
-	private AHRS gyro;
+	public AHRS gyro;
 
 	public Chassis() {
 		// Registers Subsystem
@@ -88,7 +91,7 @@ public class Chassis extends Subsystem {
 	}
 
 	public double getDistance() {
-		return (getLeftDistance() + getRightDistance()) / 2;
+		return -(getLeftDistance() + getRightDistance()) / 2;
 	}
 
 	public double getLeftDistance() {
@@ -99,8 +102,15 @@ public class Chassis extends Subsystem {
 		return rightEncoder.getDistance();
 	}
 
+	/*
+	 * 
+	 */
 	public double getAngle() {
+
+		final double tolerance = 1.;
 		return gyro.getAngle();
+		
+
 	}
 
 	private String getCurrentDriveState() {
@@ -110,12 +120,15 @@ public class Chassis extends Subsystem {
 	public void reset() {
 		gyro.reset();
 		gyro.resetDisplacement();
+		lastGyroValue = gyro.getAngle();
 		leftEncoder.reset();
 		rightEncoder.reset();
 	}
 
 	private double getRate() {
-		return (rightEncoder.getRate() + leftEncoder.getRate()) / 2;
+		// Negative encoder values because we want driving backwards to have a
+		// positive setpoint
+		return -(rightEncoder.getRate() + leftEncoder.getRate()) / 2;
 	}
 
 	public void log() {
@@ -124,6 +137,7 @@ public class Chassis extends Subsystem {
 		// SmartDashboard.putNumber("Right Distance", getRightDistance());
 		SmartDashboard.putNumber("Robot Distance", getDistance());
 		SmartDashboard.putNumber("Gyro", getAngle());
-		SmartDashboard.putBoolean("Speed", drive_slow);
+		SmartDashboard.putBoolean("isSlower", drive_slow);
+		SmartDashboard.putNumber("Gyro Last", lastGyroValue);
 	}
 }
