@@ -42,19 +42,20 @@ public class AutoDriveController extends Command {
 			}
 		}, new PIDOutput() {
 			public void pidWrite(double output) {
-				speed = -output;
+				speed = output;
 			}
 		});
 		distancePID.setSetpoint(distance);
 		distancePID.setAbsoluteTolerance(1);
+	
 
-		rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {
+	rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
 
 			public double pidGet() {
 				return Robot.chassis.getAngle();
 			}
-
+//Q
 			@Override
 			public void setPIDSourceType(PIDSourceType pidSource) {
 				m_sourceType = pidSource;
