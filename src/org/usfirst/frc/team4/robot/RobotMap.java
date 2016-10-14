@@ -1,0 +1,45 @@
+package org.usfirst.frc.team4.robot;
+
+/**
+ * The RobotMap is a mapping from the ports sensors and actuators are wired into
+ * to a variable name. This provides flexibility changing wiring, makes checking
+ * the wiring easier and significantly reduces the number of magic numbers
+ * floating around.
+ */
+public class RobotMap {
+
+	public static int kChassisMotorLeftFront = 4;
+	public static int kChassisMotorLeftRear = 5;
+	public static int kChassisMotorRightFront = 3;
+	public static int kChassisMotorRightRear = 2;
+
+	public static int kGyro = 0;
+	
+
+	public static int kChassisLeftEncoderForward = 2;
+	public static int kChassisLeftEncoderReverse = 3;
+
+	public static int kChassisRightEncoderForward = 0;
+	public static int kChassisRightEncoderReverse = 1;
+
+	// Intake
+	public static int kIntakeMotorRoller = 10;
+	public static int kIntakeMotorArm = 11;
+
+	// Climb
+	public static int kClimbWinchMotorFront = 6;
+	public static int kClimbWinchMotorBack = 7;
+	
+	public static int kClimbArmMotorBot = 8;
+	public static int kClimbArmMotorTop = 9;
+	
+	public static int kClimbArmPotTop = 2;
+	public static int kClimbArmPotBot = 1;
+
+	// Shooter
+	public static int kShooterTop = 1;
+	public static int kShooterBot = 0;
+	
+	//Pot for Arms
+	public static int kArmPot =  -1;
+}
