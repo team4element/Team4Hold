@@ -24,7 +24,8 @@ public class Chassis extends Subsystem {
 	private final double kPulsePerRev = 128;
 	private final double distance_per_pulse = (kWheelDiameter * Math.PI) / kPulsePerRev;
 	// TODO: Make better
-	private double lastGyroValue = 0;
+	public static double lastGyroValue = 0;
+	public double augGyro = 0;
 
 	private VictorSP leftFront, leftRear, rightFront, rightRear;
 	private RobotDrive drive;
@@ -67,7 +68,7 @@ public class Chassis extends Subsystem {
 	// CALLED BY COMMANDS
 	public void arcadeDrive(GenericHID controller) {
 		double speed = DeadZone.inputFilter(controller.getRawAxis(ControllerConstants.AXIS_LEFT_Y), kDriveFilter);
-		double angle = DeadZone.inputFilter(controller.getRawAxis(ControllerConstants.AXIS_LEFT_X), kDriveFilter);
+		double angle = DeadZone.inputFilter(controller.getRawAxis(ControllerConstants.AXIS_RIGHT_X), kDriveFilter);
 		filter_arcade_inputs(speed, angle);
 	}
 
@@ -109,7 +110,6 @@ public class Chassis extends Subsystem {
 
 		final double tolerance = 1.;
 		return gyro.getAngle();
-		
 
 	}
 
@@ -123,6 +123,10 @@ public class Chassis extends Subsystem {
 		lastGyroValue = gyro.getAngle();
 		leftEncoder.reset();
 		rightEncoder.reset();
+	}
+
+	public void updateGyro() {
+		augGyro = gyro.getAngle() - lastGyroValue;
 	}
 
 	private double getRate() {

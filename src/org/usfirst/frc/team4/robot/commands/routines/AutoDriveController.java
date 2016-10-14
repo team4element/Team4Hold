@@ -53,7 +53,8 @@ public class AutoDriveController extends Command {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
 
 			public double pidGet() {
-				return Robot.chassis.getAngle();
+				Robot.chassis.updateGyro();
+				return Robot.chassis.augGyro;
 			}
 //Q
 			@Override
