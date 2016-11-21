@@ -15,11 +15,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TurnInPlace extends Command {
 
 	private PIDController rotatePID;
-	
+
 	private final double ROTATE_kP = 0.36, ROTATE_kI = 0, ROTATE_kD = 0.691;
-	
-	public TurnInPlace( double angle) {
-			rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {
+
+	public TurnInPlace(double angle) {
+		rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
 
 			public double pidGet() {
@@ -40,17 +40,22 @@ public class TurnInPlace extends Command {
 				Robot.chassis.arcadeDrive2(0, angle);
 			}
 		});
+
+		rotatePID.setContinuous(true);
+		rotatePID.setInputRange(0, 360);
+		rotatePID.setOutputRange(-1, 1);
+
 		rotatePID.setAbsoluteTolerance(1);
 		rotatePID.setSetpoint(angle);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-        if(Robot.chassis.gyro.getAngle() != 0){
-        	Robot.chassis.reset();
-        }
-        rotatePID.reset();
-    	rotatePID.enable();
+		if (Robot.chassis.gyro.getAngle() != 0) {
+			Robot.chassis.reset();
+		}
+		rotatePID.reset();
+		rotatePID.enable();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -65,8 +70,8 @@ public class TurnInPlace extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-    	rotatePID.disable();
-    	Robot.chassis.arcadeDrive2(0, 0);
+		rotatePID.disable();
+		Robot.chassis.arcadeDrive2(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same

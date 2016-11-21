@@ -4,13 +4,17 @@ import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.Drive;
 import com.kauailabs.navx.frc.AHRS;
+import com.sun.prism.impl.ps.BaseShaderContext.SpecialShaderType;
 import com.team4element.library.DeadZone;
+
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -56,6 +60,8 @@ public class Chassis extends Subsystem {
 
 		try {
 			gyro = new AHRS(SPI.Port.kMXP);
+			
+			lastGyroValue = gyro.getAngle();
 		} catch (RuntimeException ex) {
 			DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
 		}
@@ -109,8 +115,18 @@ public class Chassis extends Subsystem {
 	public double getAngle() {
 
 		final double tolerance = 1.;
-		return gyro.getAngle();
-
+		
+	/*	double negPosAngleDegrees = gyro.getYaw();
+		double posAngleDegrees = negPosAngleDegrees;
+		
+		if (Math.signum(posAngleDegrees) < 0) {
+			posAngleDegrees += 360.0f;
+		}
+		
+		 return posAngleDegrees; 
+		*/
+		return gyro.getYaw();
+		
 	}
 
 	private String getCurrentDriveState() {
@@ -119,14 +135,15 @@ public class Chassis extends Subsystem {
 
 	public void reset() {
 		gyro.reset();
-		gyro.resetDisplacement();
+//		gyro.resetDisplacement();
 		lastGyroValue = gyro.getAngle();
 		leftEncoder.reset();
 		rightEncoder.reset();
 	}
 
-	public void updateGyro() {
+	public double updateGyro() {
 		augGyro = gyro.getAngle() - lastGyroValue;
+		return gyro.getAngle();
 	}
 
 	private double getRate() {
@@ -139,9 +156,11 @@ public class Chassis extends Subsystem {
 		SmartDashboard.putNumber("Robot Speed", getRate());
 		// SmartDashboard.putNumber("Left Distance", getLeftDistance());
 		// SmartDashboard.putNumber("Right Distance", getRightDistance());
+		
 		SmartDashboard.putNumber("Robot Distance", getDistance());
 		SmartDashboard.putNumber("Gyro", getAngle());
 		SmartDashboard.putBoolean("isSlower", drive_slow);
 		SmartDashboard.putNumber("Gyro Last", lastGyroValue);
+		SmartDashboard.putNumber("Augmented Gyro", augGyro);
 	}
 }

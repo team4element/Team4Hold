@@ -24,7 +24,7 @@ public class OI {
 		new MultiButton(ControllerConstants.operatorController, ControllerConstants.BUTTON_START,
 				ControllerConstants.BUTTON_SELECT).whileActive(new WinchOn());
 
-		new MultiButton(ControllerConstants.operatorController, ControllerConstants.BUTTON_SELECT,
+		new MultiButton(ControllerConstants.operatorController,
 				ControllerConstants.BUTTON_START, ControllerConstants.BUTTON_B).whileActive(new WinchReverse());
 		;
 

@@ -5,6 +5,7 @@ import org.usfirst.frc.team4.robot.commands.automodes.SensorlessAutoLowBar_Rocky
 import org.usfirst.frc.team4.robot.commands.automodes.SensorlessRockwall;
 import org.usfirst.frc.team4.robot.commands.automodes.TuneDistance;
 import org.usfirst.frc.team4.robot.commands.automodes.TuneTurn;
+import org.usfirst.frc.team4.robot.commands.routines.AutoDriveController;
 import org.usfirst.frc.team4.robot.subsystems.Chassis;
 import org.usfirst.frc.team4.robot.subsystems.Climb;
 import org.usfirst.frc.team4.robot.subsystems.Intake;
@@ -75,6 +76,7 @@ public class Robot extends IterativeRobot {
 		//chooser.addObject("Track Target", new TrackTarget());
 		chooser.addObject("LowBar and RuffTerrian", new SensorlessAutoLowBar_RockyTerrain());
 		chooser.addObject("RockWall", new SensorlessRockwall());
+		chooser.addObject("woo", new AutoDriveController(0, 180));
 		//chooser.addObject("Breach Defence 2", new BangBangAutoMode(2));
 		//chooser.addObject("Do Nothing", new DoNothingMode());
 		//chooser.addObject("Score Low", new FirstAutonomous());
@@ -91,7 +93,6 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
 	 */
 	public void disabledInit() {
-
 	}
 
 	public void disabledPeriodic() {
@@ -138,6 +139,7 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		
+		Robot.chassis.reset();
 	}
 
 	/**

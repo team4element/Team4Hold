@@ -47,16 +47,16 @@ public class AutoDriveController extends Command {
 		});
 		distancePID.setSetpoint(distance);
 		distancePID.setAbsoluteTolerance(1);
-	
 
-	rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {
+		rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
 
 			public double pidGet() {
-				Robot.chassis.updateGyro();
-				return Robot.chassis.augGyro;
+				// Robot.chassis.updateGyro();
+				return Robot.chassis.getAngle();
 			}
-//Q
+
+			
 			@Override
 			public void setPIDSourceType(PIDSourceType pidSource) {
 				m_sourceType = pidSource;
@@ -71,7 +71,8 @@ public class AutoDriveController extends Command {
 				Robot.chassis.arcadeDrive2(speed, angle);
 			}
 		});
-		rotatePID.setAbsoluteTolerance(1);
+		
+		rotatePID.setAbsoluteTolerance(2.0);
 		rotatePID.setSetpoint(angle);
 	}
 
@@ -80,6 +81,7 @@ public class AutoDriveController extends Command {
 		Robot.chassis.reset();
 		distancePID.reset();
 		rotatePID.reset();
+
 		distancePID.enable();
 		rotatePID.enable();
 	}
