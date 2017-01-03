@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4.robot;
 
+import org.usfirst.frc.team4.robot.commands.automodes.FifthAutonomous;
 import org.usfirst.frc.team4.robot.commands.automodes.LIterallyTheBestAutonUseAtCompAPlusPlus;
 import org.usfirst.frc.team4.robot.commands.automodes.SensorlessAutoLowBar_RockyTerrain;
 import org.usfirst.frc.team4.robot.commands.automodes.SensorlessRockwall;
@@ -74,6 +75,7 @@ public class Robot extends IterativeRobot {
 		//chooser.addObject("Breach and Stop", new BreachAndStop());
 		//chooser.addObject("Breach Defence", new BangBangAutoMode(2));
 		//chooser.addObject("Track Target", new TrackTarget());
+		chooser.addObject("meme", new FifthAutonomous());
 		chooser.addObject("LowBar and RuffTerrian", new SensorlessAutoLowBar_RockyTerrain());
 		chooser.addObject("RockWall", new SensorlessRockwall());
 		chooser.addObject("LIterally the best auton use at comp plz", new LIterallyTheBestAutonUseAtCompAPlusPlus());
