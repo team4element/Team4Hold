@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team4.robot;
 
+import org.usfirst.frc.team4.robot.commands.automodes.FifthAutonomous;
+import org.usfirst.frc.team4.robot.commands.automodes.FourthAutonomous;
 import org.usfirst.frc.team4.robot.commands.automodes.SensorlessAutoLowBar_RockyTerrain;
 import org.usfirst.frc.team4.robot.commands.automodes.SensorlessRockwall;
 import org.usfirst.frc.team4.robot.commands.automodes.TuneDistance;
@@ -71,12 +73,13 @@ public class Robot extends IterativeRobot {
 
 		// Adds Automodes
 		 chooser = new SendableChooser();
+		 chooser.addObject("Fifth", new FifthAutonomous());
 		//chooser.addObject("Breach and Stop", new BreachAndStop());
 		//chooser.addObject("Breach Defence", new BangBangAutoMode(2));
 		//chooser.addObject("Track Target", new TrackTarget());
 		chooser.addObject("LowBar and RuffTerrian", new SensorlessAutoLowBar_RockyTerrain());
 		chooser.addObject("RockWall", new SensorlessRockwall());
-		chooser.addObject("woo", new AutoDriveController(0, 180));
+		chooser.addObject("Fifth", new FifthAutonomous());
 		//chooser.addObject("Breach Defence 2", new BangBangAutoMode(2));
 		//chooser.addObject("Do Nothing", new DoNothingMode());
 		//chooser.addObject("Score Low", new FirstAutonomous());
@@ -113,9 +116,10 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousInit() {
 		// Checks the Selected 
-		autonomousCommand = (Command) chooser.getSelected();
+//		autonomousCommand = (Command) chooser.getSelected();
 		//autonomousCommand = new Rockwall();
-		//autonomousCommand = new AutoLowBar_RockyTerrain();
+		autonomousCommand = new FifthAutonomous();
+//		autonomousCommand = new FourthAutonomous();
 		
 		//autonomousCommand = new TrackTarget();
 		if (autonomousCommand != null)

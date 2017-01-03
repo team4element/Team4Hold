@@ -16,15 +16,19 @@ public class AutoDriveController extends Command {
 
 	private PIDController rotatePID, distancePID;
 
-	private final double ROTATE_kP = .83, ROTATE_kI = 0, ROTATE_kD = .06;
+	private final double ROTATE_kP = 0.15, ROTATE_kI = 0, ROTATE_kD = 0.15;
 
-	private final double DISTANCE_kP = .36, DISTANCE_kI = 0, DISTANCE_kD = 1, DISTANCE_kF = .009;
+	private final double DISTANCE_P = 0.25, DISTANCE_I = 0, DISTANCE_D = 1;
 
 	private double speed = 0;
+	
+	private final double distanceSetpoint, angleSetpoint;
 
 	public AutoDriveController(double distance, double angle) {
+		distanceSetpoint = distance;
+		angleSetpoint = angle;
 
-		distancePID = new PIDController(DISTANCE_kP, DISTANCE_kI, DISTANCE_kD, DISTANCE_kF, new PIDSource() {
+		distancePID = new PIDController(DISTANCE_P, DISTANCE_I, DISTANCE_D, new PIDSource() {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
 
 			public double pidGet() {
@@ -42,11 +46,12 @@ public class AutoDriveController extends Command {
 			}
 		}, new PIDOutput() {
 			public void pidWrite(double output) {
-				speed = output;
+				speed = -output;
 			}
 		});
+
 		distancePID.setSetpoint(distance);
-		distancePID.setAbsoluteTolerance(1);
+		distancePID.setAbsoluteTolerance(1.);
 
 		rotatePID = new PIDController(ROTATE_kP, ROTATE_kI, ROTATE_kD, new PIDSource() {
 			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
@@ -72,7 +77,9 @@ public class AutoDriveController extends Command {
 			}
 		});
 		
-		rotatePID.setAbsoluteTolerance(2.0);
+		rotatePID.setContinuous(true);
+		rotatePID.setInputRange(-180, 180);		
+		rotatePID.setAbsoluteTolerance(1.);
 		rotatePID.setSetpoint(angle);
 	}
 
@@ -85,15 +92,47 @@ public class AutoDriveController extends Command {
 		distancePID.enable();
 		rotatePID.enable();
 	}
+	
+	private double lastValidResult = 0;
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		SmartDashboard.putData("Distance PID", distancePID);
+		SmartDashboard.putData("Angle Tune", rotatePID);
+		
+		SmartDashboard.putBoolean("Distance on target", distancePID.onTarget());
+		SmartDashboard.putBoolean("Rotate on target", rotatePID.onTarget());
+		
+		double custom = Math.abs(Robot.chassis.getAngle() - angleSetpoint);
+		boolean customTolerance = -10 < custom && custom < 10;
+		
+		SmartDashboard.putNumber("rotate part 1", custom);
+		SmartDashboard.putBoolean("rotate part 2", customTolerance);
+		
+		double distance = Math.abs(Robot.chassis.getLeftDistance() - distanceSetpoint);
+		boolean distanceOnTarget = -10 < distance && distance < 10;
+		
+		SmartDashboard.putNumber("distance part 1", distance);
+		SmartDashboard.putBoolean("distance part 2", distanceOnTarget);
+		
+		if (customTolerance) {
+			lastValidResult = Robot.chassis.getAngle();
+		}
+		
+		SmartDashboard.putNumber("last valid result", lastValidResult);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return distancePID.onTarget();
+		final double tolerance = 1.;
+		double angle = Math.abs(Robot.chassis.getAngle() - angleSetpoint);
+		boolean angleOnTarget = -tolerance < angle && angle < tolerance;
+		
+		double distance = Math.abs(Robot.chassis.getLeftDistance() - distanceSetpoint);
+		boolean distanceOnTarget = -tolerance < distance && distance < tolerance;
+		
+		return angleOnTarget && distanceOnTarget;
+//		return (distancePID);
 	}
 
 	// Called once after isFinished returns true

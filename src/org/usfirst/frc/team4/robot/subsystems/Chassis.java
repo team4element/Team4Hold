@@ -3,20 +3,18 @@ package org.usfirst.frc.team4.robot.subsystems;
 import org.usfirst.frc.team4.robot.ControllerConstants;
 import org.usfirst.frc.team4.robot.RobotMap;
 import org.usfirst.frc.team4.robot.commands.Drive;
+
 import com.kauailabs.navx.frc.AHRS;
-import com.sun.prism.impl.ps.BaseShaderContext.SpecialShaderType;
 import com.team4element.library.DeadZone;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Chassis extends Subsystem {
@@ -27,9 +25,6 @@ public class Chassis extends Subsystem {
 	private final double kWheelDiameter = 8;
 	private final double kPulsePerRev = 128;
 	private final double distance_per_pulse = (kWheelDiameter * Math.PI) / kPulsePerRev;
-	// TODO: Make better
-	public static double lastGyroValue = 0;
-	public double augGyro = 0;
 
 	private VictorSP leftFront, leftRear, rightFront, rightRear;
 	private RobotDrive drive;
@@ -42,8 +37,10 @@ public class Chassis extends Subsystem {
 
 		leftFront = new VictorSP(RobotMap.kChassisMotorLeftFront);
 		leftRear = new VictorSP(RobotMap.kChassisMotorLeftRear);
-		rightFront = new VictorSP(RobotMap.kChassisMotorRightFront);
 		rightRear = new VictorSP(RobotMap.kChassisMotorRightRear);
+		rightFront = new VictorSP(RobotMap.kChassisMotorRightFront);
+		
+		
 
 		leftFront.setInverted(true);
 		leftRear.setInverted(true);
@@ -60,8 +57,6 @@ public class Chassis extends Subsystem {
 
 		try {
 			gyro = new AHRS(SPI.Port.kMXP);
-			
-			lastGyroValue = gyro.getAngle();
 		} catch (RuntimeException ex) {
 			DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
 		}
@@ -98,7 +93,9 @@ public class Chassis extends Subsystem {
 	}
 
 	public double getDistance() {
-		return -(getLeftDistance() + getRightDistance()) / 2;
+		SmartDashboard.putNumber("Left encoder", getLeftDistance());
+		SmartDashboard.putNumber("Right encoder", getRightDistance());
+		return (getLeftDistance() + getRightDistance()) / 2;
 	}
 
 	public double getLeftDistance() {
@@ -109,24 +106,8 @@ public class Chassis extends Subsystem {
 		return rightEncoder.getDistance();
 	}
 
-	/*
-	 * 
-	 */
 	public double getAngle() {
-
-		final double tolerance = 1.;
-		
-	/*	double negPosAngleDegrees = gyro.getYaw();
-		double posAngleDegrees = negPosAngleDegrees;
-		
-		if (Math.signum(posAngleDegrees) < 0) {
-			posAngleDegrees += 360.0f;
-		}
-		
-		 return posAngleDegrees; 
-		*/
 		return gyro.getYaw();
-		
 	}
 
 	private String getCurrentDriveState() {
@@ -136,13 +117,11 @@ public class Chassis extends Subsystem {
 	public void reset() {
 		gyro.reset();
 //		gyro.resetDisplacement();
-		lastGyroValue = gyro.getAngle();
 		leftEncoder.reset();
 		rightEncoder.reset();
 	}
 
 	public double updateGyro() {
-		augGyro = gyro.getAngle() - lastGyroValue;
 		return gyro.getAngle();
 	}
 
@@ -160,7 +139,9 @@ public class Chassis extends Subsystem {
 		SmartDashboard.putNumber("Robot Distance", getDistance());
 		SmartDashboard.putNumber("Gyro", getAngle());
 		SmartDashboard.putBoolean("isSlower", drive_slow);
-		SmartDashboard.putNumber("Gyro Last", lastGyroValue);
-		SmartDashboard.putNumber("Augmented Gyro", augGyro);
+		
+		
+//		SmartDashboard.putNumber("Left motor", (leftFront.get() + leftRear.get()) / 2);
+//		SmartDashboard.putNumber("Right motor", (rightFront.get() + rightRear.get()) / 2);
 	}
 }

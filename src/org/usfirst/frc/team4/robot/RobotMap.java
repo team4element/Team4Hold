@@ -8,11 +8,18 @@ package org.usfirst.frc.team4.robot;
  */
 public class RobotMap {
 
+
+	
+	
+	
+	 
 	public static int kChassisMotorLeftFront = 4;
 	public static int kChassisMotorLeftRear = 5;
 	public static int kChassisMotorRightFront = 3;
 	public static int kChassisMotorRightRear = 2;
 
+    
+	
 	public static int kGyro = 0;
 	
 
@@ -42,4 +49,7 @@ public class RobotMap {
 	
 	//Pot for Arms
 	public static int kArmPot =  -1;
+	
+	
+	
 }
